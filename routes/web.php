@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\MainController as AdminMainController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', [AdminMainController::class, 'index'])->name('admin.index');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::resource('/users', AdminUserController::class);
     // Route::resource('/categories', CategoryController::class);
     // Route::resource('/tags', TagController::class);
     // Route::resource('/posts', PostController::class);

@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
                     <li class="breadcrumb-item active">Blank Page</li>
                 </ol>
             </div>
@@ -24,7 +24,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Title</h3>
+            <h3 class="card-title">Добро пожаловать!!!</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -37,9 +37,9 @@
             Start creating your amazing application!
         </div>
         <!-- /.card-body -->
-        <div class="card-footer">
+        <!-- <div class="card-footer">
             Footer
-        </div>
+        </div> -->
         <!-- /.card-footer-->
     </div>
     <!-- /.card -->
