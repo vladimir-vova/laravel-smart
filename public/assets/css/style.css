@@ -1,0 +1,425 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: gray;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 20px 0 20px 0;
+}
+
+.main {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* MENU */
+
+.menu {
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    color: white;
+}
+
+.menu>.row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #584fc2;
+    width: 100%;
+    top: 0px;
+    height: 75px;
+}
+
+.menu>.row>.col:nth-child(1) {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.menu>.row>.col:nth-child(3) {
+    padding-left: 300px;
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.menu ul>li {
+    margin-right: 25px;
+    text-transform: uppercase;
+}
+
+.menu a:hover {
+    border-bottom: 1px solid white;
+    color: white;
+}
+
+
+/* HEADER */
+
+.header {
+    background: #584fc2;
+    background-size: cover;
+    display: flex;
+    /* flex-direction: column;
+    justify-content: center; */
+    align-items: center;
+    height: 500px;
+    color: white;
+}
+
+.header_name {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    /* width: 800px; */
+}
+
+.header_name h2 {
+    font-size: 2.5rem;
+}
+
+.header_name p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.header_name h2,
+.header_name p {
+    color: white;
+    /* text-align: center; */
+}
+
+.header_name button {
+    margin: 0 auto;
+    width: 275px;
+    height: 50px;
+    background: none;
+    border: 2px solid red;
+    margin-top: 50px;
+}
+
+.header_name button a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.header_name p span {
+    color: white;
+    border-bottom: 1px solid white;
+}
+
+
+/* OBZOR */
+
+
+/* COMMAND */
+
+.command {
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    height: 400px;
+}
+
+.command_left,
+.command_right {
+    margin-top: 190px;
+    width: 500px;
+}
+
+.command_left {
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: bold;
+    color: #212121;
+    font-size: 1.75rem;
+}
+
+.command_right {
+    font-size: 1.25rem;
+}
+
+
+/* PARTt */
+
+.partt {
+    margin: 100px 0;
+}
+
+.partt,
+.part_names,
+.part_data {
+    overflow: hidden;
+}
+
+.part_names {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.part_names h5 {
+    color: #584fc2;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.part_names h2 {
+    font-family: Montserrat;
+    font-weight: 700;
+    color: black;
+}
+
+.part_data {
+    display: flex;
+    justify-content: space-between;
+}
+
+.part {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #584fc2;
+    padding-bottom: 37px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 50px;
+    transition-duration: 0.5s;
+    border-radius: 5px;
+}
+
+.part:hover {
+    background: #1200b1;
+}
+
+.number {
+    background-color: white;
+    color: #1200b1;
+    width: 200px;
+    height: 200px;
+    padding-top: 15px;
+    font-size: 100px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.part>img {
+    border-radius: 50%;
+}
+
+.part_name {
+    color: white;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.part_info {
+    color: white;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+/* WORK */
+
+.work {
+    width: 350px;
+    height: 350px;
+    border-radius: 5px;
+}
+
+.work_first {
+    background: #584fc2;
+    color: white;
+    height: 300px;
+    width: 300px;
+    margin: 25px 0 0 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: 1s;
+}
+
+.ww1 {
+    background: url('../img/1.jpg');
+    background-size: cover;
+}
+
+.ww2 {
+    background: url('../img/2.jpg');
+    background-size: cover;
+}
+
+.ww3 {
+    background: url('../img/3.png');
+    background-size: contain;
+}
+
+.work_first_data h4 {
+    color: white;
+    font-family: Montserrat;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.work_first_data p {
+    color: white;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+
+/* OTZ */
+
+.otz {
+    display: flex;
+    justify-content: space-between;
+}
+
+.otzs {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 350px;
+    background-color: #584fc2;
+    padding: 20px 10px;
+}
+
+.otzs h4 {
+    color: white;
+    font-weight: bold;
+}
+
+.otzs p {
+    margin-top: 20px;
+    color: white;
+    display: block;
+    font-family: Roboto, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.otzz2 {
+    display: none;
+}
+
+.points {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.point {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #584fc2;
+    border: 2px solid #584fc2;
+    margin: 10px;
+}
+
+.point1 {
+    background: 0;
+}
+
+.spacibo {
+    text-align: center;
+    margin: 50px 0 50px 0;
+}
+
+
+/* .spacibo div {
+    font-size: 25px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.spacibo button {
+    margin: 0 auto;
+    width: 275px;
+    height: 50px;
+    background: none;
+    border: 2px solid red;
+    margin-top: 50px;
+}
+
+.spacibo button a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+} */
+
+
+/* PRICE */
+
+.price {
+    margin-top: 150px;
+}
+
+.text-price h2 {
+    text-align: left;
+    color: #004FAA;
+    margin: 20px 0;
+}
+
+.text-price p {
+    text-align: left;
+    color: #004FAA;
+}
+
+.register {
+    margin-top: 50px;
+}
+
+
+/* cart-body */
+
+.card {
+    width: 500px;
+}
+
+
+/* FOOTER */
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 150px;
+    margin-bottom: 30px;
+}
+
+.footer a {
+    color: #004FAA;
+}
