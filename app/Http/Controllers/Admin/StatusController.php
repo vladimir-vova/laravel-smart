@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Status;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class UserController extends Controller
+class StatusController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $people = User::where('status_id','<>','0')->orderBy('id','desc')->paginate(50);
-        return view('admin.users.index', compact('people'));
+        $status = Status::orderBy('id', 'desc')->paginate(50);
+        return view('admin.status.index', compact('status'));
     }
 
     /**
@@ -28,8 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $status = Status::all();
-        return view('admin.users.create', compact('status'));
+        return view('admin.status.create');
     }
 
     /**
@@ -41,19 +38,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'status_id' => 'required|integer',
-        ]);
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Str::random(8),
-            'status_id' => $request->status_id,
+            'title' => 'required',
         ]);
 
-        session()->flash('success', 'Пользователь создан');
-        return redirect()->route('users.index');
+        Status::create([
+            'title' => $request->title,
+        ]);
+
+        session()->flash('success', 'Статус создан');
+        return redirect()->route('status.index');
     }
 
     /**
@@ -75,9 +68,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        $status = Status::pluck('title', 'id')->all();
-        return view('admin.users.edit', compact('user', 'status'));
+        $status = Status::find($id);
+        // $status = Status::pluck('title', 'id')->all();
+        return view('admin.status.edit', compact('status'));
     }
 
     /**
@@ -91,15 +84,13 @@ class UserController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'status_id' => 'required|integer',
+            'title' => 'required',
         ]);
 
-        $user = User::find($id);
-        $user->update($request->all());
+        $status = Status::find($id);
+        $status->update($request->all());
 
-        return redirect()->route('users.index')->with('success', 'Изменения сохранены');
+        return redirect()->route('status.index')->with('success', 'Изменения сохранены');
     }
 
     /**
@@ -110,8 +101,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'Пользователь удален');
+        $status = Status::find($id);
+        if($status->users->count() == 0){
+            $status->delete();
+            return redirect()->route('status.index')->with('success', 'Статус удален');
+        } 
+        return redirect()->route('users.index')->with('error', 'Статус занят');
     }
 }

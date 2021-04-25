@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Пользователи</h1>
+                <h1>Статусы</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Users</li>
+                    <li class="breadcrumb-item active">Status</li>
                 </ol>
             </div>
         </div>
@@ -25,48 +25,37 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Список пользователей</h3>
+                        <h3 class="card-title">Список статусов</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Добавить
-                            пользователя</a>
-                        @if (count($people))
+                        <a href="{{ route('status.create') }}" class="btn btn-primary mb-3">Добавить
+                            статус</a>
+                        @if (count($status))
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover text-nowrap">
                                 <thead>
                                     <tr>
                                         <th style="width: 30px">#</th>
-                                        <th>Имя</th>
-                                        <th>Email</th>
-                                        <th>Статус</th>
-                                        <th>Пароль</th>
+                                        <th>Название</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($people as $user)
+                                    @foreach($status as $item)
                                     <tr>
-                                        <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->status->title }}</td>
-                                        @if($user->password_id)
-                                        <td>Пароль изменен</td>
-                                        @else
-                                        <td>Пароль не изменен</td>
-                                        @endif
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->title }}</td>
                                         <td>
-                                            <a href="{{ route('users.edit',['user'=>$user->id]) }}" class="btn btn-info btn-sm float-left mr-1">
+                                            <a href="{{ route('status.edit',['status'=>$item->id]) }}" class="btn btn-info btn-sm float-left mr-1">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
 
-                                            <form action="{{ route('users.destroy',['user'=>$user->id]) }}" method="post" class="float-left">
+                                            <form action="{{ route('status.destroy',['status'=>$item->id]) }}" method="post" class="float-left">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
                                                     <i class="fas fa-trash-alt"></i>
-                                                    <!-- fa-unlock-alt -->
                                                 </button>
                                             </form>
                                         </td>
@@ -76,19 +65,12 @@
                             </table>
                         </div>
                         @else
-                        <p>Пользователей пока нет...</p>
+                        <p>Статусов пока нет...</p>
                         @endif
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
-                        {{ $people->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}
-                        {{--<ul class="pagination pagination-sm m-0 float-right">
-                                <li class="page-item"><a class="page-link" href="#">«</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">»</a></li>
-                            </ul>--}}
+                        {{ $status->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}
                     </div>
                 </div>
                 <!-- /.card -->

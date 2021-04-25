@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Новая статья</h1>
+                <h1>Новый статус</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -25,37 +25,23 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Новый пользователь</h3>
+                        <h3 class="card-title">Новый статус</h3>
                     </div>
                     <!-- /.card-header -->
 
-                    <form role="form" method="post" action="{{ route('users.store') }}" enctype="multipart/form-data">
+                    <form role="form" method="post" action="{{ route('status.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="name">Имя</label>
-                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Имя">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="status_id">Статус</label>
-                                <select class="form-control @error('status_id') is-invalid @enderror" id="status_id" name="status_id">
-                                    @foreach($status as $item)
-                                    <option value="{{ $item->id }}">{{ $item->title }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="title">Название</label>
+                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Название">
                             </div>
 
                         </div>
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                            <button type="submit" class="btn btn-primary">Создать</button>
                         </div>
                     </form>
 

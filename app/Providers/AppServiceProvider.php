@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // DB::listen(function ($query) {
+        // dump($query->sql, $query->bindings);
+        //     dump($query->sql);
+        // });
+        // if (Auth::check()) {
+        //     echo 'Yes';
+        // }else{
+        //     echo 'No';
+        // }
+        // dd(Auth::user());
     }
 }

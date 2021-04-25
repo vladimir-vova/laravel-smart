@@ -21,10 +21,11 @@ class UserController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'password_id' => 1,
         ]);
 
         session()->flash('success', 'Регистрация пройдена');
@@ -48,7 +49,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ])) {
-        // session()->flash('success', 'You are logged');
+        session()->flash('success', 'You are logged');
         return redirect()->route('admin.index');
         // if (Auth::user()->is_admin) {
         //     return redirect()->route('admin.index');
