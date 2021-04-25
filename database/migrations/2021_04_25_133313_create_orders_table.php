@@ -15,11 +15,14 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->tinyInteger('client_id');
-            $table->tinyInteger('user_id')->default(0);
-            $table->tinyInteger('status_order_id')->default(1);
+            $table->string('condition');
+            $table->string('type');
+            $table->string('direction');
+            $table->string('start');
+            $table->text('description');
+            $table->tinyInteger('work_id')->default(1); //статус
+            $table->tinyInteger('client_id')->default(0); // кто заказал
+            $table->tinyInteger('user_id')->default(0); // кто работает(админ либо зам. админ)
             $table->timestamps();
         });
     }

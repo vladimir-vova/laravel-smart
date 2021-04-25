@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,7 +15,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return 'Order';
+        $orders = Order::orderBy('id', 'desc')->paginate(50);
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -24,7 +26,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return 'Create';
+        return view('admin.orders.create');
     }
 
     /**
@@ -35,7 +37,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**

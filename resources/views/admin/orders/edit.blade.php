@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Новый статус</h1>
+                <h1>Редактирование статуса</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Users</li>
+                    <li class="breadcrumb-item"><a href="{{ route('status.index') }}">Home</a></li>
+                    <li class="breadcrumb-item active">User</li>
                 </ol>
             </div>
         </div>
@@ -25,23 +25,25 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Новый статус</h3>
+                        <h3 class="card-title">Статус "{{ $status->title }}"</h3>
                     </div>
                     <!-- /.card-header -->
 
-                    <form role="form" method="post" action="{{ route('status.store') }}">
+                    <form role="form" method="post" action="{{ route('status.update', ['status' => $status->id]) }}">
                         @csrf
+                        @method('PUT')
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="title">Название</label>
-                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Название">
+                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Название" value="{{ $status->title }}">
                             </div>
 
                         </div>
+
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Создать</button>
+                            <button type="submit" class="btn btn-primary">Изменить</button>
                         </div>
                     </form>
 
