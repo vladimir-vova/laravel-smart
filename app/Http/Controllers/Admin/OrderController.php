@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('id', 'desc')->paginate(50);
+        if(Auth::user()->status_id==2 || Auth::user()->status_id == 3){
+            $orders = Order::orderBy('id', 'desc')->paginate(50);
+        }else {
+            $orders = Order::where('client_id','=', Auth::user()->id)->orderBy('id', 'desc')->paginate(50);
+        }
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -81,7 +86,16 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $condition = ['Новый проект', 'Существующий проект', 'Спасти проект'];
+        $type = ['Интернет-магазин', 'Адаптивный сайт', 'Мобильное приложени', 'Личный кабинет', 'Другое'];
+        $direction = ['Розничные продажи', 'Оптовые продажи', 'Производственная компания', 'Другое'];
+        $start = ['Немедленно', 'В течение недели', 'В течение месяца'];
+        $work = ['В ожидании', 'В работе', 'Тестирование', 'На проверке'];
+
+        $coor = User::where('status_id','=','4')->orderBy('id', 'desc')->get();
+        $orders = Order::find($id);
+        // $status = Status::pluck('title', 'id')->all();
+        return view('admin.orders.edit', compact('orders', 'coor', 'condition', 'type', 'direction', 'start','work'));
     }
 
     /**
@@ -93,7 +107,30 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->work_id);
+        if($request->work_id == null && $request->user_id == null){
+            $request->validate([
+                'condition' => 'required',
+                'type' => 'required',
+                'direction' => 'required',
+                'start' => 'required',
+                'description' => 'required',
+                'work_id' => 'required|integer',
+                'user_id' => 'required|integer',
+            ]);
+        } else {
+            $request->validate([
+                'condition' => 'required',
+                'type' => 'required',
+                'direction' => 'required',
+                'start' => 'required',
+                'description' => 'required',
+            ]);
+        }
+        $orders = Order::find($id);
+        $orders->update($request->all());
+
+        return redirect()->route('orders.index')->with('success', 'Изменения сохранены');
     }
 
     /**

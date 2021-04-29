@@ -37,18 +37,22 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 30px">#</th>
+                                        @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
+                                        <th>Кто работает</th>
+                                        @else
                                         <th>Состояние</th>
                                         <th>Тип</th>
+                                        @endif
+                                        <th>Статус</th><!-- ожидание, выполнен -->
                                         <th>Направление</th>
                                         <th>Старт</th>
                                         <th>Описание</th>
-                                        <th>Статус</th><!-- ожидание, выполнен -->
-                                        <th>Кто работает</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($orders as $item)
+                                    <!-- цвет таблицы -->
                                     @if($item->work_id == 1)
                                     <tr class="bg-warning">
                                         @elseif($item->work_id == 2)
@@ -58,14 +62,39 @@
                                         @else
                                     <tr class="bg-success">
                                         @endif
+
                                         <td>{{ $item->id }}</td>
+
+                                        @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
+
+                                        <!-- Кто работает -->
+                                        @if($item->user_id == 0)
+                                        <td>Свободен</td>
+                                        @else
+                                        <td>{{ $item->user->name }}</td>
+                                        @endif
+
+                                        @else
+
                                         <td>{{ $item->condition }}</td>
                                         <td>{{ $item->type }}</td>
+
+                                        @endif
+
+                                        <!-- Статус заказа -->
+                                        @if($item->work_id==1)
+                                        <td>В ожидании</td>
+                                        @elseif($item->work_id==2)
+                                        <td>В работе</td>
+                                        @elseif($item->work_id==3)
+                                        <td>Тестирование</td>
+                                        @else
+                                        <td>На проверке</td>
+                                        @endif
+                                        
                                         <td>{{ $item->direction }}</td>
                                         <td>{{ $item->start }}</td>
                                         <td>{{ $item->description }}</td>
-                                        <td>{{ $item->work_id }}</td>
-                                        <td>{{ $item->user_id }}</td>
                                         <td>
                                             <a href="{{ route('orders.edit',['order'=>$item->id]) }}" class="btn btn-info btn-sm float-left mr-1">
                                                 <i class="fas fa-pencil-alt"></i>

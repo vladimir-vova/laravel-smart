@@ -34,7 +34,13 @@
             </div>
         </div>
         <div class="card-body">
+            @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
             Start creating your amazing application!
+            @else
+            <a href="{{ route('orders.create') }}" class="btn btn-primary mb-3">
+                Сделать заказ
+            </a>
+            @endif
         </div>
         <!-- /.card-body -->
         <!-- <div class="card-footer">
@@ -43,6 +49,31 @@
         <!-- /.card-footer-->
     </div>
     <!-- /.card -->
+
+    <!-- Password -->
+    @if(Auth::user()->password_id == 0)
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Пароль</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            Срочно поменяйте пароль
+        </div>
+        <!-- /.card-body -->
+        <!-- <div class="card-footer">
+            Footer
+        </div> -->
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+    @endif
 
 </section>
 <!-- /.content -->
