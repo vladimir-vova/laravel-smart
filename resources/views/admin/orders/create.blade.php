@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Новый статус</h1>
+                <h1>Новый заказ</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -25,7 +25,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Новый статус</h3>
+                        <h3 class="card-title">Новый заказ</h3>
                     </div>
                     <!-- /.card-header -->
 
@@ -35,30 +35,38 @@
                             <div class="form-group">
                                 <label for="condition">Состояние</label>
                                 <select class="form-control @error('condition') is-invalid @enderror" id="condition" name="condition">
-                                    <option value="Новый проект">Новый проект</option>
-                                    <option value="Существующий проект">Существующий проект</option>
-                                    <option value="Спасти проект">Спасти проект</option>
+                                    @foreach($condition as $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="type">Тип</label>
                                 <select class="form-control @error('type') is-invalid @enderror" id="type" name="type">
-                                    <option value="Интернет-магазин">Интернет-магазин</option>
-                                    <option value="Адаптивный сайт">Адаптивный сайт</option>
-                                    <option value="Мобильное приложение">Мобильное приложение</option>
-                                    <option value="Личный кабинет">Личный кабинет</option>
-                                    <option value="Другое">Другое</option>
+                                    @foreach($type as $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="direction">Направление</label>
                                 <select class="form-control @error('direction') is-invalid @enderror" id="direction" name="direction">
-                                    <option value="Розничные продажи">Розничные продажи</option>
-                                    <option value="Адаптивный сайт">Адаптивный сайт</option>
-                                    <option value="Мобильное приложение">Мобильное приложение</option>
-                                    <option value="Личный кабинет">Личный кабинет</option>
-                                    <option value="Другое">Другое</option>
+                                    @foreach($direction as $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                    @endforeach
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="start">Старт</label>
+                                <select class="form-control @error('start') is-invalid @enderror" id="start" name="start">
+                                    @foreach($start as $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Сообщение</label>
+                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="5" placeholder="Сообщение..."></textarea>
                             </div>
                         </div>
                         <!-- /.card-body -->

@@ -42,14 +42,22 @@
                                         <th>Направление</th>
                                         <th>Старт</th>
                                         <th>Описание</th>
-                                        <th>Статус</th>
+                                        <th>Статус</th><!-- ожидание, выполнен -->
                                         <th>Кто работает</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($orders as $item)
-                                    <tr>
+                                    @if($item->work_id == 1)
+                                    <tr class="bg-warning">
+                                        @elseif($item->work_id == 2)
+                                    <tr class="bg-info">
+                                        @elseif($item->work_id == 3)
+                                    <tr class="bg-danger">
+                                        @else
+                                    <tr class="bg-success">
+                                        @endif
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->condition }}</td>
                                         <td>{{ $item->type }}</td>
@@ -59,11 +67,11 @@
                                         <td>{{ $item->work_id }}</td>
                                         <td>{{ $item->user_id }}</td>
                                         <td>
-                                            <a href="{{ route('orders.edit',['orders'=>$item->id]) }}" class="btn btn-info btn-sm float-left mr-1">
+                                            <a href="{{ route('orders.edit',['order'=>$item->id]) }}" class="btn btn-info btn-sm float-left mr-1">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
 
-                                            <form action="{{ route('orders.destroy',['orders'=>$item->id]) }}" method="post" class="float-left">
+                                            <form action="{{ route('orders.destroy',['order'=>$item->id]) }}" method="post" class="float-left">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
