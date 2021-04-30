@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Status;
+use App\Models\Work;
 use Illuminate\Http\Request;
 
-class StatusController extends Controller
+class WorkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $status = Status::orderBy('id', 'desc')->paginate(50);
-        return view('admin.status.index', compact('status'));
+        $works = Work::orderBy('step', 'desc')->paginate(50);
+        return view('admin.works.index', compact('works'));
     }
 
     /**
@@ -26,7 +26,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-        return view('admin.status.create');
+        return view('admin.works.create');
     }
 
     /**
@@ -41,12 +41,14 @@ class StatusController extends Controller
             'title' => 'required',
         ]);
 
-        Status::create([
+        $step = Work::all()->count() + 1;
+        Work::create([
             'title' => $request->title,
+            'step' => $step,
         ]);
 
-        session()->flash('success', 'Статус создан');
-        return redirect()->route('status.index');
+        session()->flash('success', 'Статус заказа создан');
+        return redirect()->route('works.index');
     }
 
     /**
@@ -68,8 +70,8 @@ class StatusController extends Controller
      */
     public function edit($id)
     {
-        $status = Status::find($id);
-        return view('admin.status.edit', compact('status'));
+        $works = Work::find($id);
+        return view('admin.works.edit', compact('works'));
     }
 
     /**
@@ -81,15 +83,14 @@ class StatusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         $request->validate([
             'title' => 'required',
         ]);
 
-        $status = Status::find($id);
-        $status->update($request->all());
+        $works = Work::find($id);
+        $works->update($request->all());
 
-        return redirect()->route('status.index')->with('success', 'Изменения сохранены');
+        return redirect()->route('works.index')->with('success', 'Изменения сохранены');
     }
 
     /**
@@ -100,11 +101,17 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
-        $status = Status::find($id);
-        if($status->users->count() == 0){
-            $status->delete();
-            return redirect()->route('status.index')->with('success', 'Статус удален');
-        } 
-        return redirect()->route('users.index')->with('error', 'Статус занят');
+        $works = Work::find($id);
+        
+        if ($works->orders->count() == 0) {
+            if ($works->step != Work::all()->count()) {
+                for ($i = $works->step; $i < Work::all()->count(); $i++) {
+                    Work::where('step', $i + 1)->update(['step' => $i]);
+                }
+            }
+            $works->delete();
+            return redirect()->route('works.index')->with('success', 'Статус удален');
+        }
+        return redirect()->route('orders.index')->with('error', 'Статус занят');
     }
 }

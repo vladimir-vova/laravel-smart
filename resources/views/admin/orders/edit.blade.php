@@ -80,10 +80,13 @@
                             <div class="form-group">
                                 <label for="work_id">Статус проекта</label>
                                 <select class="form-control @error('work_id') is-invalid @enderror" id="work_id" name="work_id">
-                                    <option value="1">В ожидании</option>
-                                    <option value="2">В работе</option>
+                                    @foreach($work as $item)
+                                    <option value="{{ $item->id }}" @if($item->id==$orders->work_id) selected @endif>{{ $item->title }}</option>
+                                    @endforeach
+                                    <!-- <option value="1">В ожидании</option> -->
+                                    <!-- <option value="2">В работе</option>
                                     <option value="3">Тестирование</option>
-                                    <option value="4">На проверке</option>
+                                    <option value="4">На проверке</option> -->
                                 </select>
                             </div>
                             @if($coor->count())

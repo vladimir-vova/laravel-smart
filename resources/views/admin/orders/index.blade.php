@@ -52,17 +52,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($orders as $item)
-                                    <!-- цвет таблицы -->
-                                    @if($item->work_id == 1)
-                                    <tr class="bg-warning">
-                                        @elseif($item->work_id == 2)
-                                    <tr class="bg-info">
-                                        @elseif($item->work_id == 3)
-                                    <tr class="bg-danger">
-                                        @else
-                                    <tr class="bg-success">
-                                        @endif
-
+                                    <tr>
                                         <td>{{ $item->id }}</td>
 
                                         @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
@@ -82,16 +72,7 @@
                                         @endif
 
                                         <!-- Статус заказа -->
-                                        @if($item->work_id==1)
-                                        <td>В ожидании</td>
-                                        @elseif($item->work_id==2)
-                                        <td>В работе</td>
-                                        @elseif($item->work_id==3)
-                                        <td>Тестирование</td>
-                                        @else
-                                        <td>На проверке</td>
-                                        @endif
-                                        
+                                        <td>{{ $item->work->title }}</td>
                                         <td>{{ $item->direction }}</td>
                                         <td>{{ $item->start }}</td>
                                         <td>{{ $item->description }}</td>

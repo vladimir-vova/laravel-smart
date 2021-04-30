@@ -94,6 +94,30 @@
                         @if(auth()->user()->status_id == 2 || auth()->user()->status_id == 3)
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-check-square"></i>
+                                <p>
+                                    Статусы
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('status.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Список статусов</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('status.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Новый статус</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Пользователи
@@ -120,21 +144,21 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-check-square"></i>
                                 <p>
-                                    Статусы
+                                    Статусы заказов
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('status.index') }}" class="nav-link">
+                                    <a href="{{ route('works.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Список статусов</p>
+                                        <p>Список ст. заказов</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('status.create') }}" class="nav-link">
+                                    <a href="{{ route('works.create') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Новый статус</p>
+                                        <p>Новый ст. заказов</p>
                                     </a>
                                 </li>
                             </ul>

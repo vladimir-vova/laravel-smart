@@ -111,7 +111,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'Пользователь удален');
+        if ($user->orders->count() == 0) {
+            $user->delete();
+            return redirect()->route('users.index')->with('success', 'Пользователь удален');
+        }
+        return redirect()->route('orders.index')->with('error', 'Пользователь имеет заказы');
     }
 }

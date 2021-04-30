@@ -14,6 +14,11 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function work()
+    {
+        return $this->belongsTo(Work::class);
+    }
+
     protected $fillable = [
         'condition',
         'type',
