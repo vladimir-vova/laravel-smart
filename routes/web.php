@@ -32,16 +32,25 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/login', [UserController::class, 'loginForm'])->name('login.create');
     Route::post('/login', [UserController::class, 'login'])->name('login');
+
+    Route::get('/password', [UserController::class, 'passwordForm'])->name('password.create');
+    Route::post('/password', [UserController::class, 'password'])->name('password');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', [AdminMainController::class, 'index'])->name('admin.index');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::get('/works/{way}/{name}/{step}', [AdminMainController::class, 'step'])->name('works.step');
+
+    // с get и post
+    Route::get('/contact', [AdminMainController::class, 'contactForm'])->name('contact.create');
+    Route::post('/contact', [AdminMainController::class, 'contact'])->name('contact');
+
+    // c ресурсами
     Route::resource('/users', AdminUserController::class);
     Route::resource('/status', StatusController::class);
     Route::resource('/orders', OrderController::class);
     Route::resource('/works', WorkController::class);
-    Route::get('/works/{way}/{name}/{step}', [AdminMainController::class, 'step'])->name('works.step');
     // Route::resource('/categories', CategoryController::class);
     // Route::resource('/tags', TagController::class);
     // Route::resource('/posts', PostController::class);

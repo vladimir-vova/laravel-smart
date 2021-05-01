@@ -32,6 +32,14 @@
                         <a href="{{ route('orders.create') }}" class="btn btn-primary mb-3">Добавить
                             заказ</a>
                         @if (count($orders))
+                        <!-- <div class="col-sm-12 col-md-6 mb-3">
+                            <div class="dt-buttons btn-group flex-wrap">
+                                <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Copy</span></button>
+                                <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>CSV</span></button>
+                                <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Excel</span></button>
+                                <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>PDF</span></button>
+                            </div>
+                        </div> -->
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover text-nowrap">
                                 <thead>
@@ -97,18 +105,21 @@
                         @else
                         <p>Заказов пока нет...</p>
                         @endif
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer clearfix">
-                        {{ $orders->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}
-                    </div>
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
-
+                <!-- /.card-body -->
+                <div class="card-footer clearfix">
+                    {{ $orders->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}
+                </div>
             </div>
-            <!-- /.col -->
+            <!-- /.card -->
+
         </div>
-        <!-- /.row -->
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->

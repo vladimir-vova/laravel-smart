@@ -21,7 +21,7 @@ class UserController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -29,8 +29,9 @@ class UserController extends Controller
         ]);
 
         session()->flash('success', 'Регистрация пройдена');
-        // Auth::login($user);
-        return redirect()->route('login.create');
+        Auth::login($user);
+        return redirect()->route('admin.index');
+        // return redirect()->route('login.create');
     }
 
     public function loginForm()
@@ -59,6 +60,19 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with('error', 'Incorrect login or password');
+    }
+
+    public function passwordForm(){
+        return view('user.password');
+    }
+
+    public function password(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+        User::where('email', $request->email)->update(['password' => bcrypt($request->password)]);
+        return redirect()->route('login.create')->with('success', 'Пароль изменен');
     }
 
     public function logout()

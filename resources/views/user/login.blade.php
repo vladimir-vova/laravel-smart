@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -49,8 +50,8 @@
                     </div>
                 </form>
 
-                <p class="mb-1">
-                    <a href="#">I forgot my password</a>
+                <p class="mb-1 mt-3">
+                    <a href="{{ route('password.create') }}">I forgot my password</a>
                 </p>
                 <p class="mb-0">
                     <a href="{{ route('create') }}" class="text-center">Register a new membership</a>

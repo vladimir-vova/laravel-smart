@@ -25,4 +25,12 @@ class MainController extends Controller
         }
         return redirect()->route('works.index')->with('success', 'Изменения сохранены');
     }
+
+    public function contactForm(){
+        return view('admin.views.contact');
+    }
+
+    public function contact(Request $request){
+        //
+    }
 }
