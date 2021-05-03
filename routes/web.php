@@ -27,24 +27,46 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MainController::class, 'index'])->name('index');
 
 Route::group(['middleware' => 'guest'], function () {
+    // регистрация
     Route::get('/register', [UserController::class, 'create'])->name('create');
     Route::post('/register', [UserController::class, 'store'])->name('create.users');
 
+    // авторизация
     Route::get('/login', [UserController::class, 'loginForm'])->name('login.create');
     Route::post('/login', [UserController::class, 'login'])->name('login');
 
+    // изменение пароля
     Route::get('/password', [UserController::class, 'passwordForm'])->name('password.create');
-    Route::post('/password', [UserController::class, 'password'])->name('password');
+    Route::put('/password', [UserController::class, 'password'])->name('password');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function () {
     Route::get('/', [AdminMainController::class, 'index'])->name('admin.index');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-    Route::get('/works/{way}/{name}/{step}', [AdminMainController::class, 'step'])->name('works.step');
 
-    // с get и post
+    // contact
     Route::get('/contact', [AdminMainController::class, 'contactForm'])->name('contact.create');
     Route::post('/contact', [AdminMainController::class, 'contact'])->name('contact');
+
+    // profile
+    Route::get('/profile', [AdminMainController::class, 'profile'])->name('profile.index');
+    Route::put('/profile/data', [AdminMainController::class, 'profileData'])->name('profile.data');
+    Route::put('/profile/password', [AdminMainController::class, 'profilePassword'])->name('profile.password');
+
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+    Route::get('/works/{way}/{name}/{step}', [AdminMainController::class, 'step'])->name('works.step');
+
+    // message
+    Route::get('/message', [AdminMainController::class, 'message'])->name('message.index');
+    Route::get('/message/{message}', [AdminMainController::class, 'messageShow'])->name('message.show');
+    Route::delete('/message/{message}', [AdminMainController::class, 'messageDestroy'])->name('message.destroy');
+
+    // profile
+    Route::get('/profile', [AdminMainController::class, 'profile'])->name('profile.index');
+    Route::put('/profile/data', [AdminMainController::class, 'profileData'])->name('profile.data');
+    Route::put('/profile/password', [AdminMainController::class, 'profilePassword'])->name('profile.password');
 
     // c ресурсами
     Route::resource('/users', AdminUserController::class);

@@ -15,7 +15,7 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $status = Status::orderBy('id', 'desc')->paginate(50);
+        $status = Status::orderBy('id', 'desc')->paginate(15);
         return view('admin.status.index', compact('status'));
     }
 

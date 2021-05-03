@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/admin.css') }}">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css"> -->
+
+    @yield('style')
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -25,6 +27,9 @@
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('admin.index') }}" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('profile.index') }}" class="nav-link">Profile</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('contact.create') }}" class="nav-link">Contact</a>
@@ -79,21 +84,24 @@
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <!-- <div class="image">
+                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div> -->
                     <div class="info">
-                        <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                        <a href="{{ route('profile.index') }}" class="text-capitalize d-block">{{ auth()->user()->name }}</a>
                     </div>
                 </div>
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
+                        <li class="nav-item border-bottom">
                             <a href="{{ route('admin.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>Главная</p>
                             </a>
                         </li>
-                        @if(auth()->user()->status_id == 2 || auth()->user()->status_id == 3)
+                        @if(auth()->user()->status->title != 'Клиент')
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-columns"></i>
@@ -106,24 +114,35 @@
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Самые важные задачи</p>
+                                        <p>Открытые задачи</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Обычные задачи</p>
+                                        <p>Новая задача</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Новый задача</p>
+                                        <p>Закрытые задачи</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item has-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('message.index') }}" class="nav-link">
+                                <i class="nav-icon fa fa-envelope"></i>
+                                <p>
+                                    Сообщения
+                                    <span class="badge badge-info right">{{ $message }}</span>
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        @if(auth()->user()->status->title == 'Администратор' || auth()->user()->status->title == 'Зам. администратора')
+                        <li class="nav-item has-treeview border-top">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-check-square"></i>
                                 <p>
@@ -171,7 +190,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item has-treeview">
+                        <li class="nav-item has-treeview border-top">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-check-square"></i>
                                 <p>
@@ -194,6 +213,7 @@
                                 </li>
                             </ul>
                         </li>
+
                         @endif
 
                         <li class="nav-item has-treeview">
@@ -348,7 +368,9 @@
     <!-- ./wrapper -->
 
     <script src="{{ asset('assets/admin/js/admin.js') }}"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script> -->
+
+    @yield('script')
+
     <script>
         $('.nav-sidebar a').each(function() {
             let location = window.location.protocol + '//' + window.location.host + window.location.pathname;

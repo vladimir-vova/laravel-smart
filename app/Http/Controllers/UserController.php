@@ -45,7 +45,6 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
         if (Auth::attempt([
             'email' => $request->email,
             'password' => $request->password,
@@ -71,7 +70,10 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6|confirmed',
         ]);
-        User::where('email', $request->email)->update(['password' => bcrypt($request->password)]);
+        User::where('email', $request->email)->update([
+            'password' => bcrypt($request->password),
+            'password_id' => 1,
+        ]);
         return redirect()->route('login.create')->with('success', 'Пароль изменен');
     }
 

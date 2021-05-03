@@ -37,6 +37,14 @@
                                 <label for="title">Название</label>
                                 <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Название" value="{{ $works->title }}">
                             </div>
+                            <div class="form-group">
+                                <label for="color">Цвет</label>
+                                <select class="form-control @error('color') is-invalid @enderror" id="color" name="color">
+                                    @foreach($colors as $k => $v)
+                                    <option value="{{ $k }}" @if($k==$works->color) selected @endif>{{ $v }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                         </div>
 

@@ -17,5 +17,6 @@ class Work extends Model
     protected $fillable = [
         'title',
         'step',
+        'color',
     ];
 }

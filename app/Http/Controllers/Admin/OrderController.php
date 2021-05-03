@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Status;
 use App\Models\User;
 use App\Models\Work;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class OrderController extends Controller
     public function index()
     {
         if (Auth::user()->status_id == 2 || Auth::user()->status_id == 3) {
-            $orders = Order::orderBy('id', 'desc')->paginate(50);
+            $orders = Order::with('user')->with('client')->orderBy('id', 'desc')->paginate(50);
         } else {
             $orders = Order::where('client_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(50);
         }
@@ -56,15 +57,17 @@ class OrderController extends Controller
             'start' => 'required',
             'description' => 'required',
         ]);
+
         Order::create([
             'condition' => $request->condition,
             'type' => $request->type,
             'direction' => $request->direction,
             'start' => $request->start,
             'description' => $request->description,
-            'client_id' => auth()->user()->id,
+            'client_id' => Auth::user()->id,
+            'user_id' => Status::where('title', 'администратор')->first()->id,
         ]);
-        session()->flash('success', 'Пользователь создан');
+        session()->flash('success', 'Заказ создан');
         return redirect()->route('orders.index');
     }
 
@@ -109,8 +112,8 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->work_id);
-        if ($request->work_id == null && $request->user_id == null) {
+        // dd($request->user_id);
+        if ($request->work_id != null && $request->user_id != null) {
             $request->validate([
                 'condition' => 'required',
                 'type' => 'required',
@@ -145,6 +148,6 @@ class OrderController extends Controller
     {
         $orders = Order::find($id);
         $orders->delete();
-        return redirect()->route('orders.index')->with('success', 'Заказ удален');
+        return redirect()->route('orders.index')->with('error', 'Заказ удален');
     }
 }

@@ -17,6 +17,7 @@ class CreateWorksTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->tinyInteger('step')->default(0);
+            $table->string('color');
             $table->timestamps();
         });
     }

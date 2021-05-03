@@ -1,23 +1,30 @@
 @extends('admin.layouts.layout')
 
+@section('style')
+
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-free/css/all.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
+@endsection
+
 @section('content')
-<!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Заказы</h1>
+                <h1>Список заказов</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Orders</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
-
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
@@ -32,95 +39,107 @@
                         <a href="{{ route('orders.create') }}" class="btn btn-primary mb-3">Добавить
                             заказ</a>
                         @if (count($orders))
-                        <!-- <div class="col-sm-12 col-md-6 mb-3">
-                            <div class="dt-buttons btn-group flex-wrap">
-                                <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Copy</span></button>
-                                <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>CSV</span></button>
-                                <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Excel</span></button>
-                                <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>PDF</span></button>
-                            </div>
-                        </div> -->
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 30px">#</th>
-                                        @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
-                                        <th>Кто работает</th>
-                                        @else
-                                        <th>Состояние</th>
-                                        <th>Тип</th>
-                                        @endif
-                                        <th>Статус</th><!-- ожидание, выполнен -->
-                                        <th>Направление</th>
-                                        <th>Старт</th>
-                                        <th>Описание</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($orders as $item)
-                                    <tr>
-                                        <td>{{ $item->id }}</td>
+                        <table @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3) id="example1" @endif class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Тип</th>
+                                    <th>Когда начинать</th>
+                                    <th>Кто заказал</th>
+                                    <th>Кто работает</th>
+                                    <th>Статус</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($orders as $item)
+                                <tr>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td>{{ $item->start }}</td>
+                                    <td>{{ $item->client->name }}</td>
+                                    <td>{{ $item->user->name }}</td>
+                                    <td>{{ $item->work->title }}</td>
+                                    <td>
+                                        <a href="{{ route('orders.edit',['order'=>$item->id]) }}" class="btn btn-info btn-sm float-left mr-1">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
 
-                                        @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
-
-                                        <!-- Кто работает -->
-                                        @if($item->user_id == 0)
-                                        <td>Свободен</td>
-                                        @else
-                                        <td>{{ $item->user->name }}</td>
-                                        @endif
-
-                                        @else
-
-                                        <td>{{ $item->condition }}</td>
-                                        <td>{{ $item->type }}</td>
-
-                                        @endif
-
-                                        <!-- Статус заказа -->
-                                        <td>{{ $item->work->title }}</td>
-                                        <td>{{ $item->direction }}</td>
-                                        <td>{{ $item->start }}</td>
-                                        <td>{{ $item->description }}</td>
-                                        <td>
-                                            <a href="{{ route('orders.edit',['order'=>$item->id]) }}" class="btn btn-info btn-sm float-left mr-1">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </a>
-
-                                            <form action="{{ route('orders.destroy',['order'=>$item->id]) }}" method="post" class="float-left">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                        <form action="{{ route('orders.destroy',['order'=>$item->id]) }}" method="post" class="float-left">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Тип</th>
+                                    <th>Когда начинать</th>
+                                    <th>Кто заказал</th>
+                                    <th>Кто работает</th>
+                                    <th>Статус</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                         @else
                         <p>Заказов пока нет...</p>
                         @endif
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        {{ $orders->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}
+                    </div>
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                    {{ $orders->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}
-                </div>
+                <!-- /.card -->
             </div>
-            <!-- /.card -->
-
+            <!-- /.col -->
         </div>
-        <!-- /.col -->
+        <!-- /.row -->
     </div>
-    <!-- /.row -->
-    </div><!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+@endsection
+
+@section('script')
+
+<script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+
+
+<script>
+    $(function() {
+        $("#example1").DataTable({
+            // "responsive": true,
+            "paging": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "buttons": ["copy", "csv", "excel", "pdf", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+</script>
+
 @endsection

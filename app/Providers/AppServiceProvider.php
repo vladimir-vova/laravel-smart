@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,15 +27,30 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        view()->composer('admin.layouts.layout', function ($view) {
+            if (Cache::has('message')) {
+                $message = Cache::get('message');
+            } else {
+                $message = DB::table('message')->count();
+                Cache::put('message', $message, 30);
+            }
+            $view->with('message', $message);
+        });
+
+
+        // if (Auth::check()) {
+        //     session(['message' => 3]);
+        // } else {
+        //     session(['message' => 2]);
+        // }
+        
+        // session()->forget('message');
+
+        //     session(['message' => 3]);
         // DB::listen(function ($query) {
-        // dump($query->sql, $query->bindings);
+        // // dump($query->sql, $query->bindings);
         //     dump($query->sql);
         // });
-        // if (Auth::check()) {
-        //     echo 'Yes';
-        // }else{
-        //     echo 'No';
-        // }
         // dd(Auth::user());
     }
 }

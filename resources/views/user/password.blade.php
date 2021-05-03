@@ -22,6 +22,7 @@
 
                 <form action="{{ route('password') }}" method="post">
                     @csrf
+                    @method('PUT')
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}">
                         <div class="input-group-append">

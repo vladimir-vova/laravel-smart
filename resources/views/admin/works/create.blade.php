@@ -36,6 +36,19 @@
                                 <label for="title">Название</label>
                                 <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Название">
                             </div>
+                            <div class="form-group">
+                                <label for="color">Цвет</label>
+                                <select class="form-control @error('color') is-invalid @enderror" id="color" name="color">
+                                    <option value="bg-primary">Синий</option>
+                                    <option value="bg-secondary">Серый</option>
+                                    <option value="bg-success">Зеленый</option>
+                                    <option value="bg-danger">Красный</option>
+                                    <option value="bg-warning">Оранжевый</option>
+                                    <option value="bg-info">Голубой</option>
+                                    <option value="bg-light">Светлый</option>
+                                    <option value="bg-dark">Черный</option>
+                                </select>
+                            </div>
 
                         </div>
                         <!-- /.card-body -->

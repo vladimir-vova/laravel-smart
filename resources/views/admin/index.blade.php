@@ -65,6 +65,9 @@
         </div>
         <div class="card-body">
             Срочно поменяйте пароль
+            <a href="{{ route('profile.index') }}" class="text-primary mb-3">
+                Изменить пароль
+            </a>
         </div>
         <!-- /.card-body -->
         <!-- <div class="card-footer">
