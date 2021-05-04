@@ -58,15 +58,22 @@ class OrderController extends Controller
             'description' => 'required',
         ]);
 
-        Order::create([
-            'condition' => $request->condition,
-            'type' => $request->type,
-            'direction' => $request->direction,
-            'start' => $request->start,
-            'description' => $request->description,
-            'client_id' => Auth::user()->id,
-            'user_id' => Status::where('title', 'администратор')->first()->id,
-        ]);
+        $data = $request->all();
+
+        $data['client_id'] = Auth::user()->id;
+        $data['user_id'] = Status::where('title', 'администратор')->first()->id;
+
+        $post = Order::create($data);
+
+        // Order::create([
+        //     'condition' => $request->condition,
+        //     'type' => $request->type,
+        //     'direction' => $request->direction,
+        //     'start' => $request->start,
+        //     'description' => $request->description,
+        //     'client_id' => Auth::user()->id,
+        //     'user_id' => Status::where('title', 'администратор')->first()->id,
+        // ]);
         session()->flash('success', 'Заказ создан');
         return redirect()->route('orders.index');
     }

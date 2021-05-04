@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Status;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
@@ -100,11 +101,12 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
-        $status = Status::find($id);
-        if($status->users->count() == 0){
-            $status->delete();
-            return redirect()->route('status.index')->with('success', 'Статус удален');
-        } 
-        return redirect()->route('users.index')->with('error', 'Статус занят');
+        // $status = Status::find($id);
+        // if($status->users->count() == 0){
+        //     $status->delete();
+        //     return redirect()->route('status.index')->with('success', 'Статус удален');
+        // } 
+        // return redirect()->route('users.index')->with('error', 'Статус занят');
+        return redirect()->route('status.index')->with('error', 'Удаление временно недоступно');
     }
 }

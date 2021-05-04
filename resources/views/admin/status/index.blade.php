@@ -61,9 +61,9 @@
                                             <form action="{{ route('status.destroy',['status'=>$item->id]) }}" method="post" class="float-left">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
+                                                <!-- <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
                                                     <i class="fas fa-trash-alt"></i>
-                                                </button>
+                                                </button> -->
                                             </form>
                                         </td>
                                     </tr>
