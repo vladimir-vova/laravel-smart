@@ -112,13 +112,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('tasks.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Открытые задачи</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('tasks.create') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Новая задача</p>
                                     </a>
@@ -316,9 +316,8 @@
             </div>
             <!-- /.sidebar -->
         </aside>
-
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper @yield('class')">
 
             <div class="container mt-2">
                 <div class="row">

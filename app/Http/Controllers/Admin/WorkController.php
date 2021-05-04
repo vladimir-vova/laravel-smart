@@ -134,7 +134,7 @@ class WorkController extends Controller
                 }
             }
             $works->delete();
-            return redirect()->route('works.index')->with('success', 'Статус удален');
+            return redirect()->route('works.index')->with('error', 'Статус удален');
         }
         return redirect()->route('orders.index')->with('error', 'Статус занят');
     }

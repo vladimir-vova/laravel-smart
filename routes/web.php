@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\StatusController;
+use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\WorkController;
 use App\Http\Controllers\MainController;
@@ -40,7 +41,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::put('/password', [UserController::class, 'password'])->name('password');
 });
 
-Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function () {
     Route::get('/', [AdminMainController::class, 'index'])->name('admin.index');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
@@ -73,6 +74,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/status', StatusController::class);
     Route::resource('/orders', OrderController::class);
     Route::resource('/works', WorkController::class);
+    Route::resource('/tasks', TaskController::class);
     // Route::resource('/categories', CategoryController::class);
     // Route::resource('/tags', TagController::class);
     // Route::resource('/posts', PostController::class);

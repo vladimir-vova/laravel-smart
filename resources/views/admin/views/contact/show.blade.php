@@ -24,9 +24,6 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Письмо "{{ $message->id }}"</h3>
-                    </div>
                     <!-- /.card-header -->
                     <div class="col-12">
                         <div class="card card-primary card-outline">
@@ -39,7 +36,11 @@
                                 </div>
                                 <!-- /.mailbox-controls -->
                                 <div class="mailbox-read-message">
+                                    @if($message->message == null)
+                                    Сообщения нет...
+                                    @else
                                     {{ $message->message }}
+                                    @endif
                                 </div>
                                 <!-- /.mailbox-read-message -->
                             </div>

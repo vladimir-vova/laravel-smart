@@ -77,7 +77,6 @@ class MainController extends Controller
             // 'name' => 'required',
             // 'email' => 'required|email',
             'subject' => 'required',
-            'message' => 'required',
         ]);
 
         DB::table('message')->insert([
@@ -87,6 +86,7 @@ class MainController extends Controller
             'email' => Auth::user()->email,
             'subject' => $request->subject,
             'message' => $request->message,
+            'step' => 1,
             'created_at' => date("Y-m-d"),
         ]);
 
@@ -106,6 +106,6 @@ class MainController extends Controller
 
     public function messageDestroy($message){
         DB::table('message')->where('id', '=', $message)->delete();
-        return redirect()->route('message.index')->with('success', 'Письмо удалено');
+        return redirect()->route('message.index')->with('error', 'Письмо удалено');
     }
 }

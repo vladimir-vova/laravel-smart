@@ -2,9 +2,7 @@
 
 @section('style')
 
-<link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-free/css/all.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
 @endsection
@@ -47,6 +45,7 @@
                                         <th>Имя</th>
                                         <th>Email</th>
                                         <th>Тема</th>
+                                        <th>Важность</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -56,7 +55,14 @@
                                         <td><a href="{{ route('message.show', ['message'=>$item->id]) }}">{{ $item->id }}</a></td>
                                         <td><a href="{{ route('message.show', ['message'=>$item->id]) }}">{{ $item->name }}</a></td>
                                         <td><a href="{{ route('message.show', ['message'=>$item->id]) }}">{{ $item->email }}</a></td>
-                                        <td>{{ $item->subject }}</td>
+                                        <td><a href="{{ route('message.show', ['message'=>$item->id]) }}">{{ $item->subject }}</a></td>
+                                        <td>
+                                            @if($item->step==1)
+                                            Обычное
+                                            @else
+                                            Срочное
+                                            @endif
+                                        </td>
                                         <td>
 
                                             <form action="{{ route('message.destroy',['message'=>$item->id]) }}" method="post" class="float-left">
@@ -95,14 +101,8 @@
 
 @section('script')
 
-<script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- DataTables  & Plugins -->
 <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/jszip/jszip.min.js') }}"></script>
