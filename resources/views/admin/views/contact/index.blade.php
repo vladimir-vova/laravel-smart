@@ -118,7 +118,7 @@
             // "responsive": true,
             "paging": false,
             "searching": true,
-            "ordering": true,
+            "ordering": false,
             "info": true,
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });

@@ -14,6 +14,11 @@ class Work extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function task()
+    {
+        return $this->hasMany(Task::class);
+    }
+
     protected $fillable = [
         'title',
         'step',

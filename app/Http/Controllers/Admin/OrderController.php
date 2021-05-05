@@ -61,7 +61,7 @@ class OrderController extends Controller
         $data = $request->all();
 
         $data['client_id'] = Auth::user()->id;
-        $data['user_id'] = Status::where('title', 'администратор')->first()->id;
+        $data['user_id'] = Status::where('title', 'администратор')->first()->users[0]->id;
 
         $post = Order::create($data);
 
@@ -103,7 +103,7 @@ class OrderController extends Controller
         $start = ['Немедленно', 'В течение недели', 'В течение месяца'];
         // $work = ['В ожидании', 'В работе', 'Тестирование', 'На проверке'];
         
-        $work = Work::all();
+        $work = Work::orderBy('step', 'asc')->get();
         $coor = User::where('status_id', '=', '4')->orderBy('id', 'desc')->get();
         $orders = Order::find($id);
         // $status = Status::pluck('title', 'id')->all();

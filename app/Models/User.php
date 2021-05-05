@@ -21,6 +21,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function task()
+    {
+        return $this->belongsToMany(Task::class);
+    }
+
 
     /**
      * The attributes that are mass assignable.

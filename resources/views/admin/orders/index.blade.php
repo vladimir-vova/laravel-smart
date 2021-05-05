@@ -147,11 +147,10 @@
 <script>
     $(function() {
         $("#example1").DataTable({
-            // "responsive": true,
+            "responsive": true,
             "paging": false,
             "searching": true,
-            "ordering": true,
-            "info": true,
+            "ordering": false,
             "buttons": ["copy", "csv", "excel", "pdf", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });

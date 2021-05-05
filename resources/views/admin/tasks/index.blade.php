@@ -44,39 +44,32 @@ kanban
                 </h3>
             </div>
             <div class="card-body text-dark">
-                <!-- <div class="card card-info card-outline">
+                @foreach($tasks as $task)
+                @if($task->work_id == $item->id)
+                <div class="card card-info card-outline">
                     <div class="card-header">
-                        <h5 class="card-title">Создать</h5>
+                        <h5 class="card-title">{{ $task->name }}</h5>
                         <div class="card-tools">
-                            <a href="#" class="btn btn-tool btn-link text-dark">#2342</a>
+                            <a href="#" class="btn btn-tool btn-link text-dark">#{{ $task->id }}</a>
+                            @if($task->user_id == Auth::user()->id || Auth::user()->status_id==2 || Auth::user()->status_id==3 || Auth::user()->status_id==4)
                             <a href="#" class="btn btn-tool">
                                 <i class="fas fa-pen text-dark"></i>
                             </a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="customCheckbox1" disabled>
-                            <label for="customCheckbox1" class="custom-control-label">Bug</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="customCheckbox2" disabled>
-                            <label for="customCheckbox2" class="custom-control-label">Feature</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="customCheckbox3" disabled>
-                            <label for="customCheckbox3" class="custom-control-label">Enhancement</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="customCheckbox4" disabled>
-                            <label for="customCheckbox4" class="custom-control-label">Documentation</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="customCheckbox5" disabled>
-                            <label for="customCheckbox5" class="custom-control-label">Examples</label>
-                        </div>
+                        @if($task->step == 0)
+                        <p><b>Важность:</b> Срочное</p>
+                        @else
+                        <p><b>Важность:</b> Обычное</p>
+                        @endif
+                        <p><b>Задача:</b> {{ $task->work->title }}</p>
+                        <p><b>Время выполнения:</b> {{ $task->getPostDate('created_at') }}-{{ $task->getPostDate('updated_at') }}</p>
                     </div>
-                </div> -->
+                </div>
+                @endif
+                @endforeach
             </div>
         </div>
         @endforeach
