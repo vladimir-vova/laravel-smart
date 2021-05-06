@@ -1,5 +1,22 @@
 @extends('admin.layouts.layout')
 
+@section('style')
+
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-free/css/all.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/daterangepicker/daterangepicker.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/bs-stepper/css/bs-stepper.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropzone/min/dropzone.min.css') }}">
+
+<!-- {{ asset('assets/admin/') }} -->
+
+@endsection
+
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -82,9 +99,9 @@
                             </div>
                             <div class="form-group">
                                 <label>До какого числа начинать:</label>
-                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                    <input type="text" name='date2' class="form-control datetimepicker-input" data-target="#reservationdate">
-                                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                <div class="input-group date" id="reservationdate2" data-target-input="nearest">
+                                    <input type="text" name='date2' class="form-control datetimepicker-input" data-target="#reservationdate2">
+                                    <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
                                 </div>
@@ -112,21 +129,18 @@
 @section('script')
 
 <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
 <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- DataTables  & Plugins -->
-<script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- <script src="{{ asset('assets/admin/plugins/select2/js/select2.full.min.js') }}"></script> -->
+<script src="{{ asset('assets/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/dropzone/min/dropzone.min.js') }}"></script>
+
 
 <script>
     $(function() {
@@ -134,6 +148,10 @@
     });
 
     $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+
+    $('#reservationdate2').datetimepicker({
         format: 'L'
     });
 </script>

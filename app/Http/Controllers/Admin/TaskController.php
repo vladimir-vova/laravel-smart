@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Work;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,7 +48,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd(Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y'));
         $request->validate([
             'name' => 'required',
             'status' => 'required|integer',
@@ -63,8 +64,8 @@ class TaskController extends Controller
             'description' => $request->description,
             'order_id' => $request->order,
             'step' => $request->step,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'created_at' => Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y'),
+            'updated_at' => Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y'),
             'user_id' => Auth::user()->id,
             'open' => 1,
         ]);
@@ -82,7 +83,8 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        $task = Task::find($id);
+        return view('admin.tasks.show', compact('task'));
     }
 
     /**
@@ -93,7 +95,7 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        return "Edit";
     }
 
     /**
