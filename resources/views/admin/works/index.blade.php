@@ -62,12 +62,12 @@
                                         <td>
                                             @if($item->step != 1)
                                             <a href="{{ route('works.step',['way'=>'down','name'=>$item->title,'step'=>$item->step]) }}" class="btn btn-info btn-sm float-left mr-1">
-                                                <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                                <i class="fa fa-caret-down" aria-hidden="true"></i>
                                             </a>
                                             @endif
                                             @if($item->step != $works->count())
                                             <a href="{{ route('works.step',['way'=>'up','name'=>$item->title,'step'=>$item->step]) }}" class="btn btn-info btn-sm float-left mr-1">
-                                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                <i class="fa fa-caret-up" aria-hidden="true"></i>
                                             </a>
                                             @endif
                                         </td>

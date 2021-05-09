@@ -20,23 +20,15 @@
         <div class="card">
             @include('layouts.errors')
             <div class="card-body login-card-body">
-                <form action="{{ route('login') }}" method="post">
+                <form id="quickForm" action="{{ route('login') }}" method="post">
                     @csrf
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email" name="email">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                     </div>
                     <div class="row">
                         <div class="col-8">
@@ -63,6 +55,54 @@
     <!-- /.login-box -->
 
     <script src="{{ asset('assets/admin/js/admin.js') }}"></script>
+
+    <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
+    <script>
+        $(function() {
+            $.validator.setDefaults({
+                submitHandler: function() {
+                    alert("Form successful submitted!");
+                }
+            });
+            $('#quickForm').validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true,
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6,
+                    },
+                },
+                messages: {
+                    email: {
+                        required: "Please enter a email address",
+                        email: "Please enter a vaild email address",
+                    },
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 6 characters long",
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+    </script>
 
 </body>
 

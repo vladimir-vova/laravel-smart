@@ -70,6 +70,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::put('/profile/password', [AdminMainController::class, 'profilePassword'])->name('profile.password');
 
     // c ресурсами
+    Route::get('/closetasks', [TaskController::class, 'showClose'])->name('tasks.closetasks');
+    Route::get('/closeorders', [OrderController::class, 'showClose'])->name('orders.closeorders');
+    Route::put('/closeorders/{order}', [OrderController::class, 'wayClose'])->name('orders.wayclose');
+
     Route::resource('/users', AdminUserController::class);
     Route::resource('/status', StatusController::class);
     Route::resource('/orders', OrderController::class);

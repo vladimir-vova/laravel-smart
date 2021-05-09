@@ -50,9 +50,9 @@ kanban
                     <div class="card-header">
                         <h5 class="card-title">{{ $task->name }}</h5>
                         <div class="card-tools">
-                            <a href="{{ route('tasks.show',['task'=>$item->id]) }}" class="btn btn-tool btn-link text-dark">#{{ $task->id }}</a>
+                            <a href="{{ route('tasks.show',['task'=>$task->id]) }}" class="btn btn-tool btn-link text-dark">#{{ $task->id }}</a>
                             @if($task->user_id == Auth::user()->id || Auth::user()->status_id==2 || Auth::user()->status_id==3 || Auth::user()->status_id==4)
-                            <a href="{{ route('tasks.edit',['task'=>$item->id]) }}" class="btn btn-tool">
+                            <a href="{{ route('tasks.edit',['task'=>$task->id]) }}" class="btn btn-tool">
                                 <i class="fas fa-pen text-dark"></i>
                             </a>
                             @endif

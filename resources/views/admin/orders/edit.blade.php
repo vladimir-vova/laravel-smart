@@ -94,7 +94,6 @@
                             <div class="form-group">
                                 <label for="user_id">Кто будет делать?</label>
                                 <select class="form-control @error('user_id') is-invalid @enderror" id="user_id" name="user_id">
-                                    <option value="0">Свободен</option>
                                     @foreach($coor as $item)
                                     <option value="{{ $item->id }}" @if($item->id==$orders->user_id) selected @endif>{{ $item->name }}</option>
                                     @endforeach
@@ -104,6 +103,14 @@
                             @else
                             Нет координатора. Наймите его скорее...
                             @endif
+
+                            <div class="form-group">
+                                <label for="open">Закрыть?</label>
+                                <select class="form-control @error('open') is-invalid @enderror" id="open" name="open">
+                                    <option value="1">Открыт</option>
+                                    <option value="2">Закрыт</option>
+                                </select>
+                            </div>
 
                             @endif
                         </div>

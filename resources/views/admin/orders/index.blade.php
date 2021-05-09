@@ -57,7 +57,11 @@
                             </thead>
                             <tbody>
                                 @foreach($orders as $item)
+                                @if($item->client_id == Auth::user()->id)
+                                <tr class="bg-primary">
+                                    @else
                                 <tr>
+                                    @endif
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->start }}</td>
@@ -73,6 +77,14 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                        
+                                        <form action="{{ route('orders.wayclose',['order'=>$item->id]) }}" method="post" class="float-left">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Закрыть сделку?')">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>

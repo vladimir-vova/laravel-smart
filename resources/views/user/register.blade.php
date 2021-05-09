@@ -21,25 +21,33 @@
             @include('layouts.errors')
             <div class="card-body register-card-body">
 
-                <form action="{{ route('create.users') }}" method="post">
+                <form id="quickForm" action="{{ route('create.users') }}" method="post">
                     @csrf
-                    <div class="input-group mb-3">
+                    <!-- <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Name" name="name" value="{{ old('name') }}">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="name">Имя</label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Имя" value="{{ old('name') }}">
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" value="{{ old('email') }}">
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="form-group">
+                        <label for="password1">Password</label>
+                        <input type="password" name="password" class="form-control" id="password1" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Password2</label>
+                        <input type="password" name="password_confirmation" class="form-control" id="password2" placeholder="Password2">
+                    </div>
+                    <!-- <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Password" name='password'>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -54,7 +62,7 @@
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-8">
                             <a href="{{ route('index') }}" class="btn btn-danger">Главная</a>
@@ -76,6 +84,60 @@
     <!-- /.register-box -->
 
     <script src="{{ asset('assets/admin/js/admin.js') }}"></script>
+
+    <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
+    <script>
+        $(function() {
+            $.validator.setDefaults({
+                submitHandler: function() {
+                    alert("Form successful submitted!");
+                }
+            });
+            $('#quickForm').validate({
+                rules: {
+                    name: {
+                        required: true,
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6,
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "Please enter a name",
+                    },
+                    email: {
+                        required: "Please enter a email address",
+                        email: "Please enter a vaild email address",
+                    },
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 6 characters long",
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+    </script>
 
 </body>
 

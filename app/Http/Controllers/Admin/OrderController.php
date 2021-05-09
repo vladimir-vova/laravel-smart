@@ -20,9 +20,9 @@ class OrderController extends Controller
     public function index()
     {
         if (Auth::user()->status_id == 2 || Auth::user()->status_id == 3) {
-            $orders = Order::with('user')->with('client')->orderBy('id', 'desc')->paginate(50);
+            $orders = Order::with('user')->with('client')->where('open', '<>', 2)->orderBy('id', 'desc')->paginate(50);
         } else {
-            $orders = Order::where('client_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(50);
+            $orders = Order::where('open', '<>', 2)->where('client_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(50);
         }
         return view('admin.orders.index', compact('orders'));
     }
@@ -104,7 +104,7 @@ class OrderController extends Controller
         // $work = ['В ожидании', 'В работе', 'Тестирование', 'На проверке'];
         
         $work = Work::orderBy('step', 'asc')->get();
-        $coor = User::where('status_id', '=', '4')->orderBy('id', 'desc')->get();
+        $coor = User::where('status_id', '=', '4')->orderBy('id', 'asc')->get();
         $orders = Order::find($id);
         // $status = Status::pluck('title', 'id')->all();
         return view('admin.orders.edit', compact('orders', 'coor', 'condition', 'type', 'direction', 'start', 'work'));
@@ -129,6 +129,7 @@ class OrderController extends Controller
                 'description' => 'required',
                 'work_id' => 'required|integer',
                 'user_id' => 'required|integer',
+                'open' => 'required|integer',
             ]);
         } else {
             $request->validate([
@@ -137,12 +138,26 @@ class OrderController extends Controller
                 'direction' => 'required',
                 'start' => 'required',
                 'description' => 'required',
+                'open' => 'required|integer',
             ]);
         }
+        $data = $request->all();
         $orders = Order::find($id);
-        $orders->update($request->all());
+        $orders->update($data);
 
         return redirect()->route('orders.index')->with('success', 'Изменения сохранены');
+    }
+
+    public function showClose()
+    {
+        $orders = Order::where('open', '<>', 1)->paginate(15);
+        return view('admin.orders.showClose', compact('orders'));
+    }
+
+    public function wayClose(Request $request, $id)
+    {
+        Order::find($id)->update(['open'=> 2]);
+        return redirect()->route('orders.index')->with('success', 'Сделка перемещена');
     }
 
     /**

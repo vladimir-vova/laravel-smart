@@ -209,7 +209,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('orders.create') }}" class="nav-link">
+                                    <a href="{{ route('orders.closeorders') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Закрытые заказы</p>
                                     </a>
@@ -239,7 +239,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('tasks.closetasks') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Закрытые задачи</p>
                                     </a>
@@ -391,7 +391,6 @@
         $(document).ready(function() {
             bsCustomFileInput.init();
         });
-
     </script>
 
 </body>

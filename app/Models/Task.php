@@ -39,6 +39,11 @@ class Task extends Model
 
     public function getPostDate($title)
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $this->$title)->format('d-F-Y');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->$title)->format('d-m-Y');
+    }
+
+    public function dateEdit($title)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->$title)->format('m/d/Y');
     }
 }

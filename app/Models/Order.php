@@ -38,5 +38,6 @@ class Order extends Model
         'work_id',
         'client_id',
         'user_id',
+        'open',
     ];
 }
