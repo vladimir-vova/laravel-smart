@@ -160,6 +160,12 @@ class OrderController extends Controller
         return redirect()->route('orders.index')->with('success', 'Сделка перемещена');
     }
 
+    public function wayOpen(Request $request, $id)
+    {
+        Order::find($id)->update(['open' => 1]);
+        return redirect()->route('orders.closeorders')->with('success', 'Сделка перемещена');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

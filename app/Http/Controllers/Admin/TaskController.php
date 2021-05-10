@@ -56,7 +56,6 @@ class TaskController extends Controller
             'description' => 'required',
             'order' => 'required|integer',
             'step' => 'required|integer',
-            'open' => 'required|integer',
             // 'users' => 'required|integer',
         ]);
 

@@ -15,7 +15,7 @@
             <div class="col-sm-6">
                 <h1>Письма</h1>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 d-none d-sm-block">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
                     <li class="breadcrumb-item active">Message</li>
@@ -28,6 +28,21 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
+        <div class="row" style="margin-bottom: 50px;">
+            <div class="col-md-8 offset-md-2">
+                <form action="simple-results.html">
+                    <div class="input-group">
+                        <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-lg btn-default">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- <br> -->
         <div class="row">
             <div class="col-12">
                 <div class="card">

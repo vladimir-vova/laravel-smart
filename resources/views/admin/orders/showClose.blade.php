@@ -45,11 +45,18 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->type }}</td>
                                         <td>
-                                            <form action="{{ route('orders.destroy',['order'=>$item->id]) }}" method="post" class="float-left">
+                                            <form action="{{ route('orders.destroy',['order'=>$item->id]) }}" method="post" class="float-left" style="margin-right: 5px;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
                                                     <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('orders.wayopen',['order'=>$item->id]) }}" method="post" class="float-left">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Переместить сделку?')">
+                                                    <i class="fas fa-arrow-circle-left"></i>
                                                 </button>
                                             </form>
                                         </td>

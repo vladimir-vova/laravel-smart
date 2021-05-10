@@ -40,7 +40,7 @@
                             <dt>Название</dt>
                             <dd>{{ $task->name }}</dd>
                             <dt>Описание</dt>
-                            <dd>{{ $task->description }}</dd>
+                            <dd>{!! $task->description !!}</dd>
                             <dt>Дата</dt>
                             <dd>{{ $task->getPostDate('created_at') }}-{{ $task->getPostDate('updated_at') }}</dd>
                         </dl>

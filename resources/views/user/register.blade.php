@@ -36,16 +36,16 @@
                         <input type="text" name="name" class="form-control" id="name" placeholder="Имя" value="{{ old('name') }}">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email address</label>
+                        <label for="email">Email</label>
                         <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" value="{{ old('email') }}">
                     </div>
                     <div class="form-group">
-                        <label for="password1">Password</label>
-                        <input type="password" name="password" class="form-control" id="password1" placeholder="Password">
+                        <label for="password1">Пароль</label>
+                        <input type="password" name="password" class="form-control" id="password1" placeholder="Пароль">
                     </div>
                     <div class="form-group">
-                        <label for="password2">Password2</label>
-                        <input type="password" name="password_confirmation" class="form-control" id="password2" placeholder="Password2">
+                        <label for="password2">Retype password</label>
+                        <input type="password" name="password_confirmation" class="form-control" id="password2" placeholder="Retype password">
                     </div>
                     <!-- <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Password" name='password'>
@@ -92,11 +92,11 @@
 
     <script>
         $(function() {
-            $.validator.setDefaults({
-                submitHandler: function() {
-                    alert("Form successful submitted!");
-                }
-            });
+            // $.validator.setDefaults({
+            //     submitHandler: function() {
+            //         alert("Form successful submitted!");
+            //     }
+            // });
             $('#quickForm').validate({
                 rules: {
                     name: {

@@ -73,6 +73,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/closetasks', [TaskController::class, 'showClose'])->name('tasks.closetasks');
     Route::get('/closeorders', [OrderController::class, 'showClose'])->name('orders.closeorders');
     Route::put('/closeorders/{order}', [OrderController::class, 'wayClose'])->name('orders.wayclose');
+    Route::put('/openorders/{order}', [OrderController::class, 'wayOpen'])->name('orders.wayopen');
 
     Route::resource('/users', AdminUserController::class);
     Route::resource('/status', StatusController::class);

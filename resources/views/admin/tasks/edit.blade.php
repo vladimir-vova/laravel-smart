@@ -151,6 +151,8 @@
 <script src="{{ asset('assets/admin/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/dropzone/min/dropzone.min.js') }}"></script>
 
+<script src="{{ asset('assets/admin/ckeditor5/build/ckeditor.js') }}"></script>
+<script src="{{ asset('assets/admin/ckfinder/ckfinder.js') }}"></script>
 
 <script>
     $(function() {
@@ -164,6 +166,40 @@
     $('#reservationdate2').datetimepicker({
         format: 'L'
     });
+    ClassicEditor
+        .create(document.querySelector('#description'), {
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    'link',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'indent',
+                    'outdent',
+                    'alignment',
+                    '|',
+                    'blockQuote',
+                    'insertTable',
+                    'undo',
+                    'redo',
+                ]
+            },
+            language: 'ru',
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells'
+                ]
+            },
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
 </script>
 
 @endsection
