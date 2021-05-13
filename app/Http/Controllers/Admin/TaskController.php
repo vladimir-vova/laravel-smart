@@ -21,7 +21,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::where('open','<>',2)->get();
+        $tasks = Task::with('work')->where('open','<>',2)->get();
         $works = Work::orderBy('step', 'asc')->get();
         return view('admin.tasks.index', compact('works', 'tasks'));
     }
@@ -121,6 +121,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'status' => 'required|integer',
@@ -134,8 +135,20 @@ class TaskController extends Controller
         $task = Task::find($id);
         $data = $request->all();
 
+        $data['work_id'] = $request->status;
+        $data['order_id'] = $request->order;
         $data['created_at'] = Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y');
         $data['updated_at'] = Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y');
+
+        // 'name' => $request->name,
+        //     'work_id' => $request->status,
+        //     'description' => $request->description,
+        //     'order_id' => $request->order,
+        //     'step' => $request->step,
+        //     'created_at' => Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y'),
+        //     'updated_at' => Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y'),
+        //     'user_id' => Auth::user()->id,
+        //     'open' => 1,
 
         $task->update($data);
         $task->user()->sync($request->users);

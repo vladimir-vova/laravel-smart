@@ -20,9 +20,9 @@ class OrderController extends Controller
     public function index()
     {
         if (Auth::user()->status_id == 2 || Auth::user()->status_id == 3) {
-            $orders = Order::with('user')->with('client')->where('open', '<>', 2)->orderBy('id', 'desc')->paginate(50);
+            $orders = Order::with('user')->with('work')->with('client')->where('open', '=', 1)->orderBy('id', 'desc')->paginate(50);
         } else {
-            $orders = Order::where('open', '<>', 2)->where('client_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(50);
+            $orders = Order::with('user')->with('work')->with('client')->where('open', '=', 1)->where('client_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(50);
         }
         return view('admin.orders.index', compact('orders'));
     }
@@ -150,7 +150,12 @@ class OrderController extends Controller
 
     public function showClose()
     {
-        $orders = Order::where('open', '<>', 1)->paginate(15);
+        if (Auth::user()->status_id == 2 || Auth::user()->status_id == 3) {
+            $orders = Order::where('open', '=', 2)->paginate(15);
+        } else {
+            // $orders = Order::with('user')->with('client')->where('open', '<>', 1)->paginate(15);
+            $orders = Order::where('open', '=', 2)->where('client_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(15);
+        }
         return view('admin.orders.showClose', compact('orders'));
     }
 
@@ -162,8 +167,9 @@ class OrderController extends Controller
 
     public function wayOpen(Request $request, $id)
     {
+        $search = $request->search;
         Order::find($id)->update(['open' => 1]);
-        return redirect()->route('orders.closeorders')->with('success', 'Сделка перемещена');
+        return redirect()->route('orders.closeorders',compact('search'))->with('success', 'Сделка перемещена');
     }
 
     /**

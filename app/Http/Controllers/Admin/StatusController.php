@@ -27,7 +27,8 @@ class StatusController extends Controller
      */
     public function create()
     {
-        return view('admin.status.create');
+        return redirect()->route('status.index')->with('success', 'Данная функция временно не доступена');
+        // return view('admin.status.create');
     }
 
     /**
@@ -38,15 +39,15 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-        ]);
+        // $request->validate([
+        //     'title' => 'required',
+        // ]);
 
-        Status::create([
-            'title' => $request->title,
-        ]);
+        // Status::create([
+        //     'title' => $request->title,
+        // ]);
 
-        session()->flash('success', 'Статус создан');
+        // session()->flash('success', 'Статус создан');
         return redirect()->route('status.index');
     }
 

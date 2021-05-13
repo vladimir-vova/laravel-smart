@@ -30,9 +30,9 @@
     <div class="container-fluid">
         <div class="row" style="margin-bottom: 50px;">
             <div class="col-md-8 offset-md-2">
-                <form action="simple-results.html">
+                <form action="{{ route('search.message') }}" method="get">
                     <div class="input-group">
-                        <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here">
+                        <input type="search" name="search" class="form-control form-control-lg @error('search') is-invalid @enderror" placeholder="Type your keywords here" value="{{ old('search') }}">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-lg btn-default">
                                 <i class="fa fa-search"></i>
@@ -100,7 +100,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
-                        {{ $messages->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}
+                        {{ $messages->onEachSide(2)->appends(['search' => request()->search])->links('vendor.pagination.bootstrap-4') }}
                     </div>
                 </div>
                 <!-- /.card -->

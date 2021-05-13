@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $people = User::with('status')->where('status_id','<>','0')->orderBy('id','desc')->paginate(50);
+        $people = User::with('status')->orderBy('id','desc')->paginate(50);
         return view('admin.users.index', compact('people'));
     }
 
