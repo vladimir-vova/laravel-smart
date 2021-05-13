@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Note;
 use App\Models\User;
 use App\Models\Work;
 use Illuminate\Http\Request;
@@ -107,5 +108,11 @@ class MainController extends Controller
     public function messageDestroy($message){
         DB::table('message')->where('id', '=', $message)->delete();
         return redirect()->route('message.index')->with('error', 'Письмо удалено');
+    }
+
+    public function note()
+    {
+        $note = Note::orderBy('id', 'desc')->paginate(50);
+        return view('admin.views.note.index', compact('note'));
     }
 }

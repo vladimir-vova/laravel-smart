@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\Admin\TaskController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\WorkController;
 use App\Http\Controllers\MainController;
@@ -55,6 +56,11 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
     Route::get('/contact', [AdminMainController::class, 'contactForm'])->name('contact.create');
     Route::post('/contact', [AdminMainController::class, 'contact'])->name('contact');
 
+    // note
+    Route::get('/note', [AdminMainController::class, 'note'])->name('note.index');
+    // Route::get('/message/{message}', [AdminMainController::class, 'messageShow'])->name('message.show');
+    // Route::delete('/message/{message}', [AdminMainController::class, 'messageDestroy'])->name('message.destroy');
+
     // profile
     Route::get('/profile', [AdminMainController::class, 'profile'])->name('profile.index');
     Route::put('/profile/data', [AdminMainController::class, 'profileData'])->name('profile.data');
@@ -98,6 +104,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/users', AdminUserController::class);
     Route::resource('/status', StatusController::class);
     Route::resource('/works', WorkController::class);
+    Route::resource('/types', TypeController::class);
     // Route::resource('/tasks', TaskController::class);
     // Route::resource('/categories', CategoryController::class);
     // Route::resource('/tags', TagController::class);

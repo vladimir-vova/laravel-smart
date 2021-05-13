@@ -27,15 +27,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('admin.layouts.layout', function ($view) {
-            if (Cache::has('message')) {
-                $message = Cache::get('message');
-            } else {
-                $message = DB::table('message')->count();
-                Cache::put('message', $message, 30);
-            }
-            $view->with('message', $message);
-        });
+        // view()->composer('admin.layouts.layout', function ($view) {
+        //     if (Cache::has('message')) {
+        //         $message = Cache::get('message');
+        //     } else {
+        //         $message = DB::table('message')->count();
+        //         Cache::put('message', $message, 30);
+        //     }
+        //     $view->with('message', $message);
+        // });
 
 
         // if (Auth::check()) {
