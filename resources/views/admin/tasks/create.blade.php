@@ -76,8 +76,8 @@
                             <div class="form-group">
                                 <label for="step">Срочность</label>
                                 <select class="form-control @error('step') is-invalid @enderror" id="step" name="step">
-                                    <option value="0">Срочное</option>
-                                    <option value="1">Обычное</option>
+                                    <option value="0">Срочная</option>
+                                    <option value="1">Обычная</option>
                                 </select>
                             </div>
                             <div class="form-group">

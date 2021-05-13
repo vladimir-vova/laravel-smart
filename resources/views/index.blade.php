@@ -18,6 +18,7 @@
             Предлагаем решения Ваших задач в дизайне и в программировании. Вы ставите задачу — мы её решаем. Не будем лишний раз Вас беспокоить и отрывать от дел.
         </div>
     </div>
+    <div id="obzor"></div>
     <!-- Процесс работы -->
     <div class="partt">
         <div class="part_names">
@@ -47,6 +48,7 @@
             </div>
         </div>
     </div>
+    <div id="osobennosti"></div>
     <!-- Кейсы -->
     <div class="partt">
         <div class="part_names">
@@ -80,6 +82,7 @@
             </div>
         </div>
     </div>
+    <div id="otzuv"></div>
     <!-- Отзывы -->
     <div class="partt">
         <div class="part_names">
@@ -123,6 +126,7 @@
             <div class="point p2"></div>
         </div>
     </div>
+    <div id="download"></div>
     <!-- Стоимость -->
     <div class="price">
         <div class="part_names">
@@ -133,8 +137,10 @@
                     <p>Koopдинaтop oтвeтит нa вce вaши вoпpocы пo услугам.</p>
                 </div>
                 <div class="col"></div>
-                <div class="col-4 register">
-                    <a href="{{ route('create') }}" class='btn btn-primary'>Зарегистрироваться</a>
+                <div class="col-4 register text-start">
+                    <a href="{{ route('create') }}" class='btn btn-primary'>Зарегистрироваться</a> или
+                    <br><br>
+                    <a href="{{ route('orders.quit') }}" class='text-danger'>Сделать быстрый заказ</a>
                 </div>
             </div>
         </div>
@@ -144,3 +150,5 @@
         <div>Пермь, ул. Луначарского, д.6</div>
     </div>
 </div>
+
+@endsection

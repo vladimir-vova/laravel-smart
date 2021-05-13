@@ -140,16 +140,6 @@ class TaskController extends Controller
         $data['created_at'] = Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y');
         $data['updated_at'] = Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y');
 
-        // 'name' => $request->name,
-        //     'work_id' => $request->status,
-        //     'description' => $request->description,
-        //     'order_id' => $request->order,
-        //     'step' => $request->step,
-        //     'created_at' => Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y'),
-        //     'updated_at' => Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y'),
-        //     'user_id' => Auth::user()->id,
-        //     'open' => 1,
-
         $task->update($data);
         $task->user()->sync($request->users);
 
@@ -159,6 +149,11 @@ class TaskController extends Controller
     public function showClose(){
         $tasks = Task::where('open', '<>', 1)->paginate(15);
         return view('admin.tasks.showClose', compact('tasks'));
+    }
+
+    public function rules(){
+        return view('admin.tasks.rules');
+
     }
 
     /**

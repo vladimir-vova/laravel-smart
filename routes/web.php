@@ -29,6 +29,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MainController::class, 'index'])->name('index');
 
 Route::group(['middleware' => 'guest'], function () {
+    Route::get('/orders', [MainController::class, 'orders'])->name('orders.quit');
+    Route::post('/message/admin', [MainController::class, 'contact'])->name('contact.message');
+
     // регистрация
     Route::get('/register', [UserController::class, 'create'])->name('create');
     Route::post('/register', [UserController::class, 'store'])->name('create.users');
@@ -62,7 +65,9 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
     Route::get('/search/ordersclose', [SearchController::class, 'ordersclose'])->name('search.ordersclose');
 
     Route::resource('/orders', OrderController::class);
+    Route::resource('/tasks', TaskController::class);
 
+    Route::get('/rules', [TaskController::class, 'rules'])->name('rules');;
     Route::get('/closeorders', [OrderController::class, 'showClose'])->name('orders.closeorders');
     Route::put('/closeorders/{order}', [OrderController::class, 'wayClose'])->name('orders.wayclose');
     Route::put('/openorders/{order}', [OrderController::class, 'wayOpen'])->name('orders.wayopen');
@@ -93,7 +98,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/users', AdminUserController::class);
     Route::resource('/status', StatusController::class);
     Route::resource('/works', WorkController::class);
-    Route::resource('/tasks', TaskController::class);
+    // Route::resource('/tasks', TaskController::class);
     // Route::resource('/categories', CategoryController::class);
     // Route::resource('/tags', TagController::class);
     // Route::resource('/posts', PostController::class);

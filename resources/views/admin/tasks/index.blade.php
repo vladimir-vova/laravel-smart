@@ -35,6 +35,7 @@ kanban
 <section class="content pb-3">
     <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-3">Добавить
         задачу</a>
+    <a href="{{ route('rules') }}" class="text-danger">Как работать с задачами</a>
     <div class="container-fluid h-100">
         @foreach($works as $item)
         <div class="card card-row {{ $item->color }}">
@@ -60,9 +61,9 @@ kanban
                     </div>
                     <div class="card-body">
                         @if($task->step == 0)
-                        <p><b>Важность:</b> Срочное</p>
+                        <p class='text-danger'><b>Важность:</b> Срочная</p>
                         @else
-                        <p><b>Важность:</b> Обычное</p>
+                        <p><b>Важность:</b> Обычная</p>
                         @endif
                         <p><b>Задача:</b> {{ $task->work->title }}</p>
                         <p><b>Время выполнения:</b> {{ $task->getPostDate('created_at') }}-{{ $task->getPostDate('updated_at') }}</p>
