@@ -140,7 +140,7 @@
 
 <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- <script src="{{ asset('assets/admin/plugins/select2/js/select2.full.min.js') }}"></script> -->
+<script src="{{ asset('assets/admin/plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/moment/moment.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/inputmask/jquery.inputmask.min.js') }}"></script>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Note;
 use App\Models\Order;
 use App\Models\Status;
+use App\Models\Type;
 use App\Models\User;
 use App\Models\Work;
 use Illuminate\Http\Request;
@@ -49,6 +51,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        // dd(User::where('status_id',2)->orWhere('status_id',3)->orWhere('status_id', 4)->get());
         // dd($request->all());
         $request->validate([
             'condition' => 'required',
@@ -63,7 +66,18 @@ class OrderController extends Controller
         $data['client_id'] = Auth::user()->id;
         $data['user_id'] = Status::where('title', 'администратор')->first()->users[0]->id;
 
-        $post = Order::create($data);
+        Order::create($data);
+
+        $users = User::where('status_id', 2)->orWhere('status_id', 3)->orWhere('status_id', 4)->get();
+        foreach($users as $user){
+            Note::create([
+            'name' => 'Новый заказ',
+            'user_id' => $user->id,
+            'type_id' => Type::where('title', 'заказ')->first()->id,
+            'open' => 1,
+            'created_at' => now(),
+        ]);
+        }
 
         // Order::create([
         //     'condition' => $request->condition,

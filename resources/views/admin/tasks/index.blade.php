@@ -46,7 +46,8 @@ kanban
             </div>
             <div class="card-body text-dark">
                 @foreach($tasks as $task)
-                @if($task->work_id == $item->id)
+                @if($task->work_id == $item->id &&
+                (Auth::user()->status_id == 2 || Auth::user()->status_id == 3 || Auth::user()->status_id == 4 || in_array(Auth::user()->id, $task->user->pluck('id')->all())))
                 <div class="card card-info card-outline">
                     <div class="card-header">
                         <h5 class="card-title">{{ $task->name }}</h5>

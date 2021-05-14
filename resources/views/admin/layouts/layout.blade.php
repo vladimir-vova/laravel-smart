@@ -82,10 +82,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
+                        <span class="badge badge-warning navbar-badge">{{ $count_note }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">15 Notifications</span>
+                        <span class="dropdown-item dropdown-header">{{ $count_note }} Notifications</span>
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item">
                             <i class="fas fa-envelope mr-2"></i> 4 new messages
@@ -102,7 +102,7 @@
                             <span class="float-right text-muted text-sm">2 days</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                        <a href="{{ route('note.index') }}" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
             </ul>
@@ -284,6 +284,7 @@
                             </ul>
                         </li>
                         @endif
+                        @if(auth()->user()->status_id == 2 && auth()->user()->status_id == 3)
                         <li class="nav-item has-treeview border-top">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-check-square"></i>
@@ -307,12 +308,13 @@
                                 </li>
                             </ul>
                         </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{ route('note.index') }}" class="nav-link">
                                 <i class="nav-icon fa fa-envelope"></i>
                                 <p>
                                     Уведомления
-                                    <span class="badge badge-warning text-white right">1</span>
+                                    <span class="badge badge-warning text-white right">{{ $count_note }}</span>
                                 </p>
                             </a>
                         </li>

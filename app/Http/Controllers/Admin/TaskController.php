@@ -21,7 +21,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('work')->where('open','<>',2)->get();
+        // if(in_array(user_id,$task->user->pluck('id')->all()))
+        $tasks = Task::with('work')->where('open', '=', 1)->get();
         $works = Work::orderBy('step', 'asc')->get();
         return view('admin.tasks.index', compact('works', 'tasks'));
     }
@@ -147,7 +148,7 @@ class TaskController extends Controller
     }
 
     public function showClose(){
-        $tasks = Task::where('open', '<>', 1)->paginate(15);
+        $tasks = Task::where('open', '=', 2)->where('user_id', '=', Auth::user()->id)->paginate(15);
         return view('admin.tasks.showClose', compact('tasks'));
     }
 
@@ -165,6 +166,7 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $tasks = Task::find($id);
+        $tasks->user()->sync([]);
         $tasks->delete();
         return redirect()->route('tasks.closetasks')->with('error', 'Задача удалена');
     }

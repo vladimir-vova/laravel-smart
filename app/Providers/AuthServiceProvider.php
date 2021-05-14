@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Note;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -35,6 +37,9 @@ class AuthServiceProvider extends ServiceProvider
                 Cache::put('message', $message, 30);
             }
             $view->with('message', $message);
+
+            $count_note = Note::where('open','=','1')->where('user_id','=',Auth::user()->id)->count();
+            $view->with('count_note', $count_note);
         });
 
 

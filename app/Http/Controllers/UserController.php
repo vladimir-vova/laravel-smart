@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Note;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +32,15 @@ class UserController extends Controller
 
         session()->flash('success', 'Регистрация пройдена');
         Auth::login($user);
+
+        // Note::create([
+        //     'name' => 'Поменять пароль',
+        //     'user_id' => $user->id,
+        //     'type_id' => Type::where('title', 'пароль')->first()->id,
+        //     'open' => 1,
+        //     'created_at' => now(),
+        // ]);
+
         return redirect()->route('admin.index');
         // return redirect()->route('login.create');
     }

@@ -13,6 +13,7 @@ class Note extends Model
         'name',
         'user_id',
         'type_id',
+        'open',
         'created_at',
     ];
 }

@@ -88,11 +88,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/message/{message}', [AdminMainController::class, 'messageShow'])->name('message.show');
     Route::delete('/message/{message}', [AdminMainController::class, 'messageDestroy'])->name('message.destroy');
 
-    // profile
-    Route::get('/profile', [AdminMainController::class, 'profile'])->name('profile.index');
-    Route::put('/profile/data', [AdminMainController::class, 'profileData'])->name('profile.data');
-    Route::put('/profile/password', [AdminMainController::class, 'profilePassword'])->name('profile.password');
-
     // c ресурсами
     Route::get('/closetasks', [TaskController::class, 'showClose'])->name('tasks.closetasks');
 
