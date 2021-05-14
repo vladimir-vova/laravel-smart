@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\WorkController;
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -58,7 +59,8 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
 
     // note
     Route::get('/note', [AdminMainController::class, 'note'])->name('note.index');
-    Route::get('/note/{note}', [AdminMainController::class, 'noteUpdate'])->name('note.update');
+    Route::post('/note', [AdminMainController::class, 'noteUpdate'])->name('note.update');
+    // Route::get('/note/{note}', [AdminMainController::class, 'noteUpdate'])->name('note.update');
 
     // Route::get('/message/{message}', [AdminMainController::class, 'messageShow'])->name('message.show');
     // Route::delete('/message/{message}', [AdminMainController::class, 'messageDestroy'])->name('message.destroy');
@@ -76,6 +78,7 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
     Route::resource('/tasks', TaskController::class);
 
     Route::get('/rules', [TaskController::class, 'rules'])->name('rules');;
+    Route::post('/sendmail', [AjaxController::class, 'send'])->name('sendNote');
     Route::get('/closeorders', [OrderController::class, 'showClose'])->name('orders.closeorders');
     Route::put('/closeorders/{order}', [OrderController::class, 'wayClose'])->name('orders.wayclose');
     Route::put('/openorders/{order}', [OrderController::class, 'wayOpen'])->name('orders.wayopen');

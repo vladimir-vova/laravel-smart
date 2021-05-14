@@ -124,15 +124,15 @@ class MainController extends Controller
 
     public function note()
     {
-        $note = Note::where('user_id','=',Auth::user()->id)->orderBy('id', 'desc')->paginate(1);
+        $note = Note::where('user_id','=',Auth::user()->id)->orderBy('id', 'desc')->paginate(15);
         return view('admin.views.note.index', compact('note'));
     }
 
-    public function noteUpdate($note)
+    public function noteUpdate(Request $request)
     {
-        Note::where('id',$note)->update([
+        session()->flash('success', 'Письмо прочитано');
+        Note::where('id', $request->id)->update([
             'open'=>2,
         ]);
-        return redirect()->route('note.index')->with('success', 'Прочитано');
     }
 }

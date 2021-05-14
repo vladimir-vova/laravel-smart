@@ -54,7 +54,7 @@
                         </h3>
 
                         <div class="card-tools">
-                            {{ $note->onEachSide(2)->appends(['search' => request()->search])->links('vendor.pagination.bootstrap-4') }}
+                            {{ $note->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}
                             <!-- <ul class="pagination pagination-sm">
                                 <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
                                 <li class="page-item"><a href="#" class="page-link">1</a></li>
@@ -89,7 +89,15 @@
                                 <!-- General tools such as edit or delete-->
                                 @if($item->open == 1)
                                 <div class="tools">
-                                    <form action="{{ route('note.update',['note'=>$item->id]) }}" method="get" class="float-left">
+                                    <form id="contactform" method="POST" class="float-left">
+                                        @csrf
+                                        <div id="sendmessage" style="display: none;">
+                                            Сообщение удалено
+                                        </div>
+                                        <div id="senderror" style="display: none;">
+                                            Сообщение не удалено
+                                        </div>
+                                        <input type="hidden" name="id" id="id" value="{{ $item->id }}">
                                         <button type="submit" class="btn btn-warning text-white btn-sm">
                                             <!-- <i class="fas fa-edit"></i> -->
                                             Отметить
@@ -124,9 +132,33 @@
 
 @section('script')
 
-<script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<!-- <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script> -->
 <!-- <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script> -->
+
+<script>
+    $(document).ready(function() {
+        $('#contactform').on('submit', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('note.update') }}",
+                data: $('#contactform').serialize(),
+                success: function() {
+                    location.reload();
+                    // console.log(result);
+                }
+            });
+        });
+    });
+</script>
 
 @endsection
