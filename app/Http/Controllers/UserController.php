@@ -33,13 +33,16 @@ class UserController extends Controller
         session()->flash('success', 'Регистрация пройдена');
         Auth::login($user);
 
-        // Note::create([
-        //     'name' => 'Поменять пароль',
-        //     'user_id' => $user->id,
-        //     'type_id' => Type::where('title', 'пароль')->first()->id,
-        //     'open' => 1,
-        //     'created_at' => now(),
-        // ]);
+        $users = User::where('status_id', 2)->orWhere('status_id', 3)->get();
+        foreach ($users as $user) {
+            Note::create([
+                'name' => 'Новый пользователь',
+                'user_id' => $user->id,
+                'type_id' => Type::where('title', 'пользователь')->first()->id,
+                'open' => 1,
+                'created_at' => now(),
+            ]);
+        }
 
         return redirect()->route('admin.index');
         // return redirect()->route('login.create');

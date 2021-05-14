@@ -68,6 +68,7 @@
                     <div class="card-body">
                         @if (count($note))
                         <ul class="todo-list" data-widget="todo-list">
+                            @foreach($note as $item)
                             <li>
                                 <!-- drag handle -->
                                 <span class="handle">
@@ -75,100 +76,32 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </span>
                                 <!-- checkbox -->
-                                <div class="icheck-primary d-inline ml-2">
+                                <!-- <div class="icheck-primary d-inline ml-2">
                                     <input type="checkbox" value="" name="todo1" id="todoCheck1">
                                     <label for="todoCheck1"></label>
-                                </div>
+                                </div> -->
                                 <!-- todo text -->
-                                <span class="text">Design a nice theme</span>
+                                <span class="text text-success @if($item->open == 1) text-danger @endif">{{ $item->name }}</span>
                                 <!-- Emphasis label -->
-                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                                <small class="badge badge-success @if($item->open == 1) badge-danger @endif"><i class="far fa-clock"></i>
+                                    {{ $item->getPostDate('created_at') }}
+                                </small>
                                 <!-- General tools such as edit or delete-->
+                                @if($item->open == 1)
                                 <div class="tools">
-                                    <i class="fas fa-edit"></i>
-                                    <i class="fas fa-trash-o"></i>
+                                    <form action="{{ route('note.update',['note'=>$item->id]) }}" method="get" class="float-left">
+                                        <button type="submit" class="btn btn-warning text-white btn-sm">
+                                            <!-- <i class="fas fa-edit"></i> -->
+                                            Отметить
+                                            <!-- fa-unlock-alt -->
+                                        </button>
+                                    </form>
+                                    <!-- <i class="fas fa-edit"></i> -->
+                                    <!-- <i class="fas fa-trash-o"></i> -->
                                 </div>
+                                @endif
                             </li>
-                            <!-- <li>
-                                <span class="handle">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </span>
-                                <div class="icheck-primary d-inline ml-2">
-                                    <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
-                                    <label for="todoCheck2"></label>
-                                </div>
-                                <span class="text">Make the theme responsive</span>
-                                <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
-                                <div class="tools">
-                                    <i class="fas fa-edit"></i>
-                                    <i class="fas fa-trash-o"></i>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="handle">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </span>
-                                <div class="icheck-primary d-inline ml-2">
-                                    <input type="checkbox" value="" name="todo3" id="todoCheck3">
-                                    <label for="todoCheck3"></label>
-                                </div>
-                                <span class="text">Let theme shine like a star</span>
-                                <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
-                                <div class="tools">
-                                    <i class="fas fa-edit"></i>
-                                    <i class="fas fa-trash-o"></i>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="handle">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </span>
-                                <div class="icheck-primary d-inline ml-2">
-                                    <input type="checkbox" value="" name="todo4" id="todoCheck4">
-                                    <label for="todoCheck4"></label>
-                                </div>
-                                <span class="text">Let theme shine like a star</span>
-                                <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
-                                <div class="tools">
-                                    <i class="fas fa-edit"></i>
-                                    <i class="fas fa-trash-o"></i>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="handle">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </span>
-                                <div class="icheck-primary d-inline ml-2">
-                                    <input type="checkbox" value="" name="todo5" id="todoCheck5">
-                                    <label for="todoCheck5"></label>
-                                </div>
-                                <span class="text">Check your messages and notifications</span>
-                                <small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
-                                <div class="tools">
-                                    <i class="fas fa-edit"></i>
-                                    <i class="fas fa-trash-o"></i>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="handle">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </span>
-                                <div class="icheck-primary d-inline ml-2">
-                                    <input type="checkbox" value="" name="todo6" id="todoCheck6">
-                                    <label for="todoCheck6"></label>
-                                </div>
-                                <span class="text">Let theme shine like a star</span>
-                                <small class="badge badge-secondary"><i class="far fa-clock"></i> 1 month</small>
-                                <div class="tools">
-                                    <i class="fas fa-edit"></i>
-                                    <i class="fas fa-trash-o"></i>
-                                </div>
-                            </li> -->
+                            @endforeach
                         </ul>
                         @else
                         <p>Уведомлений пока нет...</p>

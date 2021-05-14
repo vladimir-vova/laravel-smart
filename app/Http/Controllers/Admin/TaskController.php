@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Note;
 use App\Models\Order;
 use App\Models\Task;
+use App\Models\Type;
 use App\Models\User;
 use App\Models\Work;
 use Carbon\Carbon;
@@ -37,8 +39,17 @@ class TaskController extends Controller
         // $categories = Category::pluck('title', 'id')->all();
         // $tags = Tag::pluck('title', 'id')->all();
         $users = User::where('status_id','<>','1')->get();
+        if (count($users) == 0) {
+            return redirect()->route('tasks.index')->with('success', 'Невозможно добавить, т.к. пользователей нет');
+        }
         $works = Work::orderBy('step', 'asc')->get();
-        $orders = Order::select('id')->orderBy('id', 'desc')->get();
+        if (count($works) == 0) {
+            return redirect()->route('tasks.index')->with('success', 'Невозможно добавить, т.к. статусов нет');
+        }
+        $orders = Order::select('id')->where('open', '=', 1)->orderBy('id', 'desc')->get();
+        if(count($orders) == 0){
+            return redirect()->route('tasks.index')->with('success', 'Невозможно добавить, т.к. заказов нет');
+        }
         return view('admin.tasks.create', compact('works','orders', 'users'));
     }
 
@@ -71,6 +82,29 @@ class TaskController extends Controller
             'user_id' => Auth::user()->id,
             'open' => 1,
         ]);
+
+        $users = User::where('status_id', 2)->orWhere('status_id', 4)->get();
+        foreach ($users as $user) {
+            Note::create([
+                'name' => 'Новая задача',
+                'user_id' => $user->id,
+                'type_id' => Type::where('title', 'задача')->first()->id,
+                'open' => 1,
+                'created_at' => now(),
+            ]);
+        }
+
+        foreach ($request->users as $user) {
+            if (User::find($user)->status_id != 2 || User::find($user)->status_id != 4) {
+                Note::create([
+                    'name' => 'Новая задача',
+                    'user_id' => $user,
+                    'type_id' => Type::where('title', 'задача')->first()->id,
+                    'open' => 1,
+                    'created_at' => now(),
+                ]);
+            }
+        }
 
         $task->user()->sync($request->users);
 

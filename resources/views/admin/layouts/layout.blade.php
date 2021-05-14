@@ -45,7 +45,7 @@
             </ul>
 
             <!-- SEARCH FORM -->
-            <!-- <form class="form-inline ml-3">
+            <form class="form-inline ml-3">
                 <div class="input-group input-group-sm">
                     <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                     <div class="input-group-append">
@@ -54,31 +54,11 @@
                         </button>
                     </div>
                 </div>
-            </form> -->
+            </form>
 
             <!-- Right navbar links -->
+            @if($count_note)
             <ul class="navbar-nav ml-auto">
-                <!-- Notifications Dropdown Menu -->
-                <!-- <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" data-target="#main-header-search" href="#" role="button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                    <div class="navbar-search-block" id="main-header-search">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
@@ -106,6 +86,7 @@
                     </div>
                 </li>
             </ul>
+            @endif
         </nav>
         <!-- /.navbar -->
 
@@ -284,7 +265,7 @@
                             </ul>
                         </li>
                         @endif
-                        @if(auth()->user()->status_id == 2 && auth()->user()->status_id == 3)
+                        @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
                         <li class="nav-item has-treeview border-top">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-check-square"></i>
@@ -309,6 +290,7 @@
                             </ul>
                         </li>
                         @endif
+                        @if($count_note)
                         <li class="nav-item">
                             <a href="{{ route('note.index') }}" class="nav-link">
                                 <i class="nav-icon fa fa-envelope"></i>
@@ -318,6 +300,7 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
                         <!-- <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-archive"></i>

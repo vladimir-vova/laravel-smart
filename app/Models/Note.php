@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,4 +17,9 @@ class Note extends Model
         'open',
         'created_at',
     ];
+
+    public function getPostDate($title)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->$title)->diffForHumans();
+    }
 }

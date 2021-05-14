@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Note;
+use App\Models\Type;
 use App\Models\User;
 use App\Models\Work;
 use Illuminate\Http\Request;
@@ -91,6 +92,17 @@ class MainController extends Controller
             'created_at' => date("Y-m-d"),
         ]);
 
+        $users = User::where('status_id', 2)->orWhere('status_id', 3)->get();
+        foreach ($users as $user) {
+            Note::create([
+                'name' => 'Сообщение',
+                'user_id' => $user->id,
+                'type_id' => Type::where('title', 'сообщение')->first()->id,
+                'open' => 1,
+                'created_at' => now(),
+            ]);
+        }
+
         session()->flash('success', 'Письмо отправлено');
         return redirect()->route('contact.create');
     }
@@ -112,7 +124,15 @@ class MainController extends Controller
 
     public function note()
     {
-        $note = Note::orderBy('id', 'desc')->paginate(50);
+        $note = Note::where('user_id','=',Auth::user()->id)->orderBy('id', 'desc')->paginate(1);
         return view('admin.views.note.index', compact('note'));
+    }
+
+    public function noteUpdate($note)
+    {
+        Note::where('id',$note)->update([
+            'open'=>2,
+        ]);
+        return redirect()->route('note.index')->with('success', 'Прочитано');
     }
 }

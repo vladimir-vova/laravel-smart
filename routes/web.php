@@ -58,6 +58,8 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
 
     // note
     Route::get('/note', [AdminMainController::class, 'note'])->name('note.index');
+    Route::get('/note/{note}', [AdminMainController::class, 'noteUpdate'])->name('note.update');
+
     // Route::get('/message/{message}', [AdminMainController::class, 'messageShow'])->name('message.show');
     // Route::delete('/message/{message}', [AdminMainController::class, 'messageDestroy'])->name('message.destroy');
 

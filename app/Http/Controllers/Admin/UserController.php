@@ -29,6 +29,9 @@ class UserController extends Controller
     public function create()
     {
         $status = Status::all();
+        if(count($status)==0){
+            return redirect()->route('users.index')->with('success', 'Нельзя добавить, т.к. нет статусов');
+        }
         return view('admin.users.create', compact('status'));
     }
 
