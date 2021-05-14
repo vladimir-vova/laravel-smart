@@ -27,11 +27,7 @@
                     <div class="card-header">
                         <h3 class="card-title">
                             Заказ "{{ $orders->id }}".
-                            @if($orders->user_id)
-                            <span class='text-success'>Над заказом работаем "{{ $orders->user->name }}"</span>
-                            @else
-                            <span class='text-danger'>Заказ в ожидании</span>
-                            @endif
+                            <span class='text-warning'>{{ $orders->work->title }}</span>
                         </h3>
                     </div>
                     <!-- /.card-header -->

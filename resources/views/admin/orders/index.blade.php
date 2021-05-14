@@ -64,7 +64,7 @@
                                     <th>Тип</th>
                                     <th>Когда начинать</th>
                                     <th>Кто заказал</th>
-                                    <th>Кто работает</th>
+                                    <!-- <th>Кто работает</th> -->
                                     <th>Статус</th>
                                     <th>Actions</th>
                                 </tr>
@@ -76,7 +76,7 @@
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->start }}</td>
                                     <td>{{ $item->client->name }}</td>
-                                    <td>{{ $item->user->name }}</td>
+                                    <!-- <td>{{-- $item->user->name --}}</td> -->
                                     <td>{{ $item->work->title }}</td>
                                     <td>
                                         <a href="{{ route('orders.edit',['order'=>$item->id]) }}" class="btn btn-info btn-sm float-left mr-1">
@@ -108,7 +108,7 @@
                                     <th>Тип</th>
                                     <th>Когда начинать</th>
                                     <th>Кто заказал</th>
-                                    <th>Кто работает</th>
+                                    <!-- <th>Кто работает</th> -->
                                     <th>Статус</th>
                                     <th>Actions</th>
                                 </tr>

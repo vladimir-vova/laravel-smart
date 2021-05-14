@@ -14,7 +14,7 @@
 <body class="register-page" style="min-height: 570.8px;">
     <div class="register-box">
         <div class="register-logo">
-            <b>Admin</b>
+            <b>Регистрация</b>
         </div>
 
         <div class="card">

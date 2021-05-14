@@ -14,7 +14,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <b>Admin</b>
+            <b>Авторизация</b>
         </div>
         <!-- /.login-logo -->
         <div class="card">

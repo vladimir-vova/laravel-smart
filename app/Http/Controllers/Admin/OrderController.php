@@ -64,7 +64,7 @@ class OrderController extends Controller
         $data = $request->all();
 
         $data['client_id'] = Auth::user()->id;
-        $data['user_id'] = Status::where('title', 'администратор')->first()->users[0]->id;
+        // $data['user_id'] = Status::where('title', 'администратор')->first()->users[0]->id;
 
         Order::create($data);
 

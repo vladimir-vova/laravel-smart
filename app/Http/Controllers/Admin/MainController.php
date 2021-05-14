@@ -27,7 +27,7 @@ class MainController extends Controller
     public function profileData(Request $request){
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
         ]);
 
         $user = User::find(Auth::user()->id);

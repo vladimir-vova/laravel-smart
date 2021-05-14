@@ -13,7 +13,7 @@
 <body class="login-page" style="min-height: 332.8px;">
     <div class="login-box">
         <div class="login-logo">
-            <b>Admin</b>
+            <b>Забыл пароль</b>
         </div>
         <!-- /.login-logo -->
         <div class="card">
