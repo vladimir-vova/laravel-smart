@@ -1,5 +1,6 @@
 * {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+    font-family: 'Circ', Arial, sans-serif;
     color: gray;
     margin: 0;
     padding: 0;
@@ -28,7 +29,6 @@ a {
 /* MENU */
 
 .menu {
-    color: white;
     margin: 0;
     padding: 0;
     background: #fff;
@@ -51,10 +51,11 @@ a {
 }
 
 .menu>.row>.col:nth-child(1) {
-    color: white;
     font-size: 25px;
     font-weight: bold;
+    color: #202020;
     text-align: center;
+    font-family: 'Circ', Arial, sans-serif;
 }
 
 .menu>.row>.col:nth-child(3) {
@@ -74,22 +75,22 @@ a {
 }
 
 .menu a:hover {
-    border-bottom: 1px solid #584fc2;
-    color: #584fc2;
+    border-bottom: 1px solid #ffea00;
+    color: #ffea00;
 }
 
 
 /* HEADER */
 
 .header {
-    background: #584fc2;
+    background: #ffea00;
     background-size: cover;
     display: flex;
     /* flex-direction: column;
     justify-content: center; */
     align-items: center;
     height: 500px;
-    color: white;
+    color: #202020;
 }
 
 .header_name {
@@ -102,16 +103,19 @@ a {
 
 .header_name h2 {
     font-size: 2.5rem;
+    font-family: 'Circ', Arial, sans-serif;
+    font-weight: 700;
 }
 
 .header_name p {
     font-size: 1rem;
     line-height: 1.5;
+    font-family: 'Circ', Arial, sans-serif;
 }
 
 .header_name h2,
 .header_name p {
-    color: white;
+    color: #202020;
     /* text-align: center; */
 }
 
@@ -131,8 +135,10 @@ a {
 }
 
 .header_name p span {
-    color: white;
-    border-bottom: 1px solid white;
+    color: #202020;
+    border-bottom: 1px solid #202020;
+    font-family: 'Circ', Arial, sans-serif;
+    font-weight: 600;
 }
 
 
@@ -168,7 +174,7 @@ a {
 /* PARTt */
 
 .partt {
-    margin: 100px 0;
+    margin-bottom: 100px;
 }
 
 .partt,
@@ -180,12 +186,6 @@ a {
 .part_names {
     text-align: center;
     margin-bottom: 50px;
-}
-
-.part_names h5 {
-    color: #584fc2;
-    font-size: 16px;
-    font-weight: bold;
 }
 
 .part_names h2 {
@@ -203,24 +203,21 @@ a {
     width: 300px;
     display: flex;
     flex-direction: column;
+    border: 5px solid #ffea00;
     align-items: center;
-    background: #584fc2;
     padding: 50px 20px 37px 20px;
-    /* padding-bottom: 37px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 50px; */
     transition-duration: 0.5s;
     border-radius: 5px;
 }
 
 .part:hover {
-    background: #1200b1;
+    background: #ffea00;
 }
 
 .number {
     background-color: white;
-    color: #1200b1;
+    color: #202020;
+    border: 5px solid #ffea00;
     width: 200px;
     height: 200px;
     padding-top: 15px;
@@ -234,7 +231,7 @@ a {
 }
 
 .part_name {
-    color: white;
+    color: #202020;
     font-family: Montserrat;
     font-size: 20px;
     font-weight: 700;
@@ -243,7 +240,7 @@ a {
 }
 
 .part_info {
-    color: white;
+    color: #202020;
     font-family: Roboto, sans-serif;
     font-size: 16px;
     font-weight: 400;
@@ -263,18 +260,17 @@ a {
     flex-direction: column;
     text-align: left;
     width: 350px;
-    background-color: #584fc2;
+    background-color: #ececf1;
     padding: 20px 10px;
+    color: #202020;
 }
 
 .otzs h4 {
-    color: white;
     font-weight: bold;
 }
 
 .otzs p {
     margin-top: 20px;
-    color: white;
     display: block;
     font-family: Roboto, sans-serif;
     font-size: 15px;
@@ -296,8 +292,8 @@ a {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: #584fc2;
-    border: 2px solid #584fc2;
+    background: #ffea00;
+    border: 2px solid #ffea00;
     margin: 10px;
 }
 
@@ -311,47 +307,27 @@ a {
 }
 
 
-/* .spacibo div {
-    font-size: 25px;
-    color: #fff;
-    font-weight: 700;
-}
-
-.spacibo button {
-    margin: 0 auto;
-    width: 275px;
-    height: 50px;
-    background: none;
-    border: 2px solid red;
-    margin-top: 50px;
-}
-
-.spacibo button a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-} */
-
-
 /* PRICE */
 
 .price {
-    margin-top: 150px;
+    /* margin-top: 150px; */
+    background-color: #ffea00;
+    padding: 50px 0;
 }
 
-.text-price h2 {
-    text-align: left;
-    color: #004FAA;
-    margin: 20px 0;
+.price h2 {
+    color: #202020;
+    font-size: 72px;
+    font-weight: bold;
+    margin-bottom: 50px;
 }
 
-.text-price p {
-    text-align: left;
-    color: #004FAA;
-}
-
-.register {
-    margin-top: 50px;
+.price .tn-span {
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #000;
+    margin-bottom: 50px;
 }
 
 
@@ -367,10 +343,10 @@ a {
 .footer {
     display: flex;
     justify-content: space-between;
-    margin-top: 150px;
-    margin-bottom: 30px;
+    margin-top: 50px;
+    /* margin-bottom: 30px; */
 }
 
 .footer a {
-    color: #004FAA;
+    color: #ffea00;
 }

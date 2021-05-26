@@ -27,8 +27,8 @@ class StatusController extends Controller
      */
     public function create()
     {
-        return redirect()->route('status.index')->with('success', 'Данная функция временно не доступена');
-        // return view('admin.status.create');
+        // return redirect()->route('status.index')->with('success', 'Данная функция временно не доступена');
+        return view('admin.status.create');
     }
 
     /**
@@ -39,15 +39,15 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'title' => 'required',
-        // ]);
+        $request->validate([
+            'title' => 'required',
+        ]);
 
-        // Status::create([
-        //     'title' => $request->title,
-        // ]);
+        Status::create([
+            'title' => $request->title,
+        ]);
 
-        // session()->flash('success', 'Статус создан');
+        session()->flash('success', 'Статус создан');
         return redirect()->route('status.index');
     }
 
@@ -102,12 +102,25 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
-        // $status = Status::find($id);
-        // if($status->users->count() == 0){
-        //     $status->delete();
-        //     return redirect()->route('status.index')->with('success', 'Статус удален');
-        // } 
-        // return redirect()->route('users.index')->with('error', 'Статус занят');
+        $status = Status::find($id);
+        if($status->users->count() == 0){
+            $status->delete();
+            return redirect()->route('status.index')->with('success', 'Статус удален');
+        } 
+        return redirect()->route('users.index')->with('error', 'Статус занят');
         return redirect()->route('status.index')->with('error', 'Удаление временно недоступно');
+    }
+
+    public function add(){
+        $status = ['Администратор', 'Координатор проекта', 'Проектировщик', 'Дизайнер', 'Front-end разработчик', 'Back-end разработчик', 'SEO-специалист'];
+        
+        foreach($status as $item){
+            Status::create([
+                'title' => $item,
+            ]);
+        }
+
+        session()->flash('success', 'Статусы добавлены');
+        return redirect()->route('status.index');
     }
 }

@@ -107,4 +107,21 @@ class TypeController extends Controller
         // return redirect()->route('users.index')->with('error', 'Статус занят');
         return redirect()->route('types.index')->with('error', 'Удаление временно недоступно');
     }
+
+    public function add()
+    {
+        $type = [
+            'заказ',
+            'задача',
+            'другие',
+        ];
+        foreach ($type as $item) {
+            Type::create([
+                'title' => $item,
+            ]);
+        }
+
+        session()->flash('success', 'Типы добавлены');
+        return redirect()->route('types.index');
+    }
 }

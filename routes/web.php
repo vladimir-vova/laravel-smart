@@ -34,7 +34,8 @@ Route::get('/medic', [MainController::class, 'medic'])->name('medic');
 // Tort
 Route::get('/tort', [MainController::class, 'tort'])->name('tort');
 Route::get('/tort/svyas', [MainController::class, 'svyas'])->name('tort.svyas');
-
+// Remont
+Route::get('/remont', [MainController::class, 'remont'])->name('remont');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/orders', [MainController::class, 'orders'])->name('orders.quit');
@@ -49,8 +50,8 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/login', [UserController::class, 'login'])->name('login');
 
     // изменение пароля
-    // Route::get('/password', [UserController::class, 'passwordForm'])->name('password.create');
-    // Route::put('/password', [UserController::class, 'password'])->name('password');
+    Route::get('/password', [UserController::class, 'passwordForm'])->name('password.create');
+    Route::put('/password', [UserController::class, 'password'])->name('password');
 });
 // Route::get('/admin', [AdminMainController::class, 'index'])->name('admin.index');
 // Route::get('/admin/logout', [UserController::class, 'logout'])->name('logout');
@@ -58,10 +59,6 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function () {
     Route::get('/', [AdminMainController::class, 'index'])->name('admin.index');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-
-    // contact
-    Route::get('/contact', [AdminMainController::class, 'contactForm'])->name('contact.create');
-    Route::post('/contact', [AdminMainController::class, 'contact'])->name('contact');
 
     // note
     Route::get('/note', [AdminMainController::class, 'note'])->name('note.index');
@@ -95,12 +92,6 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/works/{way}/{name}/{step}', [AdminMainController::class, 'step'])->name('works.step');
 
-    // message
-    Route::get('/message', [AdminMainController::class, 'message'])->name('message.index');
-    Route::get('/message/{message}', [AdminMainController::class, 'messageShow'])->name('message.show');
-    Route::delete('/message/{message}', [AdminMainController::class, 'messageDestroys'])->name('message.destroys');
-    Route::post('/message/destroy', [AdminMainController::class, 'messageDestroy'])->name('message.destroy');
-
     // c ресурсами
     Route::get('/closetasks', [TaskController::class, 'showClose'])->name('tasks.closetasks');
 
@@ -109,15 +100,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/search/users', [SearchController::class, 'users'])->name('search.users');
     Route::get('/search/taskclose', [SearchController::class, 'taskclose'])->name('search.taskclose');
 
+    // типы и статусы для добаления старых
+    Route::get('/status/add', [StatusController::class, 'add'])->name('add.status');
+    Route::get('/works/add', [WorkController::class, 'add'])->name('add.works');
+    Route::get('/types/add', [TypeController::class, 'add'])->name('add.types');
+
+    // ресурсы
     Route::resource('/users', AdminUserController::class);
     Route::resource('/status', StatusController::class);
     Route::resource('/works', WorkController::class);
     Route::resource('/types', TypeController::class);
-    // Route::resource('/tasks', TaskController::class);
-    // Route::resource('/categories', CategoryController::class);
-    // Route::resource('/tags', TagController::class);
-    // Route::resource('/posts', PostController::class);
 });
-
-
-// Route::post('/', [MainController::class, 'store'])->name('create.users');

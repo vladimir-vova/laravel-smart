@@ -36,9 +36,9 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        @if (count($status))
                         <a href="{{ route('status.create') }}" class="btn btn-primary mb-3">Добавить
                             статус</a>
-                        @if (count($status))
                         <div class="table-responsive">
                             <table id="example1" class="table table-bordered table-hover text-nowrap">
                                 <thead>
@@ -61,9 +61,9 @@
                                             <form action="{{ route('status.destroy',['status'=>$item->id]) }}" method="post" class="float-left">
                                                 @csrf
                                                 @method('DELETE')
-                                                <!-- <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
                                                     <i class="fas fa-trash-alt"></i>
-                                                </button> -->
+                                                </button>
                                             </form>
                                         </td>
                                     </tr>
@@ -73,6 +73,7 @@
                         </div>
                         @else
                         <p>Статусов пока нет...</p>
+                        <a href="{{ route('add.status') }}">Добавить старые</a>
                         @endif
                     </div>
                     <!-- /.card-body -->

@@ -9,25 +9,25 @@ class Order extends Model
 {
     use HasFactory;
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function client()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function work()
-    {
-        return $this->belongsTo(Work::class);
-    }
-
-    // public function task()
+    // public function user()
     // {
-    //     return $this->belongsTo(Task::class);
+    //     return $this->belongsTo(User::class);
     // }
+
+    // public function client()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
+
+    // public function work()
+    // {
+    //     return $this->belongsTo(Work::class);
+    // }
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
 
     protected $fillable = [
         'condition',

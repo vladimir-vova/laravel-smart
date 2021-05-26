@@ -57,14 +57,12 @@
                         <a href="{{ route('orders.create') }}" class="btn btn-primary mb-3">Добавить
                             заказ</a>
                         @if (count($orders))
-                        <table @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3) id="example1" @endif class="table table-bordered table-striped">
+                        <table @if(Auth::user()->status_id == 1) id="example1" @endif class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Тип</th>
                                     <th>Когда начинать</th>
-                                    <th>Кто заказал</th>
-                                    <!-- <th>Кто работает</th> -->
                                     <th>Статус</th>
                                     <th>Actions</th>
                                 </tr>
@@ -75,9 +73,6 @@
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->start }}</td>
-                                    <td>{{ $item->client->name }}</td>
-                                    <!-- <td>{{-- $item->user->name --}}</td> -->
-                                    <td>{{ $item->work->title }}</td>
                                     <td>
                                         <a href="{{ route('orders.edit',['order'=>$item->id]) }}" class="btn btn-info btn-sm float-left mr-1">
                                             <i class="fas fa-pencil-alt"></i>
@@ -107,8 +102,6 @@
                                     <th>#</th>
                                     <th>Тип</th>
                                     <th>Когда начинать</th>
-                                    <th>Кто заказал</th>
-                                    <!-- <th>Кто работает</th> -->
                                     <th>Статус</th>
                                     <th>Actions</th>
                                 </tr>

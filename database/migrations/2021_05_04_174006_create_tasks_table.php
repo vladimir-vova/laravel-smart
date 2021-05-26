@@ -21,7 +21,7 @@ class CreateTasksTable extends Migration
             $table->integer('order_id');
             $table->string('step');
             $table->timestamps();
-            $table->tinyInteger('user_id'); // кто работает(админ либо зам. админ)
+            $table->tinyInteger('user_id'); // кто работает(админ)
             $table->tinyInteger('open')->default(1);
         });
     }

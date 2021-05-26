@@ -14,7 +14,7 @@ class AddTableUsersIdadmin extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('status_id')->default(1);
+            $table->tinyInteger('status_id')->default(4);
             $table->tinyInteger('password_id')->default(0);
         });
     }

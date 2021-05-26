@@ -63,7 +63,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ])) {
-        session()->flash('success', 'You are logged');
+        session()->flash('success', 'Вы авторизовались');
         return redirect()->route('admin.index');
         // if (Auth::user()->is_admin) {
         //     return redirect()->route('admin.index');
@@ -75,24 +75,24 @@ class UserController extends Controller
         return redirect()->back()->with('error', 'Incorrect login or password');
     }
 
-    // public function passwordForm(){
-    //     return view('user.password');
-    // }
+    public function passwordForm(){
+        return view('user.password');
+    }
 
-    // public function password(Request $request){
-    //     $request->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required|min:6|confirmed',
-    //     ]);
-    //     if(User::where('email', $request->email)->count()==1){
-    //         User::where('email', $request->email)->update([
-    //             'password' => bcrypt($request->password),
-    //             'password_id' => 1,
-    //         ]);
-    //         return redirect()->route('login.create')->with('success', 'Пароль изменен');
-    //     }
-    //     return redirect()->route('login.create')->with('error', 'Такого email не существует');
-    // }
+    public function password(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+        if(User::where('email', $request->email)->count()==1){
+            User::where('email', $request->email)->update([
+                'password' => bcrypt($request->password),
+                'password_id' => 1,
+            ]);
+            return redirect()->route('login.create')->with('success', 'Пароль изменен');
+        }
+        return redirect()->route('password.create')->with('error', 'Такой email не существует');
+    }
 
     public function logout()
     {

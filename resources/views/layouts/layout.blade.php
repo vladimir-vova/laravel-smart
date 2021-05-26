@@ -20,7 +20,7 @@
     @section('header')
     <div class="menu container-fluid position-relative">
         <div class="row position-fixed">
-            <div class="col-xl-3 col"><a href="{{ route('index') }}">Future&CO</a></div>
+            <div class="col-xl-3 col">Future&CO</div>
             <div class="col"></div>
             <div class="col-xl-7 col">
                 <ul>

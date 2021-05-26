@@ -17,7 +17,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && (Auth::user()->status_id == 2 || Auth::user()->status_id == 3)) {
+        if (Auth::check() && Auth::user()->status_id == 1) {
             return $next($request);
         }
         abort(404);

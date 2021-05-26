@@ -27,7 +27,7 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ $task->work->title }}</h3>
                         <div class="card-tools">
-                            @if($task->user_id == Auth::user()->id || Auth::user()->status_id==2 || Auth::user()->status_id==3 || Auth::user()->status_id==4)
+                            @if($task->user_id == Auth::user()->id || Auth::user()->status_id==1 || Auth::user()->status_id==2)
                             <a href="{{ route('tasks.edit',['task'=>$task->id]) }}" class="btn btn-tool">
                                 <i class="fas fa-pen text-dark"></i>
                             </a>

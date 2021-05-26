@@ -37,10 +37,7 @@
                     <a href="{{ route('profile.index') }}" class="nav-link">Profile</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('contact.create') }}" class="nav-link">Contact</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('logout') }}" class="nav-link">Выход</a>
+                    <a href="{{ route('logout') }}" class="nav-link">Выйти</a>
                 </li>
             </ul>
 
@@ -136,18 +133,7 @@
                                 <p>Главная</p>
                             </a>
                         </li>
-                        @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3 || Auth::user()->status_id == 4)
-                        <li class="nav-item">
-                            <a href="{{ route('message.index') }}" class="nav-link">
-                                <i class="nav-icon fa fa-envelope"></i>
-                                <p>
-                                    Сообщения
-                                    <span class="badge badge-info right">{{ $message }}</span>
-                                </p>
-                            </a>
-                        </li>
-                        @endif
-                        @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
+                        @if(Auth::user()->status_id == 1)
                         <li class="nav-item has-treeview border-top">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-check-square"></i>
@@ -219,9 +205,8 @@
                                 </li>
                             </ul>
                         </li>
-
                         @endif
-
+                        @if(Auth::user()->status_id == 1 || Auth::user()->status_id == 2)
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-archive"></i>
@@ -251,7 +236,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @if(auth()->user()->status_id != 1)
+                        @endif
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-columns"></i>
@@ -281,8 +266,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @endif
-                        @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
+                        @if(Auth::user()->status_id == 1)
                         <li class="nav-item has-treeview border-top">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-check-square"></i>
@@ -316,77 +300,6 @@
                                 </p>
                             </a>
                         </li>
-                        <!-- <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-archive"></i>
-                                <p>
-                                    Категории
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Список категорий</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Новая категория</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> -->
-
-                        <!-- <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tags"></i>
-                                <p>
-                                    Теги
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Список тегов</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Новый тег</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> -->
-
-                        <!-- <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>
-                                    Статьи
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Список статей</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Новая статья</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> -->
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

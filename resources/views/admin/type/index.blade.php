@@ -36,9 +36,9 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        @if (count($type))
                         <a href="{{ route('types.create') }}" class="btn btn-primary mb-3">Добавить
                             тип</a>
-                        @if (count($type))
                         <div class="table-responsive">
                             <table id="example1" class="table table-bordered table-hover text-nowrap">
                                 <thead>
@@ -73,6 +73,7 @@
                         </div>
                         @else
                         <p>Статусов пока нет...</p>
+                        <a href="{{ route('add.types') }}">Добавить старые</a>
                         @endif
                     </div>
                     <!-- /.card-body -->

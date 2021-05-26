@@ -72,7 +72,7 @@
                                 <label for="description">Сообщение</label>
                                 <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="5" placeholder="Сообщение...">{{ $orders->description }}</textarea>
                             </div>
-                            @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
+                            @if(Auth::user()->status_id == 1)
                             <div class="form-group">
                                 <label for="work_id">Статус проекта</label>
                                 <select class="form-control @error('work_id') is-invalid @enderror" id="work_id" name="work_id">

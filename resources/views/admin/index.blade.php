@@ -34,13 +34,7 @@
             </div>
         </div>
         <div class="card-body">
-            @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
             Start creating your amazing application!
-            @else
-            <a href="{{ route('orders.create') }}" class="btn btn-primary mb-3">
-                Сделать заказ
-            </a>
-            @endif
         </div>
         <!-- /.card-body -->
         <!-- <div class="card-footer">

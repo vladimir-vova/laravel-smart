@@ -17,8 +17,9 @@
         </div>
         <!-- /.login-logo -->
         <div class="card">
+            @include('layouts.errors')
             <div class="card-body login-card-body">
-                <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
+                <!-- <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p> -->
 
                 <form action="{{ route('password') }}" method="post">
                     @csrf
@@ -56,11 +57,11 @@
                 </form>
 
                 <p class="mt-3 mb-1">
-                    <a href="{{ route('login.create') }}">Login</a>
+                    <a href="{{ route('login.create') }}">Авторизоваться</a>
                 </p>
-                <p class="mb-0">
-                    <a href="{{ route('create') }}" class="text-center">Register a new membership</a>
-                </p>
+                <!-- <p class="mb-0">
+                    <a href="{{-- route('create') --}}" class="text-center">Register a new membership</a>
+                </p> -->
             </div>
             <!-- /.login-card-body -->
         </div>

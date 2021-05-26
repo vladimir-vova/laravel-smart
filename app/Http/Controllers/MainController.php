@@ -33,6 +33,12 @@ class MainController extends Controller
         return view('websites.tort.svyaz');
     }
 
+    // remont
+    public function remont()
+    {
+        return view('websites.remont');
+    }
+
     public function orders()
     {
         return view('contact');

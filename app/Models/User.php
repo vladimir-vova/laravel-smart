@@ -16,10 +16,10 @@ class User extends Authenticatable
         return $this->belongsTo(Status::class);
     }
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
+    // public function orders()
+    // {
+    //     return $this->hasMany(Order::class);
+    // }
 
     public function task()
     {

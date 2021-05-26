@@ -47,13 +47,13 @@ kanban
             <div class="card-body text-dark">
                 @foreach($tasks as $task)
                 @if($task->work_id == $item->id &&
-                (Auth::user()->status_id == 2 || Auth::user()->status_id == 3 || Auth::user()->status_id == 4 || in_array(Auth::user()->id, $task->user->pluck('id')->all())))
+                (Auth::user()->status_id == 1 || Auth::user()->status_id == 2 || in_array(Auth::user()->id, $task->user->pluck('id')->all())))
                 <div class="card card-info card-outline">
                     <div class="card-header">
                         <h5 class="card-title"><a href="{{ route('tasks.show',['task'=>$task->id]) }}">{{ $task->name }}</a></h5>
                                 <div class="card-tools">
                                     <a href="{{ route('tasks.show',['task'=>$task->id]) }}" class="btn btn-tool btn-link text-dark">#{{ $task->id }}</a>
-                                    @if($task->user_id == Auth::user()->id || Auth::user()->status_id==2 || Auth::user()->status_id==3 || Auth::user()->status_id==4)
+                                    @if($task->user_id == Auth::user()->id || Auth::user()->status_id==1 || Auth::user()->status_id==2)
                                     <a href="{{ route('tasks.edit',['task'=>$task->id]) }}" class="btn btn-tool">
                                         <i class="fas fa-pen text-dark"></i>
                                     </a>

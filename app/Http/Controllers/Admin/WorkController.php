@@ -127,15 +127,35 @@ class WorkController extends Controller
     {
         $works = Work::find($id);
 
-        if ($works->orders->count() == 0) {
-            if ($works->step != Work::all()->count()) {
-                for ($i = $works->step; $i < Work::all()->count(); $i++) {
-                    Work::where('step', $i + 1)->update(['step' => $i]);
-                }
+        if ($works->step != Work::all()->count()) {
+            for ($i = $works->step; $i < Work::all()->count(); $i++) {
+                Work::where('step', $i + 1)->update(['step' => $i]);
             }
-            $works->delete();
-            return redirect()->route('works.index')->with('error', 'Статус удален');
         }
-        return redirect()->route('orders.index')->with('error', 'Статус занят');
+        $works->delete();
+        return redirect()->route('works.index')->with('error', 'Статус удален');
+    }
+
+    public function add()
+    {
+        $work = [
+            'bg-warning'=> 'В ожидании',
+            'bg-primary'=> 'В работе',
+            'bg-info'=> 'Code review',
+            'bg-secondary'=> 'Корректировки',
+            'bg-danger' => 'Тестирование',
+            'bg-success' => 'На проверке',
+        ];
+        foreach ($work as $k=>$v) {
+            $step = Work::all()->count() + 1;
+            Work::create([
+                'title' => $v,
+                'step' => $step,
+                'color' => $k,
+            ]);
+        }
+
+        session()->flash('success', 'Статусы добавлены');
+        return redirect()->route('works.index');
     }
 }
