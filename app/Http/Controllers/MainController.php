@@ -16,6 +16,23 @@ class MainController extends Controller
         return view('index');
     }
 
+    // medic
+    public function medic()
+    {
+        return view('websites.medic');
+    }
+
+    // tort
+    public function tort()
+    {
+        return view('websites.tort.tort');
+    }
+
+    public function svyas()
+    {
+        return view('websites.tort.svyaz');
+    }
+
     public function orders()
     {
         return view('contact');

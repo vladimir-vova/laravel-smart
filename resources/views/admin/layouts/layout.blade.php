@@ -45,7 +45,7 @@
             </ul>
 
             <!-- SEARCH FORM -->
-            <form class="form-inline ml-3">
+            <!-- <form class="form-inline ml-3">
                 <div class="input-group input-group-sm">
                     <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                     <div class="input-group-append">
@@ -54,7 +54,7 @@
                         </button>
                     </div>
                 </div>
-            </form>
+            </form> -->
 
             <!-- Right navbar links -->
             @if($count_note)
@@ -67,21 +67,38 @@
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <span class="dropdown-item dropdown-header">{{ $count_note }} Notifications</span>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
+                        @if($message_count)
+                        <a href="{{ route('message.index') }}" class="dropdown-item">
+                            <i class="fas fa-envelope mr-2"></i> {{ $message_count }} сообщений
+                            <!-- <span class="float-right text-muted text-sm">3 mins</span> -->
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
+                        @endif
+                        @if($count_user)
+                        <a href="{{ route('users.index') }}" class="dropdown-item">
+                            <i class="fas fa-users mr-2"></i> {{ $count_user }} новых клентов
+                            <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
+                        @endif
+                        @if($count_zakaz)
+                        <a href="{{ route('orders.index') }}" class="dropdown-item">
+                            <i class="fas fa-archive mr-2"></i> {{ $count_zakaz }} новых заказов
+                            <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
                         </a>
+                        @endif
+                        @if($count_zadaz)
+                        <a href="{{ route('tasks.index') }}" class="dropdown-item">
+                            <i class="fas fa-columns mr-2"></i> {{ $count_zadaz }} новых задач
+                            <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
+                        </a>
+                        @endif
+                        @if($count_druz)
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-check-square mr-2"></i> {{ $count_druz }} других
+                            <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
+                        </a>
+                        @endif
                         <div class="dropdown-divider"></div>
+                        <!-- <div class="dropdown-divider"></div> -->
                         <a href="{{ route('note.index') }}" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
@@ -119,7 +136,7 @@
                                 <p>Главная</p>
                             </a>
                         </li>
-                        @if(auth()->user()->status->title != 'Клиент')
+                        @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3 || Auth::user()->status_id == 4)
                         <li class="nav-item">
                             <a href="{{ route('message.index') }}" class="nav-link">
                                 <i class="nav-icon fa fa-envelope"></i>
@@ -130,7 +147,7 @@
                             </a>
                         </li>
                         @endif
-                        @if(auth()->user()->status->title == 'Администратор' || auth()->user()->status->title == 'Зам. администратора')
+                        @if(Auth::user()->status_id == 2 || Auth::user()->status_id == 3)
                         <li class="nav-item has-treeview border-top">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-check-square"></i>
@@ -234,7 +251,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @if(auth()->user()->status->title != 'Клиент')
+                        @if(auth()->user()->status_id != 1)
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-columns"></i>
@@ -290,7 +307,6 @@
                             </ul>
                         </li>
                         @endif
-                        @if($count_note)
                         <li class="nav-item">
                             <a href="{{ route('note.index') }}" class="nav-link">
                                 <i class="nav-icon fa fa-envelope"></i>
@@ -300,7 +316,6 @@
                                 </p>
                             </a>
                         </li>
-                        @endif
                         <!-- <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-archive"></i>

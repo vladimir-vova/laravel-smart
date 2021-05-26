@@ -2,8 +2,11 @@
 
 @section('style')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+<!-- <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script> -->
+<!-- <script src="{{ asset('assets/js/ajax.js') }}"></script> -->
 
 @endsection
 
@@ -69,45 +72,27 @@
                         @if (count($note))
                         <ul class="todo-list" data-widget="todo-list">
                             @foreach($note as $item)
-                            <li>
+                            <li id='note{{ $item->id }}'>
                                 <!-- drag handle -->
                                 <span class="handle">
                                     <i class="fas fa-ellipsis-v"></i>
                                     <i class="fas fa-ellipsis-v"></i>
                                 </span>
-                                <!-- checkbox -->
-                                <!-- <div class="icheck-primary d-inline ml-2">
-                                    <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                                    <label for="todoCheck1"></label>
-                                </div> -->
                                 <!-- todo text -->
-                                <span class="text text-success @if($item->open == 1) text-danger @endif">{{ $item->name }}</span>
+
+                                <span class="text @if($item->open == 2) text-success @else text-danger @endif">{{ $item->name }}</span>
                                 <!-- Emphasis label -->
-                                <small class="badge badge-success @if($item->open == 1) badge-danger @endif"><i class="far fa-clock"></i>
+                                <small class="badge @if($item->open == 2) badge-success @else badge-danger @endif"><i class="far fa-clock"></i>
                                     {{ $item->getPostDate('created_at') }}
                                 </small>
                                 <!-- General tools such as edit or delete-->
-                                @if($item->open == 1)
                                 <div class="tools">
-                                    <form id="contactform" method="POST" class="float-left">
-                                        @csrf
-                                        <div id="sendmessage" style="display: none;">
-                                            Сообщение удалено
-                                        </div>
-                                        <div id="senderror" style="display: none;">
-                                            Сообщение не удалено
-                                        </div>
-                                        <input type="hidden" name="id" id="id" value="{{ $item->id }}">
-                                        <button type="submit" class="btn btn-warning text-white btn-sm">
-                                            <!-- <i class="fas fa-edit"></i> -->
-                                            Отметить
-                                            <!-- fa-unlock-alt -->
-                                        </button>
-                                    </form>
-                                    <!-- <i class="fas fa-edit"></i> -->
-                                    <!-- <i class="fas fa-trash-o"></i> -->
+                                    @if($item->open == 2)
+                                    <button type="submit" class="btn btn-danger text-white btn-sm deleteProduct" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}">Удалить</button>
+                                    @else
+                                    <button type="submit" class="btn btn-warning text-white btn-sm updateProduct" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}">Отметить</button>
+                                    @endif
                                 </div>
-                                @endif
                             </li>
                             @endforeach
                         </ul>
@@ -132,8 +117,9 @@
 
 @section('script')
 
-<!-- <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{ asset('assets/js/ajax.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
+
 <!-- <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script> -->
@@ -141,23 +127,52 @@
 
 <script>
     $(document).ready(function() {
-        $('#contactform').on('submit', function(e) {
-            e.preventDefault();
+
+        $(".updateProduct").click(function(event) {
+            var id = $(this).data('id');
+            var token = $(this).data('token');
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             $.ajax({
-                type: 'POST',
                 url: "{{ route('note.update') }}",
-                data: $('#contactform').serialize(),
-                success: function() {
+                type: 'post',
+                dataType: "JSON",
+                data: {
+                    "id": id
+                },
+                success: function(response) {
                     location.reload();
-                    // console.log(result);
+                    console.log(response);
                 }
             });
         });
+
+        $(".deleteProduct").click(function(event) {
+            var id = $(this).data('id');
+            var token = $(this).data('token');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('note.delete') }}",
+                // url: '/admin/note/update/' + id,
+                type: 'post',
+                dataType: "JSON",
+                data: {
+                    "id": id
+                },
+                success: function() {
+                    $("#note" + id).hide(500);
+                }
+            });
+            return false;
+        });
+
     });
 </script>
 

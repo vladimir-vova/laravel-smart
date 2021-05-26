@@ -25,15 +25,15 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-body row">
-            <div class="col-4 text-center d-flex align-items-center justify-content-center">
+            <!-- <div class="col-4 text-center d-flex align-items-center justify-content-center">
                 <div class="">
                     <h2>Admin</h2>
                     <p class="lead mb-5">123 Testing Ave, Testtown, 9876 NA<br>
                         Phone: +1 234 56789012
                     </p>
                 </div>
-            </div>
-            <div class="col-8">
+            </div> -->
+            <div class="col-12">
                 <form action="{{ route('contact') }}" method="POST">
                     @csrf
                     <div class="card-body">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
 
-                    <div class="card-footer">
+                    <div class="card-footer bg-white">
                         <input type="submit" class="btn btn-primary" value="Send message">
                     </div>
                 </form>

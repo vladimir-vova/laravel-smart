@@ -1,0 +1,146 @@
+.lp-form-5 {
+	padding: 48px 0 0;
+	position: relative;
+}
+
+.lp-form-5._is-cms {
+	padding: 48px 0;
+}
+
+.lp-form-5__inner {
+	margin: 0 auto;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.lp-form-5__form-wrappper {
+	padding: 32px 16px 16px;
+	background: #fff;
+}
+
+.lp-form-5__close {
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 8px;
+	cursor: pointer;
+	width: 32px;
+	height: 32px;
+}
+
+.lp-form-5__close ._close-line {
+	width: 2px;
+	height: 20px;
+	background: #fff;
+	position: absolute;
+	left: 15px;
+	top: 6px;
+	display: block;
+	border-radius: 2px;
+}
+
+.lp-form-5__close ._close-line:first-child {transform: rotate(45deg)}
+.lp-form-5__close ._close-line:last-child {transform: rotate(-45deg)}
+
+.lp-form-5__close path {fill: #fff;}
+
+.lp-form-5__title-wrapper {
+	text-align: center;
+	padding-bottom: 24px;
+}
+
+.lp-form-5__title, .lp-form-5__subtitle {
+	margin: 0;
+	padding: 0;
+}
+
+.lp-form-5__title + .lp-form-5__subtitle {
+	padding-top: 8px;
+}
+
+.lp-form-5 .lp-form-tpl__button-wrapper {
+	text-align: center;
+}
+
+.lp-form-5 .lp-form-tpl__button {
+	width: 100%;
+}
+
+.lp-form-5 .lp-form-tpl__button .lp-button__text {
+	min-width: 178px;
+}
+
+.lp-form-5__image {
+	height: 160px;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+.lp-form-5__image img {
+	width: 100% !important;
+	height: 100% !important;
+	min-width: 0px !important;
+	min-height: 0px !important;
+	object-fit: cover;
+	position: absolute;
+}
+
+@media all and (min-width: 600px) {
+	.lp-form-5__inner {
+		width: 576px;
+	}
+	
+	.lp-form-5__form-wrappper {
+		padding: 32px;
+	}
+	
+	.lp-form-5 .lp-form-tpl__button {
+		width: auto;
+	}
+	
+	.lp-form-5__title-wrapper {
+		padding-bottom: 32px;
+	}
+	
+	.lp-form-5__image {
+		height: 288px;
+	}
+}
+
+@media all and (min-width: 960px) {
+	.lp-form-5__inner {
+		width: 848px;
+	}
+	
+	.lp-form-5__image {
+		width: 408px !important;
+		flex: none;
+		height: auto;
+	}
+	
+	.lp-form-5__image._lp-max-width {
+		max-width: 408px;
+	}
+	
+	.lp-form-5__inner {
+		display: flex;
+	}
+	
+	.lp-form-5__title-wrapper {
+		text-align: left;
+	}
+	
+	.lp-form-5 .lp-form-tpl__button-wrapper {text-align: left;}
+	
+	.lp-form-5__form-wrappper {
+		padding: 32px 32px 32px 28px;
+	}
+}
+
+@media all and (min-width: 1200px) {
+	.lp-form-5__form-wrappper {
+		padding: 32px;
+	}
+}

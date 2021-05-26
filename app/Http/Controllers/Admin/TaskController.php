@@ -188,7 +188,15 @@ class TaskController extends Controller
 
     public function rules(){
         return view('admin.tasks.rules');
+    }
 
+    public function updateToClose($id)
+    {
+        Task::where('id',$id)->update([
+            'open' => 2,
+        ]);
+        $tasks = Task::where('open', '=', 2)->where('user_id', '=', Auth::user()->id)->paginate(15);
+        return view('admin.tasks.showClose', compact('tasks'));
     }
 
     /**

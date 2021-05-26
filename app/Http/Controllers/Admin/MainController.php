@@ -117,9 +117,21 @@ class MainController extends Controller
         return view('admin.views.contact.show', compact('message'));
     }
 
-    public function messageDestroy($message){
-        DB::table('message')->where('id', '=', $message)->delete();
+    // public function messageDestroy($message){
+    //     DB::table('message')->where('id', '=', $message)->delete();
+    //     return redirect()->route('message.index')->with('error', 'Письмо удалено');
+    // }
+
+    public function messageDestroys(Request $request)
+    {
+        DB::table('message')->where('id', '=', $request->id)->delete();
         return redirect()->route('message.index')->with('error', 'Письмо удалено');
+    }
+
+    public function messageDestroy(Request $request)
+    {
+        DB::table('message')->where('id', '=', $request->id)->delete();
+        return response()->json(['success' => true], 200);
     }
 
     public function note()
@@ -132,7 +144,17 @@ class MainController extends Controller
     {
         session()->flash('success', 'Письмо прочитано');
         Note::where('id', $request->id)->update([
-            'open'=>2,
+            'open' => 2,
         ]);
+        return response()->json(['success' => true], 200);
+    }
+
+    public function noteDelete(Request $request)
+    {
+        // dd($id);
+        // session()->flash('error', 'Письмо удалено'.$request->id);
+        Note::where('id', $request->id)->delete();
+        return response()->json(['success' => true], 200);
+        // session()->flash('error', 'Письмо удалено');
     }
 }

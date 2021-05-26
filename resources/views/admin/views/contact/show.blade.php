@@ -46,7 +46,7 @@
                             </div>
                             <!-- /.card-footer -->
                             <div class="card-footer">
-                                <form action="{{ route('message.destroy',['message'=>$message->id]) }}" method="post" class="float-left">
+                                <form action="{{ route('message.destroys',['message'=>$message->id]) }}" method="post" class="float-left">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-default"><i class="far fa-trash-alt"></i> Delete</button>

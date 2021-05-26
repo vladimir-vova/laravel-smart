@@ -2,6 +2,7 @@
 
 @section('style')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
@@ -66,7 +67,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($messages as $item)
-                                    <tr>
+                                    <tr id="message{{ $item->id }}">
                                         <td><a href="{{ route('message.show', ['message'=>$item->id]) }}">{{ $item->id }}</a></td>
                                         <td><a href="{{ route('message.show', ['message'=>$item->id]) }}">{{ $item->name }}</a></td>
                                         <td><a href="{{ route('message.show', ['message'=>$item->id]) }}">{{ $item->email }}</a></td>
@@ -79,15 +80,17 @@
                                             @endif
                                         </td>
                                         <td>
+                                            <button type="submit" class="btn btn-danger text-white btn-sm deleteProduct" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}">
+                                                <!-- Удалить -->
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
 
-                                            <form action="{{ route('message.destroy',['message'=>$item->id]) }}" method="post" class="float-left">
-                                                @csrf
-                                                @method('DELETE')
+                                            <!-- <form action="{{ route('message.destroy',['message'=>$item->id]) }}" method="post" class="float-left">
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
                                                     <i class="fas fa-trash-alt"></i>
-                                                    <!-- fa-unlock-alt -->
+                                                     fa-unlock-alt
                                                 </button>
-                                            </form>
+                                            </form> -->
                                         </td>
                                     </tr>
                                     @endforeach
@@ -116,6 +119,9 @@
 
 @section('script')
 
+<script src="{{ asset('assets/js/ajax.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
+
 <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
@@ -136,6 +142,54 @@
             "ordering": false,
             "info": true,
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+
+    $(document).ready(function() {
+
+        // $(".updateProduct").click(function(event) {
+        //     var id = $(this).data('id');
+        //     var token = $(this).data('token');
+        //     $.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         }
+        //     });
+        //     $.ajax({
+        //         url: "{{ route('note.update') }}",
+        //         type: 'post',
+        //         dataType: "JSON",
+        //         data: {
+        //             "id": id
+        //         },
+        //         success: function(response) {
+        //             location.reload();
+        //             console.log(response);
+        //         }
+        //     });
+        // });
+
+        $(".deleteProduct").click(function(event) {
+            var id = $(this).data('id');
+            var token = $(this).data('token');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('message.destroy') }}",
+                type: 'post',
+                dataType: "JSON",
+                data: {
+                    "id": id
+                },
+                success: function() {
+                    $("#message" + id).hide(500);
+                }
+            });
+            return false;
+        });
+
     });
 </script>
 

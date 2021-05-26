@@ -29,22 +29,28 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [MainController::class, 'index'])->name('index');
+// Medic
+Route::get('/medic', [MainController::class, 'medic'])->name('medic');
+// Tort
+Route::get('/tort', [MainController::class, 'tort'])->name('tort');
+Route::get('/tort/svyas', [MainController::class, 'svyas'])->name('tort.svyas');
+
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/orders', [MainController::class, 'orders'])->name('orders.quit');
     Route::post('/message/admin', [MainController::class, 'contact'])->name('contact.message');
 
     // регистрация
-    Route::get('/register', [UserController::class, 'create'])->name('create');
-    Route::post('/register', [UserController::class, 'store'])->name('create.users');
+    // Route::get('/register', [UserController::class, 'create'])->name('create');
+    // Route::post('/register', [UserController::class, 'store'])->name('create.users');
 
     // авторизация
     Route::get('/login', [UserController::class, 'loginForm'])->name('login.create');
     Route::post('/login', [UserController::class, 'login'])->name('login');
 
     // изменение пароля
-    Route::get('/password', [UserController::class, 'passwordForm'])->name('password.create');
-    Route::put('/password', [UserController::class, 'password'])->name('password');
+    // Route::get('/password', [UserController::class, 'passwordForm'])->name('password.create');
+    // Route::put('/password', [UserController::class, 'password'])->name('password');
 });
 // Route::get('/admin', [AdminMainController::class, 'index'])->name('admin.index');
 // Route::get('/admin/logout', [UserController::class, 'logout'])->name('logout');
@@ -59,7 +65,8 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
 
     // note
     Route::get('/note', [AdminMainController::class, 'note'])->name('note.index');
-    Route::post('/note', [AdminMainController::class, 'noteUpdate'])->name('note.update');
+    Route::post('/note/update', [AdminMainController::class, 'noteUpdate'])->name('note.update');
+    Route::post('/note/delete', [AdminMainController::class, 'noteDelete'])->name('note.delete');
     // Route::get('/note/{note}', [AdminMainController::class, 'noteUpdate'])->name('note.update');
 
     // Route::get('/message/{message}', [AdminMainController::class, 'messageShow'])->name('message.show');
@@ -74,15 +81,15 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
     Route::get('/search/orders', [SearchController::class, 'orders'])->name('search.orders');
     Route::get('/search/ordersclose', [SearchController::class, 'ordersclose'])->name('search.ordersclose');
 
-    Route::resource('/orders', OrderController::class);
-    Route::resource('/tasks', TaskController::class);
-
     Route::get('/rules', [TaskController::class, 'rules'])->name('rules');;
-    Route::post('/sendmail', [AjaxController::class, 'send'])->name('sendNote');
+    // Route::post('/sendmail', [AjaxController::class, 'send'])->name('sendNote');
     Route::get('/closeorders', [OrderController::class, 'showClose'])->name('orders.closeorders');
     Route::put('/closeorders/{order}', [OrderController::class, 'wayClose'])->name('orders.wayclose');
     Route::put('/openorders/{order}', [OrderController::class, 'wayOpen'])->name('orders.wayopen');
+    Route::put('/updateToClose/{task}', [TaskController::class, 'updateToClose'])->name('updateToClose');
 
+    Route::resource('/orders', OrderController::class);
+    Route::resource('/tasks', TaskController::class);
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
@@ -91,7 +98,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     // message
     Route::get('/message', [AdminMainController::class, 'message'])->name('message.index');
     Route::get('/message/{message}', [AdminMainController::class, 'messageShow'])->name('message.show');
-    Route::delete('/message/{message}', [AdminMainController::class, 'messageDestroy'])->name('message.destroy');
+    Route::delete('/message/{message}', [AdminMainController::class, 'messageDestroys'])->name('message.destroys');
+    Route::post('/message/destroy', [AdminMainController::class, 'messageDestroy'])->name('message.destroy');
 
     // c ресурсами
     Route::get('/closetasks', [TaskController::class, 'showClose'])->name('tasks.closetasks');

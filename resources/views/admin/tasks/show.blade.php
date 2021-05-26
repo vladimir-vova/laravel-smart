@@ -44,6 +44,14 @@
                             <dt>Дата</dt>
                             <dd>{{ $task->getPostDate('created_at') }}-{{ $task->getPostDate('updated_at') }}</dd>
                         </dl>
+                        <form action="{{ route('updateToClose',['task'=>$task->id]) }}" method="post" class="float-left">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Закрыть сделку?')">
+                                <!-- <i class="fas fa-arrow-circle-right"></i> -->
+                                Закрыть
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

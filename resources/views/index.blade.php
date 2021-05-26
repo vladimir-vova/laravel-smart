@@ -23,28 +23,28 @@
     <div class="partt">
         <div class="part_names">
             <h5>ПРОЦЕСС РАБОТЫ</h5>
-            <h2>Этапы работы</h2>
+            <h2>Как мы создаем проект</h2>
         </div>
         <div class="part_data">
             <div class="part">
                 <div class="number">1</div>
                 <div class="part_name">Аналитика</div>
-                <div class="part_info">Погружение в бизнес клиента / Анализ конкурентов в сети / Проработка целевой аудитории</div>
+                <div class="part_info">Анализ вашего бизнеса, ваших предпочтений</div>
             </div>
             <div class="part">
                 <div class="number">2</div>
                 <div class="part_name">Прототипирование</div>
-                <div class="part_info">Прорисовка схематинчой логики сайта / Создание прототипа сайта</div>
+                <div class="part_info">Разработка прототипа сайта для согласования с заказчиком</div>
             </div>
             <div class="part">
                 <div class="number">3</div>
                 <div class="part_name">Дизайн</div>
-                <div class="part_info">Визуализация сайта / Создание дизайна сайта</div>
+                <div class="part_info">Разработка дизайна сайта</div>
             </div>
             <div class="part">
                 <div class="number">4</div>
                 <div class="part_name">Программирование</div>
-                <div class="part_info">Вёрстка дизайна на HTML, CSS, JS / Установка CMS при необходимости / Уставнока на хостинг</div>
+                <div class="part_info">Создание полноценного рабочего сайта</div>
             </div>
         </div>
     </div>
@@ -55,30 +55,18 @@
             <h5>КЕЙСЫ</h5>
             <h2>Наши работы</h2>
         </div>
-        <div class="part_data">
-            <div class="work ww1">
-                <div class="work_first w1">
-                    <div class="work_first_data">
-                        <h4>Медицинский центр</h4>
-                        <p>Корпоративный сайт</p>
-                    </div>
-                </div>
+        <div class="row" style="text-align: center;">
+            <div class="col-4">
+                <p>МЦ "Здоровье"</p>
+                <a href="{{ route('medic') }}" title='МЦ "Здоровье"' target="__blank"><img style="height: 550px;" src="{{ asset('assets/websites/medic/img/untitled-1.png') }}" alt='МЦ "Здоровье"'></a>
             </div>
-            <div class="work ww2">
-                <div class="work_first w2">
-                    <div class="work_first_data">
-                        <h4>Кондитерская</h4>
-                        <p>Интернет-магазин</p>
-                    </div>
-                </div>
+            <div class="col-4">
+                <p>ООО "Торты"</p>
+                <a href="{{ route('tort') }}" title='ООО "Торты"' target="__blank"><img style="height: 550px;" src="{{ asset('assets/websites/tort/img/meets-pic.jpg') }}" alt='ООО "Торты"'></a>
             </div>
-            <div class="work ww3">
-                <div class="work_first w3">
-                    <div class="work_first_data">
-                        <h4>Услуги ремонта</h4>
-                        <p>Сайт-каталог</p>
-                    </div>
-                </div>
+            <div class="col-4">
+                <p>ООО "Сити ремонт"</p>
+                <a href="{{ route('medic') }}" title='' target="__blank"><img style="height: 550px;" src="{{ asset('assets/websites/medic/img/untitled-1.png') }}" alt=""></a>
             </div>
         </div>
     </div>
@@ -138,8 +126,8 @@
                 </div>
                 <div class="col"></div>
                 <div class="col-4 register text-start">
-                    <a href="{{ route('create') }}" class='btn btn-primary'>Зарегистрироваться</a> или
-                    <br><br>
+                    <!-- <a href="" class='btn btn-primary'>Зарегистрироваться</a> или
+                        <br><br> -->
                     <a href="{{ route('orders.quit') }}" class='text-danger'>Сделать быстрый заказ</a>
                 </div>
             </div>

@@ -1,0 +1,287 @@
+.lp-header-10._to-fix-menu:not(._is-cms) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 100
+}
+
+.lp-header-10 {
+    position: relative;
+    z-index: 20;
+}
+
+._to-fix-menu .lp-block-bg {
+	background-color: #fff;
+}
+
+.lp-header-10-wrap {
+    padding: 24px 0;
+}
+
+@media all and (min-width: 960px) {
+    .lp-header-10-wrap {
+        padding: 32px 0;
+    }
+}
+
+.lp-header-10-main {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media all and (min-width: 600px) {
+	.lp-header-10-main {
+    	justify-content: space-between;
+    	flex-direction: row;
+    	align-items: flex-start;
+	}
+
+	.lp-header-10-main-buttons {
+		margin-top: 0;
+	}
+}
+
+@media all and (max-width: 599px) {
+	._hide_contacts_mob .lp-header-10-main-phones,
+	._hide_contacts_mob .lp-header-10-main-buttons {
+		display: none;
+	}
+}
+
+@media all and (min-width: 960px) {
+    .lp-header-10-main {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+}
+
+.lp-header-10-main-phones {
+    order: 2;
+}
+
+@media all and (min-width: 960px) {
+    .lp-header-10-main-phones {
+        display: block;
+        min-width: 216px;
+        margin-right: auto;
+        order: 1;
+        /*flex: 0 0 217px;*/
+    }
+}
+
+@media all and (min-width: 1200px) {
+    .lp-header-10-main-phones {
+        width: 270px;
+        flex: 0 0 270px;
+    }
+}
+
+@media all and (min-width: 1380px) {
+    .lp-header-10-main-phones {
+        width: 298px;
+        flex: 0 0 298px;
+    }
+}
+
+.lp-header-10-main-phones-item {
+    margin: 0;
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: left;
+}
+
+.lp-header-10-main-phones-item__icon {
+    display: none;
+}
+
+@media all and (min-width: 600px) {
+    .lp-header-10-main-phones-item__icon {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        border-radius: 50%;
+        /*width: 48px;
+        height: 48px;*/
+        background-color: var(--primary-color-a-01);
+        margin-right: 16px;
+        padding: 12px;
+		align-self: center;
+    }
+}
+
+.lp-header-10-main-phones-item__icon-in {
+    width: 24px;
+    height: 24px;
+    box-sizing: content-box;
+}
+
+.lp-header-10-main-phones-item__icon-in img {
+	  width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lp-header-10-main-phones-item__icon-in svg {
+    fill: var(--text-color-base);
+}
+
+.lp-header-10-main-phones-item__title {
+    padding: 0;
+    margin: 0;
+}
+
+.lp-header-10-main-phones-item-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.lp-header-10-main-phones-item-list__item {
+    margin: 0;
+    padding: 0;
+}
+
+.lp-header-10-main-phones-item-list__item-link {
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+@media all and (min-width: 600px) {
+	.lp-header-10-main-phones-item-list__item-link {
+		text-align: left;
+	}
+}
+
+.lp-header-10-main-logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+@media all and (min-width: 960px) {
+    .lp-header-10-main-logo {
+        max-width: 432px;
+        margin: 0 24px;
+        order: 2;
+        flex: 1;
+    }
+}
+
+@media all and (min-width: 1200px) {
+    .lp-header-10-main-logo {
+        width: 564px;
+    }
+}
+
+@media all and (min-width: 1380px) {
+    .lp-header-10-main-logo {
+        width: 628px;
+        margin: 0 32px;
+    }
+}
+
+.lp-header-10-main-logo__pic {
+    margin: 0;
+    display: block;
+    font-size: 0;
+    width: 64px;
+    height: 64px;
+    box-sizing: content-box;
+    max-width: 100%;
+}
+
+.lp-header-10-main-logo__pic img {
+	width: 100%;
+	height: 100%;
+	object-fit:contain;
+}
+
+.lp-header-10-main-phones-item__inner {
+    width: 100%;
+}
+
+.lp-header-10-main-logo__title {
+    padding: 0;
+    margin: 0;
+    margin-top: 8px;
+    color: var(--primary-color-base);
+}
+
+.lp-header-10-main-logo__title a {
+	text-decoration: none;
+}
+
+.lp-header-10-main-logo__subtitle {
+    padding: 0;
+    margin: 0;
+}
+
+.lp-header-10-main-buttons {
+    order: 3;
+    margin-top: 16px;
+}
+
+@media all and (min-width: 960px) {
+    .lp-header-10-main-buttons {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 216px;
+        margin-left: auto;
+        align-items: flex-end;
+    }
+}
+
+@media all and (min-width: 1200px) {
+    .lp-header-10-main-buttons {
+        width: 270px;
+    }
+}
+
+@media all and (min-width: 1380px) {
+    .lp-header-10-main-buttons {
+        width: 298px;
+    }
+}
+
+.lp-header-10-main-buttons__item {
+    width: auto;
+}
