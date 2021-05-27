@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="robots" content="all" />
     <title>ООО "Сити ремонт"</title>
+    <link rel="shortcut icon" href="{{ asset('assets/websites/remont/img/frame.svg') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link type="text/css" rel="stylesheet" href="{{ asset('assets/websites/remont/css/__landing_page_1342651.css') }}">
     <script type="text/javascript" src="{{ asset('assets/websites/remont/js/jquery.min.js') }}"></script>
@@ -622,8 +623,8 @@
             </div>
         </div>
     </div>
-    
-    
+
+
     <!-- <script src="http://lp3-gr-repair-apartments.oml.ru/my/s3/js/site.min.js?1621571142" type="text/javascript"></script>
     <script src="http://lp3-gr-repair-apartments.oml.ru/my/s3/js/site/defender.min.js?1621571142" type="text/javascript"></script>
     <script type="text/javascript">

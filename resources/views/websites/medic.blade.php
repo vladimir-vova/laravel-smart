@@ -5,6 +5,7 @@
 <head lang="en">
     <meta charset="utf-8">
     <title>Здоровье</title>
+    <link rel="shortcut icon" href="{{ asset('assets/websites/medic/img/logo.svg') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link type="text/css" rel="stylesheet" href="{{ asset('assets/websites/medic/css/landing_page_1260051.css') }}">
     <script type="text/javascript" src="{{ asset('assets/websites/medic/js/jquery.min.js') }}"></script>

@@ -100,7 +100,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/closetasks', [TaskController::class, 'showClose'])->name('tasks.closetasks');
 
     // search
-    Route::get('/search/message', [SearchController::class, 'message'])->name('search.message');
     Route::get('/search/users', [SearchController::class, 'users'])->name('search.users');
     Route::get('/search/taskclose', [SearchController::class, 'taskclose'])->name('search.taskclose');
 

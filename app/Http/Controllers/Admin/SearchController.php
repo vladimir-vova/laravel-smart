@@ -12,15 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
-    public function message(Request $request)
-    {
-        $request->validate([
-            'search' => 'required',
-        ]);
-        // dd($request->all());
-        $messages = DB::table('message')->where('name', 'LIKE', "%{$request->search}%")->orWhere('email', 'LIKE', "%{$request->search}%")->orWhere('subject', 'LIKE', "%{$request->search}%")->orderBy('id', 'desc')->paginate(50);
-        return view('admin.views.contact.index', compact('messages'));
-    }
 
     public function users(Request $request)
     {
@@ -39,25 +30,11 @@ class SearchController extends Controller
         $request->validate([
             'search' => 'required',
         ]);
-        if (Auth::user()->status_id == 2 || Auth::user()->status_id == 3) {
-            $orders = Order::with('user')->with('work')->with('client')->where('open', '=', 1)
+        $orders = Order::where('open', '=', 1)
             ->where(function ($query) {
-                $query->where('condition', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('type', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('direction', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('start', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('description', 'LIKE', "%{$_REQUEST['search']}%");
+                $query->where('name', 'LIKE', "%{$_REQUEST['search']}%")
+                    ->orWhere('email', 'LIKE', "%{$_REQUEST['search']}%");
             })->orderBy('id', 'desc')->paginate(50);
-        } else {
-            $orders = Order::with('user')->with('work')->with('client')->where('open', '=', 1)->where('client_id', '=', Auth::user()->id)
-            ->where(function ($query) {
-                $query->where('condition', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('type', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('direction', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('start', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('description', 'LIKE', "%{$_REQUEST['search']}%");
-            })->orderBy('id', 'desc')->paginate(50);
-        }
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -66,26 +43,11 @@ class SearchController extends Controller
         $request->validate([
             'search' => 'required',
         ]);
-        // $orders = Order::where('open', '=', 2)->where('client_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(15);
-        if (Auth::user()->status_id == 2 || Auth::user()->status_id == 3) {
-            $orders = Order::where('open', '=', 2)
+        $orders = Order::where('open', '=', 2)
             ->where(function ($query) {
-                $query->where('condition', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('type', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('direction', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('start', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('description', 'LIKE', "%{$_REQUEST['search']}%");
+                $query->where('name', 'LIKE', "%{$_REQUEST['search']}%")
+                ->orWhere('email', 'LIKE', "%{$_REQUEST['search']}%");
             })->orderBy('id', 'desc')->paginate(50);
-        } else {
-            $orders = Order::where('open', '=', 2)->where('client_id', '=', Auth::user()->id)
-            ->where(function ($query) {
-                $query->where('condition', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('type', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('direction', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('start', 'LIKE', "%{$_REQUEST['search']}%")
-                ->orWhere('description', 'LIKE', "%{$_REQUEST['search']}%");
-            })->orderBy('id', 'desc')->paginate(50);
-        }
         return view('admin.orders.showClose', compact('orders'));
     }
 
@@ -95,8 +57,8 @@ class SearchController extends Controller
             'search' => 'required',
         ]);
         $tasks = Task::where('open', '=', 2)
-        ->where('name', 'LIKE', "%{$request->search}%")
-        ->paginate(15);
+            ->where('name', 'LIKE', "%{$request->search}%")
+            ->paginate(15);
         return view('admin.tasks.showClose', compact('tasks'));
         // dd($request->all());
         // $people = User::with('status')->where('name', 'LIKE', "%{$request->search}%")->orWhere('email', 'LIKE', "%{$request->search}%")->orderBy('id', 'desc')->paginate(50);
