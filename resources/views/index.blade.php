@@ -55,16 +55,66 @@
         </div>
         <div class="row" style="text-align: center;">
             <div class="col-4">
-                <p>МЦ "Здоровье"</p>
+                <p class="fs-5">МЦ "Здоровье"</p>
                 <a href="{{ route('medic') }}" title='МЦ "Здоровье"' target="__blank"><img style="height: 550px;" src="{{ asset('assets/websites/medic/img/untitled-1.png') }}" alt='МЦ "Здоровье"'></a>
             </div>
             <div class="col-4">
-                <p>ООО "Торты"</p>
+                <p class="fs-5">ООО "Торты"</p>
                 <a href="{{ route('tort') }}" title='ООО "Торты"' target="__blank"><img style="height: 550px;" src="{{ asset('assets/websites/tort/img/meets-pic.jpg') }}" alt='ООО "Торты"'></a>
             </div>
             <div class="col-4">
-                <p>ООО "Сити ремонт"</p>
+                <p class="fs-5">ООО "Сити ремонт"</p>
                 <a href="{{ route('remont') }}" title='ООО "Сити ремонт"' target="__blank"><img style="height: 550px;" src="{{ asset('assets/websites/remont/img/kosmet.jpg') }}" alt='ООО "Сити ремонт"'></a>
+            </div>
+        </div>
+    </div>
+    <div id="price"></div>
+    <!-- Стоимость -->
+    <div class="container-fluid price mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2>Возьмем ваш проект в работу *</h2>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="p-2 col-2 bg-light me-5 d-flex flex-column justify-content-between rounded">
+                    <div class="fs-5 text-dark">
+                        Интернет-магазин
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="fs-5 text-dark text-decoration-line-through">89 000 &#8381;</div>
+                        <div class="fs-5 text-dark fw-bold">78 000 &#8381;</div>
+                    </div>
+                </div>
+                <div class="p-2 col-2 bg-light me-5 d-flex flex-column justify-content-between rounded">
+                    <div class="fs-5 text-dark mb-2">
+                        Лендинг
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="fs-5 text-dark text-decoration-line-through">44 000 &#8381;</div>
+                        <div class="fs-5 text-dark fw-bold">36 000 &#8381;</div>
+                    </div>
+                </div>
+                <div class="p-2 col-2 bg-light me-5 d-flex flex-column justify-content-between rounded">
+                    <div class="fs-5 text-dark">
+                        Корпоративный сайт
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="fs-5 text-dark text-decoration-line-through">56 000 &#8381;</div>
+                        <div class="fs-5 text-dark fw-bold">44 000 &#8381;</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a href="#download" class="btn btn-info btn-lg rounded-pill text-white mb-5">Оставить заявку</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p class="tn-span">* Сейчас дешевле чем будет в июне, а качество как всегда на максимуме!</p>
+                </div>
             </div>
         </div>
     </div>

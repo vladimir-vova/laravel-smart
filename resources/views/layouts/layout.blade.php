@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/img/logo2.png') }}">
 
@@ -23,10 +23,11 @@
         <div class="row position-fixed">
             <div class="col-xl-3 col">Future&CO</div>
             <div class="col"></div>
-            <div class="col-xl-7 col">
+            <div class="col-xl-6 col">
                 <ul>
                     <li><a href="#obzor">ПРОЦЕСС РАБОТЫ</a></li>
                     <li><a href="#osobennosti">КЕЙСЫ</a></li>
+                    <li><a href="#price">Стоимость</a></li>
                     <li><a href="#otzuv">ОТЗЫВЫ</a></li>
                     <li><a href="#download">СТОИМОСТЬ</a></li>
                 </ul>
