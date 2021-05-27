@@ -101,9 +101,9 @@
                         @endif
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer clearfix">
+                    <!-- <div class="card-footer clearfix">
                         <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Отправить уведомление(админ)</button>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>

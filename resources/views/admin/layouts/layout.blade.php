@@ -64,18 +64,6 @@
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <span class="dropdown-item dropdown-header">{{ $count_note }} Notifications</span>
                         <div class="dropdown-divider"></div>
-                        @if($message_count)
-                        <a href="{{ route('message.index') }}" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> {{ $message_count }} сообщений
-                            <!-- <span class="float-right text-muted text-sm">3 mins</span> -->
-                        </a>
-                        @endif
-                        @if($count_user)
-                        <a href="{{ route('users.index') }}" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> {{ $count_user }} новых клентов
-                            <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
-                        </a>
-                        @endif
                         @if($count_zakaz)
                         <a href="{{ route('orders.index') }}" class="dropdown-item">
                             <i class="fas fa-archive mr-2"></i> {{ $count_zakaz }} новых заказов

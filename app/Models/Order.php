@@ -30,14 +30,10 @@ class Order extends Model
     }
 
     protected $fillable = [
-        'condition',
-        'type',
-        'direction',
-        'start',
-        'description',
+        'name',
+        'email',
+        'phone',
         'work_id',
-        'client_id',
-        'user_id',
         'open',
     ];
 }

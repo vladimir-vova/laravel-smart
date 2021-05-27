@@ -27,7 +27,6 @@
                     <div class="card-header">
                         <h3 class="card-title">
                             Заказ "{{ $orders->id }}".
-                            <span class='text-warning'>{{ $orders->work->title }}</span>
                         </h3>
                     </div>
                     <!-- /.card-header -->
@@ -36,79 +35,22 @@
                         @csrf
                         @method('PUT')
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="condition">Состояние</label>
-                                <select class="form-control @error('condition') is-invalid @enderror" id="condition" name="condition">
-                                    @foreach($condition as $item)
-                                    <option value="{{ $item }}" @if($item==$orders->condition) selected @endif>{{ $item }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="type">Тип</label>
-                                <select class="form-control @error('type') is-invalid @enderror" id="type" name="type">
-                                    @foreach($type as $item)
-                                    <option value="{{ $item }}" @if($item==$orders->type) selected @endif>{{ $item }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="direction">Направление</label>
-                                <select class="form-control @error('direction') is-invalid @enderror" id="direction" name="direction">
-                                    @foreach($direction as $item)
-                                    <option value="{{ $item }}" @if($item==$orders->direction) selected @endif>{{ $item }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="start">Старт</label>
-                                <select class="form-control @error('start') is-invalid @enderror" id="start" name="start">
-                                    @foreach($start as $item)
-                                    <option value="{{ $item }}" @if($item==$orders->start) selected @endif>{{ $item }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Сообщение</label>
-                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="5" placeholder="Сообщение...">{{ $orders->description }}</textarea>
-                            </div>
-                            @if(Auth::user()->status_id == 1)
-                            <div class="form-group">
-                                <label for="work_id">Статус проекта</label>
-                                <select class="form-control @error('work_id') is-invalid @enderror" id="work_id" name="work_id">
-                                    @foreach($work as $item)
-                                    <option value="{{ $item->id }}" @if($item->id==$orders->work_id) selected @endif>{{ $item->title }}</option>
-                                    @endforeach
-                                    <!-- <option value="1">В ожидании</option> -->
-                                    <!-- <option value="2">В работе</option>
-                                    <option value="3">Тестирование</option>
-                                    <option value="4">На проверке</option> -->
-                                </select>
-                            </div>
-                            @if($coor->count())
 
                             <div class="form-group">
-                                <label for="user_id">Кто будет делать?</label>
-                                <select class="form-control @error('user_id') is-invalid @enderror" id="user_id" name="user_id">
-                                    @foreach($coor as $item)
-                                    <option value="{{ $item->id }}" @if($item->id==$orders->user_id) selected @endif>{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="name">Имя</label>
+                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Имя" value="{{ $orders->name }}">
                             </div>
-
-                            @else
-                            Нет координатора. Наймите его скорее...
-                            @endif
-
                             <div class="form-group">
-                                <label for="open">Закрыть?</label>
-                                <select class="form-control @error('open') is-invalid @enderror" id="open" name="open">
-                                    <option value="1">Открыт</option>
-                                    <option value="2">Закрыт</option>
-                                </select>
+                                <label for="email">Email</label>
+                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ $orders->email }}">
                             </div>
-
-                            @endif
+                            <div class="form-group">
+                                <label for="phone">Телефон</label>
+                                <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Телефон" value="{{ $orders->phone }}" aria-describedby="telHelp" pattern="+7[0-9]{10}">
+                                <div id="telHelp" class="form-text text-dark">
+                                    Формат: +79234567890
+                                </div>
+                            </div>
                         </div>
                         <!-- /.card-body -->
 

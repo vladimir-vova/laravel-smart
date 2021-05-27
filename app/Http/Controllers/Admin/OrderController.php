@@ -21,11 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->status_id == 2 || Auth::user()->status_id == 3) {
-            $orders = Order::with('user')->with('work')->with('client')->where('open', '=', 1)->orderBy('id', 'desc')->paginate(50);
-        } else {
-            $orders = Order::with('user')->with('work')->with('client')->where('open', '=', 1)->where('client_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(50);
-        }
+        $orders = Order::where('open', '=', 1)->orderBy('id', 'desc')->paginate(50);
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -36,11 +32,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $condition = ['Новый проект', 'Существующий проект', 'Спасти проект'];
-        $type = ['Интернет-магазин', 'Адаптивный сайт', 'Мобильное приложени', 'Личный кабинет', 'Другое'];
-        $direction = ['Розничные продажи', 'Оптовые продажи', 'Производственная компания', 'Другое'];
-        $start = ['Немедленно', 'В течение недели', 'В течение месяца'];
-        return view('admin.orders.create', compact('condition', 'type', 'direction', 'start'));
+        return view('admin.orders.create');
     }
 
     /**
@@ -54,21 +46,24 @@ class OrderController extends Controller
         // dd(User::where('status_id',2)->orWhere('status_id',3)->orWhere('status_id', 4)->get());
         // dd($request->all());
         $request->validate([
-            'condition' => 'required',
-            'type' => 'required',
-            'direction' => 'required',
-            'start' => 'required',
-            'description' => 'required',
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
         ]);
 
-        $data = $request->all();
+        Order::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'work_id' => 2,
+        ]);
 
-        $data['client_id'] = Auth::user()->id;
-        // $data['user_id'] = Status::where('title', 'администратор')->first()->users[0]->id;
+        // $data = $request->all();
+        // // $data['user_id'] = Status::where('title', 'администратор')->first()->users[0]->id;
 
-        Order::create($data);
+        // Order::create($data);
 
-        $users = User::where('status_id', 2)->orWhere('status_id', 3)->orWhere('status_id', 4)->get();
+        $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
         foreach($users as $user){
             Note::create([
             'name' => 'Новый заказ',
@@ -78,16 +73,7 @@ class OrderController extends Controller
             'created_at' => now(),
         ]);
         }
-
-        // Order::create([
-        //     'condition' => $request->condition,
-        //     'type' => $request->type,
-        //     'direction' => $request->direction,
-        //     'start' => $request->start,
-        //     'description' => $request->description,
-        //     'client_id' => Auth::user()->id,
-        //     'user_id' => Status::where('title', 'администратор')->first()->id,
-        // ]);
+        
         session()->flash('success', 'Заказ создан');
         return redirect()->route('orders.index');
     }
@@ -110,18 +96,9 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $condition = ['Новый проект', 'Существующий проект', 'Спасти проект'];
-        $type = ['Интернет-магазин', 'Адаптивный сайт', 'Мобильное приложени', 'Личный кабинет', 'Другое'];
-        $direction = ['Розничные продажи', 'Оптовые продажи', 'Производственная компания', 'Другое'];
-        $start = ['Немедленно', 'В течение недели', 'В течение месяца'];
-        // $work = ['В ожидании', 'В работе', 'Тестирование', 'На проверке'];
-        
-        $work = Work::orderBy('step', 'asc')->get();
-        $coor = User::where('status_id', '=', '4')->orderBy('id', 'asc')->get();
+    {        
         $orders = Order::find($id);
-        // $status = Status::pluck('title', 'id')->all();
-        return view('admin.orders.edit', compact('orders', 'coor', 'condition', 'type', 'direction', 'start', 'work'));
+        return view('admin.orders.edit', compact('orders'));
     }
 
     /**
@@ -134,27 +111,11 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->user_id);
-        if ($request->work_id != null && $request->user_id != null) {
-            $request->validate([
-                'condition' => 'required',
-                'type' => 'required',
-                'direction' => 'required',
-                'start' => 'required',
-                'description' => 'required',
-                'work_id' => 'required|integer',
-                'user_id' => 'required|integer',
-                'open' => 'required|integer',
-            ]);
-        } else {
-            $request->validate([
-                'condition' => 'required',
-                'type' => 'required',
-                'direction' => 'required',
-                'start' => 'required',
-                'description' => 'required',
-                'open' => 'required|integer',
-            ]);
-        }
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+        ]);
         $data = $request->all();
         $orders = Order::find($id);
         $orders->update($data);
@@ -164,27 +125,23 @@ class OrderController extends Controller
 
     public function showClose()
     {
-        if (Auth::user()->status_id == 2 || Auth::user()->status_id == 3) {
-            $orders = Order::where('open', '=', 2)->paginate(15);
-        } else {
-            // $orders = Order::with('user')->with('client')->where('open', '<>', 1)->paginate(15);
-            $orders = Order::where('open', '=', 2)->where('client_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(15);
-        }
+        $orders = Order::where('open', '=', 2)->paginate(15);
         return view('admin.orders.showClose', compact('orders'));
     }
 
-    public function wayClose(Request $request, $id)
-    {
-        Order::find($id)->update(['open'=> 2]);
-        return redirect()->route('orders.index')->with('success', 'Сделка перемещена');
-    }
+    // public function wayClose($id)
+    // {
+    //     Order::find($id)->update(['open'=> 2]);
+    //     return redirect()->route('orders.index')->with('success', 'Сделка перемещена');
+    // }
 
-    public function wayOpen(Request $request, $id)
-    {
-        $search = $request->search;
-        Order::find($id)->update(['open' => 1]);
-        return redirect()->route('orders.closeorders',compact('search'))->with('success', 'Сделка перемещена');
-    }
+    // public function wayOpen(Request $request, $id)
+    // {
+    //     $search = $request->search;
+    //     Order::find($id)->update(['open' => 1]);
+    //     return redirect()->route('orders.closeorders',compact('search'))->with('success', 'Сделка перемещена');
+    //     // return redirect()->route('orders.closeorders')->with('success', 'Сделка перемещена');
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -192,10 +149,33 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     $orders = Order::find($id);
+    //     $orders->delete();
+    //     return redirect()->route('orders.index')->with('error', 'Заказ удален');
+    // }
+
+    public function orderUpdate(Request $request)
     {
-        $orders = Order::find($id);
-        $orders->delete();
-        return redirect()->route('orders.index')->with('error', 'Заказ удален');
+        Order::find($request->id)->update(['open' => 2]);
+        return response()->json(['success' => true], 200);
+        // return redirect()->route('orders.index')->with('success', 'Сделка перемещена');
+    }
+
+    public function wayOpen(Request $request)
+    {
+        Order::find($request->id)->update(['open' => 1]);
+        return response()->json(['success' => true], 200);
+        // return redirect()->route('orders.index')->with('success', 'Сделка перемещена');
+    }
+
+    public function orderDelete(Request $request)
+    {
+        // dd($request->all());
+        // session()->flash('error', 'Письмо удалено'.$request->id);
+        Order::where('id', $request->id)->delete();
+        return response()->json(['success' => true], 200);
+        // session()->flash('error', 'Письмо удалено');
     }
 }

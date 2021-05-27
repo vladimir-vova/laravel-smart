@@ -2,6 +2,8 @@
 
 @section('style')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
@@ -56,30 +58,35 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 30px">#</th>
-                                        <th>Название</th>
+                                        <th>Имя</th>
+                                        <th>Email</th>
+                                        <th>Телефон</th>
+                                        <th>Статус</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($orders as $item)
-                                    <tr>
+                                    <tr id='order{{ $item->id }}'>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->type }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->phone }}</td>
                                         <td>
-                                            <form action="{{ route('orders.destroy',['order'=>$item->id]) }}" method="post" class="float-left" style="margin-right: 5px;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                            <form action="{{ route('orders.wayopen',['order'=>$item->id]) }}" method="post" class="float-left">
-                                                @csrf
-                                                @method('PUT')
-                                                <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Переместить сделку?')">
-                                                    <i class="fas fa-arrow-circle-left"></i>
-                                                </button>
-                                            </form>
+                                            @if($item->work_id==1)
+                                            В ожидании
+                                            @else
+                                            В работе
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-danger text-white btn-sm deleteProduct" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}" style="margin-right: 5px;">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+
+                                            <button type="submit" class="btn btn-warning text-white btn-sm updateProduct" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}">
+                                                <i class="fas fa-arrow-circle-left"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -108,6 +115,9 @@
 
 @section('script')
 
+<script src="{{ asset('assets/js/ajax.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
+
 <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
@@ -123,6 +133,60 @@
             "searching": true,
             "ordering": false,
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        $(".updateProduct").click(function(event) {
+            var id = $(this).data('id');
+            var token = $(this).data('token');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('orders.wayopen') }}",
+                type: 'post',
+                dataType: "JSON",
+                data: {
+                    "id": id
+                },
+                // success: function(response) {
+                //     location.reload();
+                //     console.log(response);
+                // }
+                success: function() {
+                    $("#order" + id).hide(500);
+                }
+            });
+        });
+
+        $(".deleteProduct").click(function(event) {
+            var id = $(this).data('id');
+            var token = $(this).data('token');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('order.delete') }}",
+                // url: '/admin/note/update/' + id,
+                type: 'post',
+                dataType: "JSON",
+                data: {
+                    "id": id
+                },
+                success: function() {
+                    $("#order" + id).hide(500);
+                }
+            });
+            return false;
+        });
+
     });
 </script>
 

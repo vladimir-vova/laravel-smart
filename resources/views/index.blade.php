@@ -123,21 +123,22 @@
                     <p class="tn-span">+7 (999) 990 00-00</p>
                     <p class="tn-span">help@future.ru</p>
                 </div>
-                <div class="col-6">
+                <div class="col-6" id="contact">
                     <!-- <form action="" method="POST">
                         <input type="text">
                     </form> -->
-                    <form method="POST">
+                    <form method="post" action="{{ route('contact') }}">
+                        @csrf
                         <div class="mb-3">
-                            <input type="text" class="form-control form-control-lg" placeholder="Ваше имя">
+                            <input name="name" type="text" class="form-control form-control-lg @error('name') is-invalid @enderror" placeholder="Ваше имя">
                         </div>
                         <div class="mb-3">
-                            <input type="email" class="form-control form-control-lg" placeholder="Ваш email">
+                            <input name="email" type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="Ваш email">
                         </div>
                         <div class="mb-3">
-                            <input class="form-control form-control-lg" type="tel" placeholder="Ваш телефон" aria-describedby="telHelp" pattern="+7 [0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                            <input name="phone" class="form-control form-control-lg @error('phone') is-invalid @enderror" type="tel" placeholder="Ваш телефон" aria-describedby="telHelp" pattern="+7[0-9]{10}">
                             <div id="telHelp" class="form-text text-dark">
-                                Формат: +7 123-456-7890
+                                Формат: +79234567890
                             </div>
                         </div>
                         <button type="submit" class="btn btn-dark btn-lg">Отправить</button>
@@ -146,21 +147,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="price">
-        <div class="part_names">
-            <h5>СТОИМОСТЬ</h5>
-            <div class="row">
-                <div class="col-6 text-price">
-                    <h2>Зарегистрируйтесь, чтoбы заказать услуги</h2>
-                    <p>Koopдинaтop oтвeтит нa вce вaши вoпpocы пo услугам.</p>
-                </div>
-                <div class="col"></div>
-                <div class="col-4 register text-start">
-                    <a href="{{ route('orders.quit') }}" class='text-danger'>Сделать быстрый заказ</a>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <div class="footer container">
         <div>&copy;2020-{{ date('Y') }}. Все права защищены. <a href="{{ route('login.create') }}">Авторизоваться</a></div>
         <div>Россия, г.Пермь</div>

@@ -41,24 +41,16 @@ class AuthServiceProvider extends ServiceProvider
             $count_note = Note::where('open','=','1')->where('user_id','=',Auth::user()->id)->count();
             $view->with('count_note', $count_note);
 
-            // количество сообщений
-            $message_count = Note::where('type_id', '=', '1')->where('open', '=', '1')->where('user_id', '=', Auth::user()->id)->count();
-            $view->with('message_count', $message_count);
-
-            // количество пользователей
-            $count_user = Note::where('type_id', '=', '2')->where('open', '=', '1')->where('user_id', '=', Auth::user()->id)->count();
-            $view->with('count_user', $count_user);
-
             // количество заказов
-            $count_zakaz = Note::where('type_id', '=', '3')->where('open', '=', '1')->where('user_id', '=', Auth::user()->id)->count();
+            $count_zakaz = Note::where('type_id', '=', '1')->where('open', '=', '1')->where('user_id', '=', Auth::user()->id)->count();
             $view->with('count_zakaz', $count_zakaz);
 
             // количество задач
-            $count_zadaz = Note::where('type_id', '=', '4')->where('open', '=', '1')->where('user_id', '=', Auth::user()->id)->count();
+            $count_zadaz = Note::where('type_id', '=', '2')->where('open', '=', '1')->where('user_id', '=', Auth::user()->id)->count();
             $view->with('count_zadaz', $count_zadaz);
 
             // количество других задач
-            $count_druz = Note::where('type_id', '=', '5')->where('open', '=', '1')->where('user_id', '=', Auth::user()->id)->count();
+            $count_druz = Note::where('type_id', '=', '3')->where('open', '=', '1')->where('user_id', '=', Auth::user()->id)->count();
             $view->with('count_druz', $count_druz);
         });
 

@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\WorkController;
-use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +28,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [MainController::class, 'index'])->name('index');
+Route::post('/', [MainController::class, 'contact'])->name( 'contact');
+Route::get('/spasibo', [MainController::class, 'spasibo'])->name('spasibo');
+
 // Medic
 Route::get('/medic', [MainController::class, 'medic'])->name('medic');
 // Tort
@@ -38,8 +40,8 @@ Route::get('/tort/svyas', [MainController::class, 'svyas'])->name('tort.svyas');
 Route::get('/remont', [MainController::class, 'remont'])->name('remont');
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/orders', [MainController::class, 'orders'])->name('orders.quit');
-    Route::post('/message/admin', [MainController::class, 'contact'])->name('contact.message');
+    // Route::get('/orders', [MainController::class, 'orders'])->name('orders.quit');
+    // Route::post('/', [MainController::class, 'contact'])->name('contact.message');
 
     // регистрация
     // Route::get('/register', [UserController::class, 'create'])->name('create');
@@ -66,8 +68,12 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
     Route::post('/note/delete', [AdminMainController::class, 'noteDelete'])->name('note.delete');
     // Route::get('/note/{note}', [AdminMainController::class, 'noteUpdate'])->name('note.update');
 
-    // Route::get('/message/{message}', [AdminMainController::class, 'messageShow'])->name('message.show');
-    // Route::delete('/message/{message}', [AdminMainController::class, 'messageDestroy'])->name('message.destroy');
+    // order
+    Route::post('/order/update', [OrderController::class, 'orderUpdate'])->name('order.update');
+    Route::post('/order/delete', [OrderController::class, 'orderDelete'])->name('order.delete');
+
+    // Route::post('/closeorders/{order}', [OrderController::class, 'wayClose'])->name('orders.wayclose');
+    Route::post('/order/wayOpen', [OrderController::class, 'wayOpen'])->name('orders.wayopen');
 
     // profile
     Route::get('/profile', [AdminMainController::class, 'profile'])->name('profile.index');
@@ -81,8 +87,6 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
     Route::get('/rules', [TaskController::class, 'rules'])->name('rules');;
     // Route::post('/sendmail', [AjaxController::class, 'send'])->name('sendNote');
     Route::get('/closeorders', [OrderController::class, 'showClose'])->name('orders.closeorders');
-    Route::put('/closeorders/{order}', [OrderController::class, 'wayClose'])->name('orders.wayclose');
-    Route::put('/openorders/{order}', [OrderController::class, 'wayOpen'])->name('orders.wayopen');
     Route::put('/updateToClose/{task}', [TaskController::class, 'updateToClose'])->name('updateToClose');
 
     Route::resource('/orders', OrderController::class);

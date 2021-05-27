@@ -32,41 +32,21 @@
                     <form role="form" method="post" action="{{ route('orders.store') }}">
                         @csrf
                         <div class="card-body">
+
                             <div class="form-group">
-                                <label for="condition">Состояние</label>
-                                <select class="form-control @error('condition') is-invalid @enderror" id="condition" name="condition">
-                                    @foreach($condition as $item)
-                                    <option value="{{ $item }}">{{ $item }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="name">Имя</label>
+                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Имя">
                             </div>
                             <div class="form-group">
-                                <label for="type">Тип</label>
-                                <select class="form-control @error('type') is-invalid @enderror" id="type" name="type">
-                                    @foreach($type as $item)
-                                    <option value="{{ $item }}">{{ $item }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="email">Email</label>
+                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email">
                             </div>
                             <div class="form-group">
-                                <label for="direction">Направление</label>
-                                <select class="form-control @error('direction') is-invalid @enderror" id="direction" name="direction">
-                                    @foreach($direction as $item)
-                                    <option value="{{ $item }}">{{ $item }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="start">Старт</label>
-                                <select class="form-control @error('start') is-invalid @enderror" id="start" name="start">
-                                    @foreach($start as $item)
-                                    <option value="{{ $item }}">{{ $item }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Сообщение</label>
-                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="5" placeholder="Сообщение..."></textarea>
+                                <label for="phone">Телефон</label>
+                                <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Телефон" aria-describedby="telHelp" pattern="+7[0-9]{10}">
+                                <div id="telHelp" class="form-text text-dark">
+                                    Формат: +79234567890
+                                </div>
                             </div>
                         </div>
                         <!-- /.card-body -->

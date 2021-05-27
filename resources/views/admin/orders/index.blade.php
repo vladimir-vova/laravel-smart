@@ -2,6 +2,7 @@
 
 @section('style')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!-- <link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-free/css/all.min.css') }}"> -->
 <!-- <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}"> -->
@@ -61,38 +62,39 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Тип</th>
-                                    <th>Когда начинать</th>
+                                    <th>Имя</th>
+                                    <th>Email</th>
+                                    <th>Телефон</th>
                                     <th>Статус</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($orders as $item)
-                                <tr>
+                                <tr id='order{{ $item->id }}'>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->start }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->phone }}</td>
+                                    <td>
+                                        @if($item->work_id==1)
+                                        В ожидании
+                                        @else
+                                        В работе
+                                        @endif
+                                    </td>
                                     <td>
                                         <a href="{{ route('orders.edit',['order'=>$item->id]) }}" class="btn btn-info btn-sm float-left mr-1">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
 
-                                        <form action="{{ route('orders.destroy',['order'=>$item->id]) }}" method="post" class="float-left" style="margin-right: 5px;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Подтвердите удаление')">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </form>
+                                        <button type="submit" class="btn btn-danger text-white btn-sm deleteProduct" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}" style="margin-right: 5px;">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
 
-                                        <form action="{{ route('orders.wayclose',['order'=>$item->id]) }}" method="post" class="float-left">
-                                            @csrf
-                                            @method('PUT')
-                                            <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Закрыть сделку?')">
-                                                <i class="fas fa-arrow-circle-right"></i>
-                                            </button>
-                                        </form>
+                                        <button type="submit" class="btn btn-warning text-white btn-sm updateProduct" data-id="{{ $item->id }}" data-token="{{ csrf_token() }}" onclick="return confirm('Закрыть сделку?')">
+                                            <i class="fas fa-arrow-circle-right"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -100,8 +102,9 @@
                             <tfoot>
                                 <tr>
                                     <th>#</th>
-                                    <th>Тип</th>
-                                    <th>Когда начинать</th>
+                                    <th>Имя</th>
+                                    <th>Email</th>
+                                    <th>Телефон</th>
                                     <th>Статус</th>
                                     <th>Actions</th>
                                 </tr>
@@ -128,6 +131,9 @@
 @endsection
 
 @section('script')
+
+<script src="{{ asset('assets/js/ajax.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
 
 <!-- <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script> -->
 <!-- Bootstrap 4 -->
@@ -168,6 +174,60 @@
             "ordering": false,
             "buttons": ["copy", "csv", "excel", "pdf", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        $(".updateProduct").click(function(event) {
+            var id = $(this).data('id');
+            var token = $(this).data('token');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('order.update') }}",
+                type: 'post',
+                dataType: "JSON",
+                data: {
+                    "id": id
+                },
+                // success: function(response) {
+                //     location.reload();
+                //     console.log(response);
+                // }
+                success: function() {
+                    $("#order" + id).hide(500);
+                }
+            });
+        });
+
+        $(".deleteProduct").click(function(event) {
+            var id = $(this).data('id');
+            var token = $(this).data('token');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('order.delete') }}",
+                // url: '/admin/note/update/' + id,
+                type: 'post',
+                dataType: "JSON",
+                data: {
+                    "id": id
+                },
+                success: function() {
+                    $("#order" + id).hide(500);
+                }
+            });
+            return false;
+        });
+
     });
 </script>
 
