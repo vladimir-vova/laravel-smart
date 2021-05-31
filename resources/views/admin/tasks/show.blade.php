@@ -37,6 +37,8 @@
 
                     <div class="card-body">
                         <dl>
+                            <dt>Задачу создал - {{ $user->status->title }} - {{ $user->name }}</dt>
+
                             <dt>Название</dt>
                             <dd>{{ $task->name }}</dd>
                             <dt>Описание</dt>

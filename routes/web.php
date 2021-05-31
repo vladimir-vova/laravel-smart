@@ -71,46 +71,47 @@ Route::group(['prefix' => 'admin', ['middleware' => ['auth','admin']]], function
     // order
     Route::post('/order/update', [OrderController::class, 'orderUpdate'])->name('order.update');
     Route::post('/order/delete', [OrderController::class, 'orderDelete'])->name('order.delete');
-
-    // Route::post('/closeorders/{order}', [OrderController::class, 'wayClose'])->name('orders.wayclose');
     Route::post('/order/wayOpen', [OrderController::class, 'wayOpen'])->name('orders.wayopen');
+    Route::resource('/orders', OrderController::class);
+    Route::get('/closeorders', [OrderController::class, 'showClose'])->name('orders.closeorders');
+    Route::get('/search/orders', [SearchController::class, 'orders'])->name('search.orders');
+    Route::get('/search/ordersclose', [SearchController::class, 'ordersclose'])->name('search.ordersclose');
+    // Route::post('/closeorders/{order}', [OrderController::class, 'wayClose'])->name('orders.wayclose');
 
     // profile
     Route::get('/profile', [AdminMainController::class, 'profile'])->name('profile.index');
     Route::put('/profile/data', [AdminMainController::class, 'profileData'])->name('profile.data');
     Route::put('/profile/password', [AdminMainController::class, 'profilePassword'])->name('profile.password');
 
-    // search
-    Route::get('/search/orders', [SearchController::class, 'orders'])->name('search.orders');
-    Route::get('/search/ordersclose', [SearchController::class, 'ordersclose'])->name('search.ordersclose');
-
-    Route::get('/rules', [TaskController::class, 'rules'])->name('rules');;
-    // Route::post('/sendmail', [AjaxController::class, 'send'])->name('sendNote');
-    Route::get('/closeorders', [OrderController::class, 'showClose'])->name('orders.closeorders');
+    // task
+    Route::get('/search/taskclose', [SearchController::class, 'taskclose'])->name('search.taskclose');
+    Route::get('/closetasks', [TaskController::class, 'showClose'])->name('tasks.closetasks');
+    Route::get('/rules', [TaskController::class, 'rules'])->name('rules');
     Route::put('/updateToClose/{task}', [TaskController::class, 'updateToClose'])->name('updateToClose');
-
-    Route::resource('/orders', OrderController::class);
     Route::resource('/tasks', TaskController::class);
+    
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
-    Route::get('/works/{way}/{name}/{step}', [AdminMainController::class, 'step'])->name('works.step');
 
-    // c ресурсами
-    Route::get('/closetasks', [TaskController::class, 'showClose'])->name('tasks.closetasks');
-
-    // search
+    // users
     Route::get('/search/users', [SearchController::class, 'users'])->name('search.users');
-    Route::get('/search/taskclose', [SearchController::class, 'taskclose'])->name('search.taskclose');
-
-    // типы и статусы для добаления старых
-    Route::get('/status/add', [StatusController::class, 'add'])->name('add.status');
-    Route::get('/works/add', [WorkController::class, 'add'])->name('add.works');
-    Route::get('/types/add', [TypeController::class, 'add'])->name('add.types');
-
-    // ресурсы
     Route::resource('/users', AdminUserController::class);
+
+    // status
+    Route::get('/status/add', [StatusController::class, 'add'])->name('add.status');
     Route::resource('/status', StatusController::class);
+
+    // works
+    Route::get('/works/{way}/{name}/{step}', [AdminMainController::class, 'step'])->name('works.step');
+    Route::get('/works/add', [WorkController::class, 'add'])->name('add.works');
     Route::resource('/works', WorkController::class);
+    // // Route::get('/works/add', [WorkController::class, 'add'])->name('add.works');
+    // Route::get('/works/{way}/{name}/{step}', [AdminMainController::class, 'step'])->name('works.step');
+
+    // types
+    Route::get('/types/add', [TypeController::class, 'add'])->name('add.types');
     Route::resource('/types', TypeController::class);
+    // Route::get('/types/add', [TypeController::class, 'add'])->name('add.types');
+
 });

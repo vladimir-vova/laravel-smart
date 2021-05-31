@@ -51,14 +51,14 @@ kanban
                 <div class="card card-info card-outline">
                     <div class="card-header">
                         <h5 class="card-title"><a href="{{ route('tasks.show',['task'=>$task->id]) }}">{{ $task->name }}</a></h5>
-                                <div class="card-tools">
-                                    <a href="{{ route('tasks.show',['task'=>$task->id]) }}" class="btn btn-tool btn-link text-dark">#{{ $task->id }}</a>
-                                    @if($task->user_id == Auth::user()->id || Auth::user()->status_id==1 || Auth::user()->status_id==2)
-                                    <a href="{{ route('tasks.edit',['task'=>$task->id]) }}" class="btn btn-tool">
-                                        <i class="fas fa-pen text-dark"></i>
-                                    </a>
-                                    @endif
-                                </div>
+                        <div class="card-tools">
+                            <a href="{{ route('tasks.show',['task'=>$task->id]) }}" class="btn btn-tool btn-link text-dark">#{{ $task->id }}</a>
+                            @if($task->user_id == Auth::user()->id || Auth::user()->status_id==1 || Auth::user()->status_id==2)
+                            <a href="{{ route('tasks.edit',['task'=>$task->id]) }}" class="btn btn-tool">
+                                <i class="fas fa-pen text-dark"></i>
+                            </a>
+                            @endif
+                        </div>
                     </div>
                     <div class="card-body">
                         @if($task->step == 0)
@@ -67,6 +67,7 @@ kanban
                         <p><b>Важность:</b> Обычная</p>
                         @endif
                         <p><b>Задача:</b> {{ $task->work->title }}</p>
+                        <p><b>Задача от заказа:</b> {{ $task->order_id }}</p>
                         <p><b>Время выполнения:</b> {{ $task->getPostDate('created_at') }}-{{ $task->getPostDate('updated_at') }}</p>
                     </div>
                 </div>

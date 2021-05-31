@@ -108,7 +108,6 @@ class StatusController extends Controller
             return redirect()->route('status.index')->with('success', 'Статус удален');
         } 
         return redirect()->route('users.index')->with('error', 'Статус занят');
-        return redirect()->route('status.index')->with('error', 'Удаление временно недоступно');
     }
 
     public function add(){

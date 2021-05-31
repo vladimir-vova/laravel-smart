@@ -99,13 +99,12 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        // $status = Status::find($id);
-        // if($status->users->count() == 0){
-        //     $status->delete();
-        //     return redirect()->route('status.index')->with('success', 'Статус удален');
-        // } 
-        // return redirect()->route('users.index')->with('error', 'Статус занят');
-        return redirect()->route('types.index')->with('error', 'Удаление временно недоступно');
+        $type = Type::find($id);
+        if($type->note->count() == 0){
+            $type->delete();
+            return redirect()->route('types.index')->with('success', 'Тип удален');
+        } 
+        return redirect()->route('types.index')->with('error', 'Тип занят');
     }
 
     public function add()

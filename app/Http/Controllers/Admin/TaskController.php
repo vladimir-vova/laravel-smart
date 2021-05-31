@@ -38,17 +38,17 @@ class TaskController extends Controller
     {
         // $categories = Category::pluck('title', 'id')->all();
         // $tags = Tag::pluck('title', 'id')->all();
-        $users = User::where('status_id','<>','1')->get();
+        $users = User::all();
         if (count($users) == 0) {
-            return redirect()->route('tasks.index')->with('success', 'Невозможно добавить, т.к. пользователей нет');
+            return redirect()->route('tasks.index')->with('error', 'Невозможно добавить, т.к. пользователей нет');
         }
         $works = Work::orderBy('step', 'asc')->get();
         if (count($works) == 0) {
-            return redirect()->route('tasks.index')->with('success', 'Невозможно добавить, т.к. статусов нет');
+            return redirect()->route('tasks.index')->with('error', 'Невозможно добавить, т.к. статусов нет');
         }
         $orders = Order::select('id')->where('open', '=', 1)->orderBy('id', 'desc')->get();
         if(count($orders) == 0){
-            return redirect()->route('tasks.index')->with('success', 'Невозможно добавить, т.к. заказов нет');
+            return redirect()->route('tasks.index')->with('error', 'Невозможно добавить, т.к. заказов нет');
         }
         return view('admin.tasks.create', compact('works','orders', 'users'));
     }
@@ -83,7 +83,7 @@ class TaskController extends Controller
             'open' => 1,
         ]);
 
-        $users = User::where('status_id', 2)->orWhere('status_id', 4)->get();
+        $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
         foreach ($users as $user) {
             Note::create([
                 'name' => 'Новая задача',
@@ -95,7 +95,7 @@ class TaskController extends Controller
         }
 
         foreach ($request->users as $user) {
-            if (User::find($user)->status_id != 2 || User::find($user)->status_id != 4) {
+            if (User::find($user)->status_id != 1 || User::find($user)->status_id != 2) {
                 Note::create([
                     'name' => 'Новая задача',
                     'user_id' => $user,
@@ -120,10 +120,10 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
-        $works = Work::orderBy('step', 'asc')->get();
-        $orders = Order::select('id')->orderBy('id', 'desc')->get();
-        $users = User::where('status_id', '<>', '1')->get();
-        return view('admin.tasks.show', compact('task', 'works', 'orders', 'users'));
+        // $works = Work::orderBy('step', 'asc')->get();
+        // $orders = Order::select('id')->orderBy('id', 'desc')->get();
+        $user = User::find($task->user_id);
+        return view('admin.tasks.show', compact('task', 'user'));
     }
 
     /**
@@ -138,7 +138,7 @@ class TaskController extends Controller
         $works = Work::orderBy('step', 'asc')->get();
         $orders = Order::select('id')->orderBy('id', 'desc')->get();
         $step = [0 => 'Срочное', 1 => 'Обычное'];
-        $users = User::where('status_id', '<>', '1')->get();
+        $users = User::all();
         $taus = DB::table('task_user')->where('task_id',$id)->get();
         // dd($users[1]->task);
         // foreach($users as $item){

@@ -17,8 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $people = User::with('status')->orderBy('id','desc')->paginate(50);
-        return view('admin.users.index', compact('people'));
+        $users = Status::all();
+        if (count($users) != 0) {
+            $people = User::with('status')->orderBy('id', 'desc')->paginate(50);
+            return view('admin.users.index', compact('people'));
+        }
+        return redirect()->route('admin.index')->with('success', 'Нет статусов');
     }
 
     /**
@@ -29,7 +33,7 @@ class UserController extends Controller
     public function create()
     {
         $status = Status::all();
-        if(count($status)==0){
+        if (count($status) == 0) {
             return redirect()->route('users.index')->with('success', 'Нельзя добавить, т.к. нет статусов');
         }
         return view('admin.users.create', compact('status'));
@@ -114,10 +118,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        if ($user->orders->count() == 0) {
-            $user->delete();
-            return redirect()->route('users.index')->with('error', 'Пользователь удален');
-        }
+        $user->delete();
+        return redirect()->route('users.index')->with('error', 'Пользователь удален');
         return redirect()->route('orders.index')->with('error', 'Пользователь имеет заказы');
     }
 }

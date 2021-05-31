@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Note;
+use App\Models\Status;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Work;
@@ -20,15 +21,28 @@ class MainController extends Controller
     }
 
     // Профиль
-    public function profile(){
-        return view('admin.views.profile');
+    public function profile()
+    {
+        $users = Status::all();
+        if (count($users) != 0) {
+            return view('admin.views.profile');
+        }
+        return redirect()->route('admin.index')->with('success', 'Нет статусов');
     }
 
-    public function profileData(Request $request){
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-        ]);
+
+    public function profileData(Request $request)
+    {
+        if (User::find(Auth::user()->id)->email == $request->email) {
+            $request->validate([
+                'name' => 'required',
+            ]);
+        } else {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+            ]);
+        }
 
         $user = User::find(Auth::user()->id);
         $user->update($request->all());
@@ -67,7 +81,7 @@ class MainController extends Controller
 
     public function note()
     {
-        $note = Note::where('user_id','=',Auth::user()->id)->orderBy('id', 'desc')->paginate(15);
+        $note = Note::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(15);
         return view('admin.views.note.index', compact('note'));
     }
 

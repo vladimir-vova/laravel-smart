@@ -18,7 +18,8 @@ class CreateOrdersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->tinyInteger('work_id')->default(1); //статус
+            $table->tinyInteger('work_id')->default(1); //статус в ожидании; в работе; закрыт
+            $table->integer('user_id')->default(0); // кто работает
             $table->timestamps();
         });
     }

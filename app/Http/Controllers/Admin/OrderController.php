@@ -98,7 +98,8 @@ class OrderController extends Controller
     public function edit($id)
     {        
         $orders = Order::find($id);
-        return view('admin.orders.edit', compact('orders'));
+        $users = User::where('status_id', 2)->get();
+        return view('admin.orders.edit', compact('orders', 'users'));
     }
 
     /**
@@ -110,15 +111,20 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->user_id);
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required|numeric',
+            'users' => 'required',
         ]);
-        $data = $request->all();
-        $orders = Order::find($id);
-        $orders->update($data);
+
+        Order::where('id',$id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'user_id' => $request->users,
+        ]);
 
         return redirect()->route('orders.index')->with('success', 'Изменения сохранены');
     }

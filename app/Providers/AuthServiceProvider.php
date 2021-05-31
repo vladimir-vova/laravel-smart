@@ -30,13 +30,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         view()->composer('admin.layouts.layout', function ($view) {
-            if (Cache::has('message')) {
-                $message = Cache::get('message');
-            } else {
-                $message = DB::table('message')->count();
-                Cache::put('message', $message, 30);
-            }
-            $view->with('message', $message);
+            // if (Cache::has('message')) {
+            //     $message = Cache::get('message');
+            // } else {
+            //     $message = DB::table('message')->count();
+            //     Cache::put('message', $message, 30);
+            // }
+            // $view->with('message', $message);
 
             $count_note = Note::where('open','=','1')->where('user_id','=',Auth::user()->id)->count();
             $view->with('count_note', $count_note);

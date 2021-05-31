@@ -174,7 +174,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-check-square"></i>
                                 <p>
-                                    Статусы заказов
+                                    Статусы задач
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -182,13 +182,13 @@
                                 <li class="nav-item">
                                     <a href="{{ route('works.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Список ст. заказов</p>
+                                        <p>Статусы задач</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('works.create') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Новый ст. заказов</p>
+                                        <p>Новый статус</p>
                                     </a>
                                 </li>
                             </ul>
@@ -284,7 +284,11 @@
                                 <i class="nav-icon fa fa-envelope"></i>
                                 <p>
                                     Уведомления
-                                    <span class="badge badge-warning text-white right">{{ $count_note }}</span>
+                                    @if($count_note)
+                                    <span class="badge badge-warning text-white right">
+                                        {{ $count_note }}
+                                    </span>
+                                    @endif
                                 </p>
                             </a>
                         </li>

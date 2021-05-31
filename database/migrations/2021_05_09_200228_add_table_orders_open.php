@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTableUsersIdadmin extends Migration
+class AddTableOrdersOpen extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddTableUsersIdadmin extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('status_id')->default(2);
-            $table->tinyInteger('password_id')->default(0);
+        Schema::table('orders', function (Blueprint $table) {
+            $table->tinyInteger('open')->default(1);
         });
     }
 
@@ -26,9 +25,8 @@ class AddTableUsersIdadmin extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('status_id');
-            $table->dropColumn('password_id');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('open');
         });
     }
 }
