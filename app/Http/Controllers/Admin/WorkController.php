@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Task;
 use App\Models\Work;
 use Illuminate\Http\Request;
 
@@ -125,15 +126,18 @@ class WorkController extends Controller
      */
     public function destroy($id)
     {
-        $works = Work::find($id);
+        if(Task::where('work_id',$id)->count()==0){
+            $works = Work::find($id);
 
-        if ($works->step != Work::all()->count()) {
-            for ($i = $works->step; $i < Work::all()->count(); $i++) {
-                Work::where('step', $i + 1)->update(['step' => $i]);
+            if ($works->step != Work::all()->count()) {
+                for ($i = $works->step; $i < Work::all()->count(); $i++) {
+                    Work::where('step', $i + 1)->update(['step' => $i]);
+                }
             }
+            $works->delete();
+            return redirect()->route('works.index')->with('error', 'Статус удален');
         }
-        $works->delete();
-        return redirect()->route('works.index')->with('error', 'Статус удален');
+        return redirect()->route('works.index')->with('error', 'Статус занят');
     }
 
     public function add()

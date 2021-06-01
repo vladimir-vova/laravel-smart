@@ -48,6 +48,14 @@
                                     Формат: +79234567890
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="users">Над проектом работает координатор</label>
+                                <select class="form-control @error('users') is-invalid @enderror" id="users" name="users">
+                                    @foreach($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <!-- /.card-body -->
 

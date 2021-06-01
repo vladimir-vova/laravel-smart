@@ -223,6 +223,10 @@
                 },
                 success: function() {
                     $("#order" + id).hide(500);
+                },
+                error: function() {
+                    // $("#order" + id).hide(500);
+                    location.reload();
                 }
             });
             return false;

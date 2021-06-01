@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Note;
 use App\Models\Order;
 use App\Models\Status;
+use App\Models\Task;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Work;
@@ -32,7 +33,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('admin.orders.create');
+        $users = User::where('status_id', 2)->get();
+        return view('admin.orders.create', compact('users'));
     }
 
     /**
@@ -49,14 +51,18 @@ class OrderController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required|numeric',
+            'users' => 'required',
         ]);
 
-        Order::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'work_id' => 2,
-        ]);
+        $order = new Order;
+
+        $order->name = $request->name;
+        $order->email = $request->email;
+        $order->phone = $request->phone;
+        $order->work_id = 2;
+        $order->user_id = $request->users;
+
+        $order->save();
 
         // $data = $request->all();
         // // $data['user_id'] = Status::where('title', 'администратор')->first()->users[0]->id;
@@ -123,6 +129,7 @@ class OrderController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'work_id' => 2,
             'user_id' => $request->users,
         ]);
 
@@ -180,8 +187,10 @@ class OrderController extends Controller
     {
         // dd($request->all());
         // session()->flash('error', 'Письмо удалено'.$request->id);
-        Order::where('id', $request->id)->delete();
-        return response()->json(['success' => true], 200);
-        // session()->flash('error', 'Письмо удалено');
+        if(Task::where('order_id', $request->id)->count() == 0){
+            Order::where('id', $request->id)->delete();
+            return response()->json(['success' => true], 200);
+        }
+        session()->flash('error', 'Заказ невозможно удалить');
     }
 }

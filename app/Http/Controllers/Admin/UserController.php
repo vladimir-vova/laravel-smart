@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Note;
+use App\Models\Order;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -117,9 +119,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
-        return redirect()->route('users.index')->with('error', 'Пользователь удален');
+        if(Order::where('user_id',$id)->count() == 0){
+            $notes = Note::where('user_id',$id)->get();
+            foreach ($notes as $note) {
+                $note->delete();
+            }
+            $user = User::find($id);
+            $user->delete();
+            return redirect()->route('users.index')->with('error', 'Пользователь удален');
+        }
         return redirect()->route('orders.index')->with('error', 'Пользователь имеет заказы');
     }
 }

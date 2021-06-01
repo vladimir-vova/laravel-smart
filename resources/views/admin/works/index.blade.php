@@ -37,9 +37,9 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        @if (count($works))
                         <a href="{{ route('works.create') }}" class="btn btn-primary mb-3">Добавить
                             статус задачи</a>
-                        @if (count($works))
                         <div class="table-responsive">
                             <table id="example1" class="table table-bordered table-hover text-nowrap">
                                 <thead>
