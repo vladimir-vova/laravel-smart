@@ -70,6 +70,11 @@ kanban
                         <p><b>Задача от заказа:</b> {{ $task->order_id }}</p>
                         <p><b>Время выполнения:</b> {{ $task->getPostDate('created_at') }}-{{ $task->getPostDate('updated_at') }}</p>
                     </div>
+                    @if(Auth::user()->id == $task->user_id)
+                    <div class="card-footer">
+                        <span class='text-danger'>Ваша задача</span>
+                    </div>
+                    @endif
                 </div>
                 @endif
                 @endforeach

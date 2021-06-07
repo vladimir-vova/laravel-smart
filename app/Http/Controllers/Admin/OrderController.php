@@ -72,7 +72,7 @@ class OrderController extends Controller
         $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
         foreach($users as $user){
             Note::create([
-            'name' => 'Новый заказ',
+            'name' => 'Создан №' . $order->id . ' заказ',
             'user_id' => $user->id,
             'type_id' => Type::where('title', 'заказ')->first()->id,
             'open' => 1,
@@ -142,37 +142,25 @@ class OrderController extends Controller
         return view('admin.orders.showClose', compact('orders'));
     }
 
-    // public function wayClose($id)
-    // {
-    //     Order::find($id)->update(['open'=> 2]);
-    //     return redirect()->route('orders.index')->with('success', 'Сделка перемещена');
-    // }
-
-    // public function wayOpen(Request $request, $id)
-    // {
-    //     $search = $request->search;
-    //     Order::find($id)->update(['open' => 1]);
-    //     return redirect()->route('orders.closeorders',compact('search'))->with('success', 'Сделка перемещена');
-    //     // return redirect()->route('orders.closeorders')->with('success', 'Сделка перемещена');
-    // }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy($id)
-    // {
-    //     $orders = Order::find($id);
-    //     $orders->delete();
-    //     return redirect()->route('orders.index')->with('error', 'Заказ удален');
-    // }
-
     public function orderUpdate(Request $request)
     {
-        Order::find($request->id)->update(['open' => 2]);
-        return response()->json(['success' => true], 200);
+        if (Task::where('order_id', $request->id)->count() == 0) {
+            Order::find($request->id)->update(['open' => 2]);
+
+            $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
+            foreach ($users as $user) {
+                Note::create([
+                    'name' => 'Заказ №' . $request->id . ' переведен в "закрытые"',
+                    'user_id' => $user->id,
+                    'type_id' => Type::where('title', 'заказ')->first()->id,
+                    'open' => 1,
+                    'created_at' => now(),
+                ]);
+            }
+
+            return response()->json(['success' => true], 200);
+        }
+        session()->flash('error', 'Заказ невозможно перевести, т.к. для заказа есть задачи');
         // return redirect()->route('orders.index')->with('success', 'Сделка перемещена');
     }
 
@@ -189,6 +177,18 @@ class OrderController extends Controller
         // session()->flash('error', 'Письмо удалено'.$request->id);
         if(Task::where('order_id', $request->id)->count() == 0){
             Order::where('id', $request->id)->delete();
+
+            $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
+            foreach ($users as $user) {
+                Note::create([
+                    'name' => 'Заказ №' . $request->id . ' удален',
+                    'user_id' => $user->id,
+                    'type_id' => Type::where('title', 'заказ')->first()->id,
+                    'open' => 1,
+                    'created_at' => now(),
+                ]);
+            }
+
             return response()->json(['success' => true], 200);
         }
         session()->flash('error', 'Заказ невозможно удалить');

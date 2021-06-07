@@ -21,10 +21,9 @@
 <!-- Main content -->
 <section class="content">
 
-    <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Добро пожаловать!!!</h3>
+            <h3 class="card-title">Добро пожаловать</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -34,7 +33,7 @@
             </div>
         </div>
         <div class="card-body">
-            Start creating your amazing application!
+            Вы успешно авторизовались в админке компании!!!
         </div>
         <!-- /.card-body -->
         <!-- <div class="card-footer">
@@ -42,7 +41,34 @@
         </div> -->
         <!-- /.card-footer-->
     </div>
+
+    <!-- Default box -->
+    @if($count_zakaz || $count_zadaz)
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Уведомления</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        @if($count_zakaz || $count_zadaz)
+        <div class="card-body">
+            <span class='text-danger'>У вас {{ $count_zakaz }} новых заказов</span><br>
+            <span class='text-warning'>У вас {{ $count_zadaz }} новых задач</span>
+        </div>
+        @endif
+        <!-- /.card-body -->
+        <!-- <div class="card-footer">
+            Footer
+        </div> -->
+        <!-- /.card-footer-->
+    </div>
     <!-- /.card -->
+    @endif
 
     <!-- Password -->
     @if(Auth::user()->password_id == 0)

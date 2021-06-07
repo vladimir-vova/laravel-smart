@@ -109,6 +109,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @if(Auth::user()->status_id==1 || Auth::user()->status_id==2)
                             <div class="form-group">
                                 <label for="open">Закрыть?</label>
                                 <select class="form-control @error('open') is-invalid @enderror" id="open" name="open">
@@ -116,6 +117,7 @@
                                     <option value="2">Закрыт</option>
                                 </select>
                             </div>
+                            @endif
                         </div>
                         <!-- /.card-body -->
 

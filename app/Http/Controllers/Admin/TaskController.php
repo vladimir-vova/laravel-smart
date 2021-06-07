@@ -71,22 +71,36 @@ class TaskController extends Controller
             // 'users' => 'required|integer',
         ]);
 
-        $task = Task::create([
-            'name' => $request->name,
-            'work_id' => $request->status,
-            'description' => $request->description,
-            'order_id' => $request->order,
-            'step' => $request->step,
-            'created_at' => Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y'),
-            'updated_at' => Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y'),
-            'user_id' => Auth::user()->id,
-            'open' => 1,
-        ]);
+        $task = new Task;
+
+        $task->name = $request->name;
+        $task->work_id = $request->status;
+        $task->description = $request->description;
+        $task->order_id = $request->order;
+        $task->step = $request->step;
+        $task->created_at = Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y');
+        $task->updated_at = Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y');
+        $task->user_id = Auth::user()->id;
+        $task->open = 1;
+
+        $task->save();
+
+        // $task = Task::create([
+        //     'name' => $request->name,
+        //     'work_id' => $request->status,
+        //     'description' => $request->description,
+        //     'order_id' => $request->order,
+        //     'step' => $request->step,
+        //     'created_at' => Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y'),
+        //     'updated_at' => Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y'),
+        //     'user_id' => Auth::user()->id,
+        //     'open' => 1,
+        // ]);
 
         $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
         foreach ($users as $user) {
             Note::create([
-                'name' => 'Новая задача',
+                'name' => 'Создана №'. $task->id .' задача',
                 'user_id' => $user->id,
                 'type_id' => Type::where('title', 'задача')->first()->id,
                 'open' => 1,
@@ -178,6 +192,19 @@ class TaskController extends Controller
         $task->update($data);
         $task->user()->sync($request->users);
 
+        if($request->open == 2){
+            $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
+            foreach ($users as $user) {
+                Note::create([
+                    'name' => 'Переведена №' . $id . ' задача в закрытые',
+                    'user_id' => $user->id,
+                    'type_id' => Type::where('title', 'задача')->first()->id,
+                    'open' => 1,
+                    'created_at' => now(),
+                ]);
+            }
+        }
+
         return redirect()->route('tasks.index')->with('success', 'Изменения сохранены');
     }
 
@@ -196,6 +223,18 @@ class TaskController extends Controller
             'open' => 2,
         ]);
         $tasks = Task::where('open', '=', 2)->where('user_id', '=', Auth::user()->id)->paginate(15);
+
+        $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
+        foreach ($users as $user) {
+            Note::create([
+                'name' => 'Переведена №' . $id . ' задача в закрытые',
+                'user_id' => $user->id,
+                'type_id' => Type::where('title', 'задача')->first()->id,
+                'open' => 1,
+                'created_at' => now(),
+            ]);
+        }
+
         return view('admin.tasks.showClose', compact('tasks'));
     }
 
@@ -210,6 +249,18 @@ class TaskController extends Controller
         $tasks = Task::find($id);
         $tasks->user()->sync([]);
         $tasks->delete();
+
+        $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
+        foreach ($users as $user) {
+            Note::create([
+                'name' => 'Удалена №' . $id . ' задача',
+                'user_id' => $user->id,
+                'type_id' => Type::where('title', 'задача')->first()->id,
+                'open' => 1,
+                'created_at' => now(),
+            ]);
+        }
+
         return redirect()->route('tasks.closetasks')->with('error', 'Задача удалена');
     }
 }

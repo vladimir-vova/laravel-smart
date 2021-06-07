@@ -46,6 +46,7 @@
                             <dt>Дата</dt>
                             <dd>{{ $task->getPostDate('created_at') }}-{{ $task->getPostDate('updated_at') }}</dd>
                         </dl>
+                        @if(Auth::user()->status_id == 1 || Auth::user()->status_id == 2)
                         <form action="{{ route('updateToClose',['task'=>$task->id]) }}" method="post" class="float-left">
                             @csrf
                             @method('PUT')
@@ -54,6 +55,7 @@
                                 Закрыть
                             </button>
                         </form>
+                        @endif
                     </div>
                 </div>
             </div>

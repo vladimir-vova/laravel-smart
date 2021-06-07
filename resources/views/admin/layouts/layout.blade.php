@@ -246,12 +246,14 @@
                                         <p>Новая задача</p>
                                     </a>
                                 </li>
+                                @if(Auth::user()->status_id==1 || Auth::user()->status_id==2)
                                 <li class="nav-item">
                                     <a href="{{ route('tasks.closetasks') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Закрытые задачи</p>
                                     </a>
                                 </li>
+                                @endif
                             </ul>
                         </li>
                         @if(Auth::user()->status_id == 1)

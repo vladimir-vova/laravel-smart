@@ -72,7 +72,9 @@
                             <tbody>
                                 @foreach($orders as $item)
                                 <tr id='order{{ $item->id }}'>
-                                    <td>{{ $item->id }}</td>
+                                    <td>
+                                        {{ $item->id }}
+                                    </td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->phone }}</td>
@@ -84,7 +86,12 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('orders.edit',['order'=>$item->id]) }}" class="btn btn-info btn-sm float-left mr-1">
+
+                                        @if(Auth::user()->id == $item->user_id)
+                                        <span class='text-danger'>Ваш заказ</span>
+                                        @endif
+
+                                        <a href="{{ route('orders.edit',['order'=>$item->id]) }}" class="btn btn-info btn-sm mr-1">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
 
@@ -201,6 +208,10 @@
                 // }
                 success: function() {
                     $("#order" + id).hide(500);
+                },
+                error: function() {
+                    // $("#order" + id).hide(500);
+                    location.reload();
                 }
             });
         });

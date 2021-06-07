@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        view()->composer('admin.layouts.layout', function ($view) {
+        view()->composer(['admin.layouts.layout', 'admin.index'], function ($view) {
             // if (Cache::has('message')) {
             //     $message = Cache::get('message');
             // } else {
