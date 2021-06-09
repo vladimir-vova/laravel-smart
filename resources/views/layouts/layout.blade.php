@@ -29,7 +29,7 @@
                     <li><a href="#osobennosti">КЕЙСЫ</a></li>
                     <li><a href="#price">Стоимость</a></li>
                     <li><a href="#otzuv">ОТЗЫВЫ</a></li>
-                    <li><a href="#download">СТОИМОСТЬ</a></li>
+                    <li><a href="#download">ЗАКАЗАТЬ</a></li>
                 </ul>
             </div>
         </div>

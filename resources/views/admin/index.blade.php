@@ -57,7 +57,9 @@
         </div>
         @if($count_zakaz || $count_zadaz)
         <div class="card-body">
+            @if(Auth::user()->status_id == 1 || Auth::user()->status_id == 2)
             <span class='text-danger'>У вас {{ $count_zakaz }} новых заказов</span><br>
+            @endif
             <span class='text-warning'>У вас {{ $count_zadaz }} новых задач</span>
         </div>
         @endif

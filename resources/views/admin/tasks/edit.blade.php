@@ -50,10 +50,12 @@
                         @csrf
                         @method('PUT')
                         <div class="card-body">
+                            @if(Auth::user()->status_id == 1 || Auth::user()->status_id == 2)
                             <div class="form-group">
                                 <label for="name">Название</label>
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Название" value="{{ $task->name }}">
                             </div>
+                            @endif
                             <div class="form-group">
                                 <label for="status">Статус</label>
                                 <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
@@ -62,6 +64,7 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @if(Auth::user()->status_id == 1 || Auth::user()->status_id == 2)
                             <div class="form-group">
                                 <label for="description">Описание</label>
                                 <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="3" placeholder="Описание ...">{{ $task->description }}</textarea>
@@ -109,7 +112,6 @@
                                     </div>
                                 </div>
                             </div>
-                            @if(Auth::user()->status_id==1 || Auth::user()->status_id==2)
                             <div class="form-group">
                                 <label for="open">Закрыть?</label>
                                 <select class="form-control @error('open') is-invalid @enderror" id="open" name="open">

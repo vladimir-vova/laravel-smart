@@ -33,8 +33,10 @@ kanban
 </section>
 
 <section class="content pb-3">
+    @if(Auth::user()->status_id == 1 || Auth::user()->status_id == 2)
     <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-3">Добавить
         задачу</a>
+    @endif
     <a href="{{ route('rules') }}" class="text-danger">Как работать с задачами</a>
     <div class="container-fluid h-100">
         @foreach($works as $item)
@@ -53,7 +55,7 @@ kanban
                         <h5 class="card-title"><a href="{{ route('tasks.show',['task'=>$task->id]) }}">{{ $task->name }}</a></h5>
                         <div class="card-tools">
                             <a href="{{ route('tasks.show',['task'=>$task->id]) }}" class="btn btn-tool btn-link text-dark">#{{ $task->id }}</a>
-                            @if($task->user_id == Auth::user()->id || Auth::user()->status_id==1 || Auth::user()->status_id==2)
+                            @if(Auth::user()->status_id==1 || Auth::user()->status_id==2 || in_array(Auth::user()->id, $task->user->pluck('id')->all()))
                             <a href="{{ route('tasks.edit',['task'=>$task->id]) }}" class="btn btn-tool">
                                 <i class="fas fa-pen text-dark"></i>
                             </a>

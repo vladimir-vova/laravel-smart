@@ -194,6 +194,16 @@
                             </ul>
                         </li>
                         @endif
+                        @if(Auth::user()->status_id != 1 && Auth::user()->status_id != 2)
+                        <li class="nav-item">
+                            <a href="{{ route('tasks.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>
+                                    Задачи
+                                </p>
+                            </a>
+                        </li>
+                        @endif
                         @if(Auth::user()->status_id == 1 || Auth::user()->status_id == 2)
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
@@ -224,7 +234,6 @@
                                 </li>
                             </ul>
                         </li>
-                        @endif
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-columns"></i>
@@ -246,16 +255,15 @@
                                         <p>Новая задача</p>
                                     </a>
                                 </li>
-                                @if(Auth::user()->status_id==1 || Auth::user()->status_id==2)
                                 <li class="nav-item">
                                     <a href="{{ route('tasks.closetasks') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Закрытые задачи</p>
                                     </a>
                                 </li>
-                                @endif
                             </ul>
                         </li>
+                        @endif
                         @if(Auth::user()->status_id == 1)
                         <li class="nav-item has-treeview border-top">
                             <a href="#" class="nav-link">

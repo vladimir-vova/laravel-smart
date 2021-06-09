@@ -85,18 +85,6 @@ class TaskController extends Controller
 
         $task->save();
 
-        // $task = Task::create([
-        //     'name' => $request->name,
-        //     'work_id' => $request->status,
-        //     'description' => $request->description,
-        //     'order_id' => $request->order,
-        //     'step' => $request->step,
-        //     'created_at' => Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y'),
-        //     'updated_at' => Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y'),
-        //     'user_id' => Auth::user()->id,
-        //     'open' => 1,
-        // ]);
-
         $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
         foreach ($users as $user) {
             Note::create([
@@ -111,7 +99,7 @@ class TaskController extends Controller
         foreach ($request->users as $user) {
             if (User::find($user)->status_id != 1 || User::find($user)->status_id != 2) {
                 Note::create([
-                    'name' => 'Новая задача',
+                    'name' => 'Создана №'. $task->id .' задача',
                     'user_id' => $user,
                     'type_id' => Type::where('title', 'задача')->first()->id,
                     'open' => 1,
@@ -171,26 +159,37 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all());
-        $request->validate([
-            'name' => 'required',
-            'status' => 'required|integer',
-            'description' => 'required',
-            'order' => 'required|integer',
-            'step' => 'required|integer',
-            'open' => 'required|integer',
-            // 'users' => 'required|integer',
-        ]);
+        if(isset($request->name) && isset($request->status)&& isset($request->description)
+            && isset($request->order) && isset($request->step)
+            && isset($request->open)){
+            $request->validate([
+                'name' => 'required',
+                'status' => 'required|integer',
+                'description' => 'required',
+                'order' => 'required|integer',
+                'step' => 'required|integer',
+                'open' => 'required|integer',
+                // 'users' => 'required|integer',
+            ]);
+            $task = Task::find($id);
+            $data = $request->all();
 
-        $task = Task::find($id);
-        $data = $request->all();
+            $data['work_id'] = $request->status;
+            $data['order_id'] = $request->order;
+            $data['created_at'] = Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y');
+            $data['updated_at'] = Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y');
 
-        $data['work_id'] = $request->status;
-        $data['order_id'] = $request->order;
-        $data['created_at'] = Carbon::createFromFormat('m/d/Y', $request->date1)->format('d-m-Y');
-        $data['updated_at'] = Carbon::createFromFormat('m/d/Y', $request->date2)->format('d-m-Y');
-
-        $task->update($data);
-        $task->user()->sync($request->users);
+            $task->update($data);
+            $task->user()->sync($request->users);
+        } else {
+            $request->validate([
+                'status' => 'required|integer',
+            ]);
+            // $task = Task::find($id);
+            Task::where('id',$id)->update([
+                'work_id' => $request->status,
+            ]);
+        }
 
         if($request->open == 2){
             $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
