@@ -88,7 +88,7 @@ class TaskController extends Controller
         $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
         foreach ($users as $user) {
             Note::create([
-                'name' => 'Создана №'. $task->id .' задача',
+                'name' => 'Создана задача  №' . $task->id,
                 'user_id' => $user->id,
                 'type_id' => Type::where('title', 'задача')->first()->id,
                 'open' => 1,
@@ -99,7 +99,7 @@ class TaskController extends Controller
         foreach ($request->users as $user) {
             if (User::find($user)->status_id != 1 || User::find($user)->status_id != 2) {
                 Note::create([
-                    'name' => 'Создана №'. $task->id .' задача',
+                    'name' => 'Создана задача  №' . $task->id,
                     'user_id' => $user,
                     'type_id' => Type::where('title', 'задача')->first()->id,
                     'open' => 1,
@@ -195,7 +195,7 @@ class TaskController extends Controller
             $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
             foreach ($users as $user) {
                 Note::create([
-                    'name' => 'Переведена №' . $id . ' задача в закрытые',
+                    'name' => 'Задача №' . $id . ' переведена в закрытые',
                     'user_id' => $user->id,
                     'type_id' => Type::where('title', 'задача')->first()->id,
                     'open' => 1,
@@ -226,7 +226,7 @@ class TaskController extends Controller
         $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
         foreach ($users as $user) {
             Note::create([
-                'name' => 'Переведена №' . $id . ' задача в закрытые',
+                'name' => 'Задача №' . $id . ' переведена в закрытые',
                 'user_id' => $user->id,
                 'type_id' => Type::where('title', 'задача')->first()->id,
                 'open' => 1,
@@ -252,7 +252,7 @@ class TaskController extends Controller
         $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
         foreach ($users as $user) {
             Note::create([
-                'name' => 'Удалена №' . $id . ' задача',
+                'name' => 'Задача №' . $id . ' удалена',
                 'user_id' => $user->id,
                 'type_id' => Type::where('title', 'задача')->first()->id,
                 'open' => 1,

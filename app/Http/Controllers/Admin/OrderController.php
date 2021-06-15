@@ -72,7 +72,7 @@ class OrderController extends Controller
         $users = User::where('status_id', 1)->orWhere('status_id', 2)->get();
         foreach($users as $user){
             Note::create([
-            'name' => 'Создан №' . $order->id . ' заказ',
+            'name' => 'Создан заказ №' . $order->id,
             'user_id' => $user->id,
             'type_id' => Type::where('title', 'заказ')->first()->id,
             'open' => 1,
